@@ -13,6 +13,7 @@ const Announcements = () => {
 		{ label: 'Enrollments', href: '/admin/enrollments', icon: <UserPlus className="h-4 w-4" /> },
 		{ label: 'Students', href: '/admin/students', icon: <Users className="h-4 w-4" /> },
 		{ label: 'Teachers', href: '/admin/teachers', icon: <GraduationCap className="h-4 w-4" /> },
+		{ label: 'Courses', href: '/admin/courses', icon: <BookOpen className="h-4 w-4" /> },
 		{ label: 'Marks & Ranking', href: '/admin/marks', icon: <Trophy className="h-4 w-4" /> },
 		{ label: 'Attendance', href: '/admin/attendance', icon: <CalendarCheck className="h-4 w-4" /> },
 		{ label: 'Payments', href: '/admin/payments', icon: <IndianRupee className="h-4 w-4" /> },
