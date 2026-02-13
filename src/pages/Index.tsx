@@ -1,4 +1,6 @@
 import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
+import useAnnouncements from '@/hooks/use-announcements';
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -22,6 +24,8 @@ const achievers = students
   .slice(0, 3);
 
 const Index = () => {
+  const navigate = useNavigate();
+  const { announcements } = useAnnouncements();
   const [selectedCourse, setSelectedCourse] = useState<Course | null>(null);
   const [enrollOpen, setEnrollOpen] = useState(false);
 
