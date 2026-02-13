@@ -17,6 +17,7 @@ import AdminTeachers from "./pages/admin/AdminTeachers";
 import AdminAttendance from "./pages/admin/AdminAttendance";
 import Announcements from "./pages/admin/Announcement";
 import AdminAchievers from "./pages/admin/AdminAchievers";
+import AdminPayments from "./pages/admin/AdminPayments";
 
 import TeacherDashboard from "./pages/teacher/TeacherDashboard";
 import StudentDashboard from "./pages/student/StudentDashboard";
@@ -46,6 +47,7 @@ const App = () => (
           <Route path="/admin/attendance" element={<AdminAttendance />} />
           <Route path="/admin/achievers" element={<AdminAchievers />} />
           <Route path="/admin/announcements" element={<Announcements />} />
+          <Route path="/admin/payments" element={<AdminPayments />} />
           <Route path="/submit-enrollment" element={<SubmitEnrollment />} />
           <Route path="/receipt/:id" element={<ReceiptPage />} />
           <Route path="/teacher" element={<TeacherDashboard />} />
