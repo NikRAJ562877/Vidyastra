@@ -38,6 +38,8 @@ import {
   Edit,
   IndianRupee,
   ExternalLink,
+  Key,
+  Lock,
 } from "lucide-react";
 import { toast } from "sonner";
 
@@ -48,7 +50,9 @@ const AdminStudents = () => {
   const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
   const [registerFilter, setRegisterFilter] = useState("");
   const [offlinePaymentOpen, setOfflinePaymentOpen] = useState(false);
+  const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
   const [selectedStudent, setSelectedStudent] = useState<Student | null>(null);
+  const [editingStudent, setEditingStudent] = useState<Student | null>(null);
   const [paymentForm, setPaymentForm] = useState({
     mode: "Cash",
     type: "full" as "full" | "installment",
@@ -136,6 +140,20 @@ const AdminStudents = () => {
 
     toast.success("Payment recorded successfully!");
     setOfflinePaymentOpen(false);
+  };
+
+  const handleEditStudent = (student: Student) => {
+    setEditingStudent(student);
+    setIsEditDialogOpen(true);
+  };
+
+  const saveStudentEdit = () => {
+    if (!editingStudent) return;
+
+    update(editingStudent.id, editingStudent);
+    toast.success("Student details updated successfully!");
+    setIsEditDialogOpen(false);
+    setEditingStudent(null);
   };
 
   return (
@@ -231,7 +249,12 @@ const AdminStudents = () => {
                       >
                         <IndianRupee className="h-4 w-4" />
                       </Button>
-                      <Button size="icon" variant="ghost" className="h-8 w-8">
+                      <Button
+                        size="icon"
+                        variant="ghost"
+                        className="h-8 w-8"
+                        onClick={() => handleEditStudent(s)}
+                      >
                         <Edit className="h-4 w-4" />
                       </Button>
                       <Button
@@ -403,6 +426,176 @@ const AdminStudents = () => {
               Cancel
             </Button>
             <Button onClick={saveOfflinePayment}>Save Payment</Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
+      {/* Edit Student Modal */}
+      <Dialog open={isEditDialogOpen} onOpenChange={setIsEditDialogOpen}>
+        <DialogContent className="sm:max-w-[600px] max-h-[90vh] overflow-y-auto">
+          <DialogHeader>
+            <DialogTitle>Edit Student Details</DialogTitle>
+            <DialogDescription>
+              Update information and credentials for {editingStudent?.name}
+            </DialogDescription>
+          </DialogHeader>
+
+          {editingStudent && (
+            <div className="grid grid-cols-2 gap-6 py-4">
+              <div className="col-span-2 space-y-4 border-b pb-4 border-border">
+                <h4 className="text-sm font-bold uppercase tracking-wider text-muted-foreground flex items-center gap-2">
+                  <Key className="h-4 w-4" /> Account Credentials
+                </h4>
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="space-y-2">
+                    <Label>Email (Login ID)</Label>
+                    <Input
+                      value={editingStudent.email}
+                      onChange={(e) =>
+                        setEditingStudent({
+                          ...editingStudent,
+                          email: e.target.value,
+                        })
+                      }
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <Label>Password</Label>
+                    <div className="relative">
+                      <Lock className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                      <Input
+                        className="pl-10"
+                        value={editingStudent.password}
+                        onChange={(e) =>
+                          setEditingStudent({
+                            ...editingStudent,
+                            password: e.target.value,
+                          })
+                        }
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="col-span-2 space-y-4">
+                <h4 className="text-sm font-bold uppercase tracking-wider text-muted-foreground">
+                  Personal & Academic Details
+                </h4>
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="col-span-2 space-y-2">
+                    <Label>Full Name</Label>
+                    <Input
+                      value={editingStudent.name}
+                      onChange={(e) =>
+                        setEditingStudent({
+                          ...editingStudent,
+                          name: e.target.value,
+                        })
+                      }
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <Label>Phone</Label>
+                    <Input
+                      value={editingStudent.phone}
+                      onChange={(e) =>
+                        setEditingStudent({
+                          ...editingStudent,
+                          phone: e.target.value,
+                        })
+                      }
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <Label>Class</Label>
+                    <Select
+                      value={editingStudent.class}
+                      onValueChange={(val) =>
+                        setEditingStudent({ ...editingStudent, class: val })
+                      }
+                    >
+                      <SelectTrigger>
+                        <SelectValue />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {mockClasses.map((c) => (
+                          <SelectItem key={c} value={c}>
+                            {c}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
+                  <div className="space-y-2">
+                    <Label>Register Number</Label>
+                    <Input
+                      value={editingStudent.registerNumber}
+                      onChange={(e) =>
+                        setEditingStudent({
+                          ...editingStudent,
+                          registerNumber: e.target.value,
+                        })
+                      }
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <Label>Roll Number</Label>
+                    <Input
+                      value={editingStudent.rollNumber}
+                      onChange={(e) =>
+                        setEditingStudent({
+                          ...editingStudent,
+                          rollNumber: e.target.value,
+                        })
+                      }
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <Label>Category</Label>
+                    <Select
+                      value={editingStudent.category}
+                      onValueChange={(val: any) =>
+                        setEditingStudent({ ...editingStudent, category: val })
+                      }
+                    >
+                      <SelectTrigger>
+                        <SelectValue />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="normal">Normal</SelectItem>
+                        <SelectItem value="slow_learner">
+                          Slow Learner
+                        </SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+                  <div className="space-y-2">
+                    <Label>Total Fee (₹)</Label>
+                    <Input
+                      type="number"
+                      value={editingStudent.totalFee || 0}
+                      onChange={(e) =>
+                        setEditingStudent({
+                          ...editingStudent,
+                          totalFee: parseInt(e.target.value),
+                        })
+                      }
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+
+          <DialogFooter>
+            <Button
+              variant="outline"
+              onClick={() => setIsEditDialogOpen(false)}
+            >
+              Cancel
+            </Button>
+            <Button onClick={saveStudentEdit}>Save Changes</Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>
