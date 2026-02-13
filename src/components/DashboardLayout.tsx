@@ -142,19 +142,12 @@ const NavGroup = ({ item, activePath, onNav }: any) => {
   const [isExpanded, setIsExpanded] = useState(() => {
     const saved = localStorage.getItem(storageKey);
     if (saved !== null) return saved === "true";
-    return isGroupActive;
+    return false; // Start collapsed on first visit
   });
 
   useEffect(() => {
     localStorage.setItem(storageKey, isExpanded.toString());
   }, [isExpanded, storageKey]);
-
-  // Force expand if active but not expanded (initial load)
-  useEffect(() => {
-    if (isGroupActive && !isExpanded) {
-      setIsExpanded(true);
-    }
-  }, [isGroupActive]);
 
   return (
     <div className="space-y-1">
