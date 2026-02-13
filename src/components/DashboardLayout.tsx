@@ -175,7 +175,7 @@ const NavGroup = ({ item, activePath, onNav }: any) => {
             strokeLinecap="round"
             strokeLinejoin="round"
             strokeWidth={2}
-            d="19 9l-7 7-7-7"
+            d="M19 9l-7 7-7-7"
           />
         </svg>
       </button>

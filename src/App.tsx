@@ -7,8 +7,14 @@ import Index from "./pages/Index";
 import Login from "./pages/Login";
 import Results from "./pages/Results";
 import Enroll from "./pages/Enroll";
+
+// Core admin pages
 import AdminDashboard from "./pages/admin/AdminDashboard";
 import AdminCourses from "./pages/admin/AdminCourses";
+import AdminEnrollments from "./pages/admin/AdminEnrollments";
+import AdminStudents from "./pages/admin/AdminStudents";
+import AdminTeachers from "./pages/admin/AdminTeachers";
+import AdminAttendance from "./pages/admin/AdminAttendance";
 import Announcements from "./pages/admin/Announcement";
 import AdminAchievers from "./pages/admin/AdminAchievers";
 
@@ -32,6 +38,10 @@ const App = () => (
           <Route path="/enroll/:classId" element={<Enroll />} />
           <Route path="/admin" element={<AdminDashboard />} />
           <Route path="/admin/courses" element={<AdminCourses />} />
+          <Route path="/admin/enrollments" element={<AdminEnrollments />} />
+          <Route path="/admin/students" element={<AdminStudents />} />
+          <Route path="/admin/teachers" element={<AdminTeachers />} />
+          <Route path="/admin/attendance" element={<AdminAttendance />} />
           <Route path="/admin/achievers" element={<AdminAchievers />} />
           <Route path="/admin/announcements" element={<Announcements />} />
           <Route path="/teacher" element={<TeacherDashboard />} />

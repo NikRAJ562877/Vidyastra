@@ -10,6 +10,7 @@ import {
   Trophy,
   CalendarCheck,
   IndianRupee,
+  FileText,
 } from "lucide-react";
 import React from "react";
 
@@ -42,6 +43,11 @@ export const adminNavItems: NavItem[] = [
     icon: React.createElement(GraduationCap, { className: "h-4 w-4" }),
   },
   {
+    label: "Attendance",
+    href: "/admin/attendance",
+    icon: React.createElement(CalendarCheck, { className: "h-4 w-4" }),
+  },
+  {
     label: "Landing Page",
     icon: React.createElement(LayoutPanelLeft, { className: "h-4 w-4" }),
     children: [
@@ -68,11 +74,6 @@ export const adminNavItems: NavItem[] = [
     icon: React.createElement(Trophy, { className: "h-4 w-4" }),
   },
   {
-    label: "Attendance",
-    href: "/admin/attendance",
-    icon: React.createElement(CalendarCheck, { className: "h-4 w-4" }),
-  },
-  {
     label: "Payments",
     href: "/admin/payments",
     icon: React.createElement(IndianRupee, { className: "h-4 w-4" }),
@@ -80,6 +81,6 @@ export const adminNavItems: NavItem[] = [
   {
     label: "Notes",
     href: "/admin/notes",
-    icon: React.createElement(BookOpen, { className: "h-4 w-4" }),
+    icon: React.createElement(FileText, { className: "h-4 w-4" }),
   },
 ];
