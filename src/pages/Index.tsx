@@ -3,15 +3,12 @@ import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import Navbar from '@/components/Navbar';
-import { students, marks } from '@/lib/mock-data';
-import { Trophy, Star, ArrowRight, Megaphone, GraduationCap } from 'lucide-react';
+import EnrollmentDialog from '@/components/EnrollmentDialog';
+import { courses, students, marks, Course } from '@/lib/mock-data';
+import { BookOpen, Clock, IndianRupee, Trophy, Star, ArrowRight, Megaphone, GraduationCap } from 'lucide-react';
 import heroBg from '@/assets/hero-bg.jpg';
 
-const announcements = [
-  { id: 1, title: 'Admissions Open for 2025-26', description: 'Enroll now for the upcoming academic year. Early bird discounts available!', date: 'Feb 10, 2025' },
-  { id: 2, title: 'Annual Day Celebration', description: 'Join us for our annual day celebrations on March 15, 2025.', date: 'Feb 8, 2025' },
-  { id: 3, title: 'Board Exam Preparation Crash Course', description: 'Special crash course starting Feb 20 for board exam students.', date: 'Feb 5, 2025' },
-];
+
 
 // Calculate top achievers from mock data
 const achievers = students
@@ -25,7 +22,8 @@ const achievers = students
   .slice(0, 3);
 
 const Index = () => {
-  const navigate = useNavigate();
+  const [selectedCourse, setSelectedCourse] = useState<Course | null>(null);
+  const [enrollOpen, setEnrollOpen] = useState(false);
 
   return (
     <div className="min-h-screen bg-background">
