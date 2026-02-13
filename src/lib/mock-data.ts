@@ -134,6 +134,69 @@ export const courses: Course[] = [
     fee: 10000,
     description: 'Intensive weekend chemistry program for quick revision and exam preparation with practice papers.',
   },
+  {
+    id: '7',
+    name: 'JEE Mains Foundation',
+    class: 'JEE',
+    batch: 'Batch A - Morning',
+    duration: '12 Months',
+    fee: 45000,
+    description: 'Specialized JEE preparation focusing on Physics, Chemistry, and Mathematics concepts.',
+  },
+  {
+    id: '8',
+    name: 'NEET Bio Mastery',
+    class: 'NEET',
+    batch: 'Batch B - Evening',
+    duration: '12 Months',
+    fee: 42000,
+    description: 'Comprehensive Biology and Chemistry focus for NEET aspirants with regular mock tests.',
+  },
+  {
+    id: '9',
+    name: 'CET Practice Batch',
+    class: 'CET',
+    batch: 'Batch C - Weekend',
+    duration: '6 Months',
+    fee: 25000,
+    description: 'Fast-paced revision and practice for CET exams with emphasis on previous year papers.',
+  },
+  {
+    id: '10',
+    name: 'Primary Math Fun',
+    class: 'Class 1-4',
+    batch: 'Batch A - Morning',
+    duration: '10 Months',
+    fee: 8000,
+    description: 'Building strong mathematical foundations for primary school students through interactive learning.',
+  },
+  {
+    id: '11',
+    name: 'Middle School Science',
+    class: 'Class 5-6',
+    batch: 'Batch B - Evening',
+    duration: '10 Months',
+    fee: 10000,
+    description: 'Exploring scientific concepts for classes 5 and 6 with fun experiments and projects.',
+  },
+  {
+    id: '12',
+    name: 'Bridge Course 7-8',
+    class: 'Class 7-8',
+    batch: 'Batch A - Morning',
+    duration: '10 Months',
+    fee: 12000,
+    description: 'Transition course for middle school students to prepare for high school academic rigor.',
+  },
+  {
+    id: '13',
+    name: 'High School Topper Batch',
+    class: 'Class 9-10',
+    batch: 'Batch B - Evening',
+    duration: '10 Months',
+    fee: 15000,
+    description: 'Dedicated batch for students aiming for top ranks in board examinations.',
+  },
 ];
 
 export const students: Student[] = [
@@ -201,7 +264,7 @@ export const payments: Payment[] = [
 
 export const subjects = ['Mathematics', 'Science', 'English', 'Physics', 'Chemistry', 'Hindi', 'Computer Science', 'Biology'];
 
-export const classes = ['Class 10', 'Class 11', 'Class 12'];
+export const classes = ['Class 10', 'Class 11', 'Class 12', 'JEE', 'NEET', 'CET', 'Class 1-4', 'Class 5-6', 'Class 7-8', 'Class 9-10'];
 
 export const batches = ['Batch A - Morning', 'Batch B - Evening', 'Batch C - Weekend'];
 

@@ -1,11 +1,10 @@
-import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import Navbar from '@/components/Navbar';
-import EnrollmentDialog from '@/components/EnrollmentDialog';
-import { courses, students, marks, Course } from '@/lib/mock-data';
-import { BookOpen, Clock, IndianRupee, Trophy, Star, ArrowRight, Megaphone, GraduationCap } from 'lucide-react';
+import { students, marks } from '@/lib/mock-data';
+import { Trophy, Star, ArrowRight, Megaphone, GraduationCap } from 'lucide-react';
 import heroBg from '@/assets/hero-bg.jpg';
 
 const announcements = [
@@ -26,8 +25,7 @@ const achievers = students
   .slice(0, 3);
 
 const Index = () => {
-  const [selectedCourse, setSelectedCourse] = useState<Course | null>(null);
-  const [enrollOpen, setEnrollOpen] = useState(false);
+  const navigate = useNavigate();
 
   return (
     <div className="min-h-screen bg-background">
@@ -47,7 +45,7 @@ const Index = () => {
             className="max-w-2xl"
           >
             <Badge className="mb-4 gradient-primary text-primary-foreground border-0 px-4 py-1.5 text-sm">
-              Admissions Open 2025-26
+              Admissions Open 2026-27
             </Badge>
             <h1 className="text-4xl md:text-6xl font-heading font-bold text-primary-foreground leading-tight">
               Shape Your Future with <span className="text-secondary">Vidyastara</span>
@@ -56,7 +54,7 @@ const Index = () => {
               Join our premier coaching institute for personalized learning, expert faculty, and proven results.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
-              <Button size="lg" variant="secondary" onClick={() => document.getElementById('courses')?.scrollIntoView({ behavior: 'smooth' })}>
+              <Button size="lg" variant="secondary" onClick={() => navigate('/enroll')}>
                 Explore Courses <ArrowRight className="ml-2 h-4 w-4" />
               </Button>
               <Button size="lg" variant="outline" className="border-primary-foreground/30 text-primary-foreground hover:bg-primary-foreground/10" onClick={() => document.getElementById('achievers')?.scrollIntoView({ behavior: 'smooth' })}>
@@ -81,48 +79,6 @@ const Index = () => {
               <p className="text-sm text-primary-foreground/70">{stat.label}</p>
             </div>
           ))}
-        </div>
-      </section>
-
-      {/* Courses */}
-      <section id="courses" className="py-20">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-12">
-            <Badge variant="outline" className="mb-3">
-              <BookOpen className="h-3 w-3 mr-1" /> Our Courses
-            </Badge>
-            <h2 className="text-3xl md:text-4xl font-heading font-bold">Explore Our Programs</h2>
-            <p className="text-muted-foreground mt-2 max-w-md mx-auto">Choose from our carefully designed courses tailored for academic excellence.</p>
-          </div>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {courses.map((course, i) => (
-              <motion.div
-                key={course.id}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.1 }}
-                className="bg-card rounded-xl border border-border shadow-card hover:shadow-elevated transition-all group"
-              >
-                <div className="p-6">
-                  <div className="flex items-start justify-between mb-3">
-                    <Badge variant="secondary">{course.class}</Badge>
-                    <Badge variant="outline" className="text-xs">{course.batch}</Badge>
-                  </div>
-                  <h3 className="text-lg font-heading font-bold group-hover:text-primary transition-colors">{course.name}</h3>
-                  <p className="text-sm text-muted-foreground mt-2 line-clamp-2">{course.description}</p>
-                  <div className="flex items-center gap-4 mt-4 text-sm text-muted-foreground">
-                    <span className="flex items-center gap-1"><Clock className="h-3.5 w-3.5" /> {course.duration}</span>
-                    <span className="flex items-center gap-1"><IndianRupee className="h-3.5 w-3.5" /> ₹{course.fee.toLocaleString()}</span>
-                  </div>
-                  <Button className="w-full mt-4" onClick={() => { setSelectedCourse(course); setEnrollOpen(true); }}>
-                    Enroll Now
-                  </Button>
-                </div>
-              </motion.div>
-            ))}
-          </div>
         </div>
       </section>
 
@@ -208,8 +164,6 @@ const Index = () => {
           <p className="text-primary-foreground/60 text-sm">© 2025 Vidyastara Tuition. All rights reserved.</p>
         </div>
       </footer>
-
-      <EnrollmentDialog course={selectedCourse} open={enrollOpen} onClose={() => setEnrollOpen(false)} />
     </div>
   );
 };
