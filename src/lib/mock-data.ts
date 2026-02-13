@@ -106,6 +106,19 @@ export interface Payment {
   month: string;
 }
 
+export interface Note {
+  id: string;
+  title: string;
+  description: string;
+  class: string;
+  batch: string;
+  subject: string;
+  fileUrl: string;
+  fileName: string;
+  date: string;
+  uploadedBy: string; // admin or teacher name
+}
+
 export const courses: Course[] = [
   {
     id: '1',
@@ -283,6 +296,21 @@ export const payments: Payment[] = [
   { id: '4', studentId: '3', studentName: 'Rohan Kumar', amount: 9000, totalFee: 18000, installment: 1, totalInstallments: 2, status: 'paid', dueDate: '2025-01-20', paidDate: '2025-01-18', month: 'January' },
   { id: '5', studentId: '3', studentName: 'Rohan Kumar', amount: 9000, totalFee: 18000, installment: 2, totalInstallments: 2, status: 'not_paid', dueDate: '2025-03-20', month: 'March' },
   { id: '6', studentId: '4', studentName: 'Ananya Gupta', amount: 12000, totalFee: 12000, installment: 1, totalInstallments: 1, status: 'pending', dueDate: '2025-02-01', month: 'February' },
+];
+
+export const notes: Note[] = [
+  {
+    id: '1',
+    title: 'Calculus Fundamentals',
+    description: 'Basic concepts of limits and derivatives for Class 12.',
+    class: 'Class 12',
+    batch: 'Batch A - Morning',
+    subject: 'Mathematics',
+    fileUrl: '#',
+    fileName: 'calculus_basics.pdf',
+    date: '2025-02-10',
+    uploadedBy: 'Dr. Rajesh Iyer'
+  }
 ];
 
 export const subjects = ['Mathematics', 'Science', 'English', 'Physics', 'Chemistry', 'Hindi', 'Computer Science', 'Biology'];

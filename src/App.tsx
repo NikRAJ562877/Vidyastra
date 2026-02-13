@@ -20,10 +20,13 @@ import AdminAchievers from "./pages/admin/AdminAchievers";
 import AdminPayments from "./pages/admin/AdminPayments";
 import AdminMarks from "./pages/admin/AdminMarks";
 import AdminRankings from "./pages/admin/AdminRankings";
+import AdminNotes from "./pages/admin/AdminNotes";
 
 import TeacherDashboard from "./pages/teacher/TeacherDashboard";
 import TeacherMarks from "./pages/teacher/TeacherMarks";
+import TeacherNotes from "./pages/teacher/TeacherNotes";
 import StudentDashboard from "./pages/student/StudentDashboard";
+import StudentNotes from "./pages/student/StudentNotes";
 import SubmitEnrollment from "./pages/SubmitEnrollment";
 import ReceiptPage from "./pages/ReceiptPage";
 import NotFound from "./pages/NotFound";
@@ -53,11 +56,14 @@ const App = () => (
           <Route path="/admin/payments" element={<AdminPayments />} />
           <Route path="/admin/marks" element={<AdminMarks />} />
           <Route path="/admin/rankings" element={<AdminRankings />} />
+          <Route path="/admin/notes" element={<AdminNotes />} />
           <Route path="/submit-enrollment" element={<SubmitEnrollment />} />
           <Route path="/receipt/:id" element={<ReceiptPage />} />
           <Route path="/teacher" element={<TeacherDashboard />} />
           <Route path="/teacher/marks" element={<TeacherMarks />} />
+          <Route path="/teacher/notes" element={<TeacherNotes />} />
           <Route path="/student" element={<StudentDashboard />} />
+          <Route path="/student/notes" element={<StudentNotes />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
