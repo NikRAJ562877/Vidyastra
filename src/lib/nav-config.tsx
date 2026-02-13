@@ -11,6 +11,7 @@ import {
   CalendarCheck,
   IndianRupee,
   FileText,
+  FileCheck2,
 } from "lucide-react";
 import React from "react";
 
@@ -69,8 +70,13 @@ export const adminNavItems: NavItem[] = [
     ],
   },
   {
-    label: "Marks & Ranking",
+    label: "Tests",
     href: "/admin/marks",
+    icon: React.createElement(FileText, { className: "h-4 w-4" }),
+  },
+  {
+    label: "Rankings",
+    href: "/admin/rankings",
     icon: React.createElement(Trophy, { className: "h-4 w-4" }),
   },
   {
@@ -81,6 +87,6 @@ export const adminNavItems: NavItem[] = [
   {
     label: "Notes",
     href: "/admin/notes",
-    icon: React.createElement(FileText, { className: "h-4 w-4" }),
+    icon: React.createElement(FileCheck2, { className: "h-4 w-4" }),
   },
 ];

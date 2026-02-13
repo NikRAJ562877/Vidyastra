@@ -18,8 +18,11 @@ import AdminAttendance from "./pages/admin/AdminAttendance";
 import Announcements from "./pages/admin/Announcement";
 import AdminAchievers from "./pages/admin/AdminAchievers";
 import AdminPayments from "./pages/admin/AdminPayments";
+import AdminMarks from "./pages/admin/AdminMarks";
+import AdminRankings from "./pages/admin/AdminRankings";
 
 import TeacherDashboard from "./pages/teacher/TeacherDashboard";
+import TeacherMarks from "./pages/teacher/TeacherMarks";
 import StudentDashboard from "./pages/student/StudentDashboard";
 import SubmitEnrollment from "./pages/SubmitEnrollment";
 import ReceiptPage from "./pages/ReceiptPage";
@@ -48,9 +51,12 @@ const App = () => (
           <Route path="/admin/achievers" element={<AdminAchievers />} />
           <Route path="/admin/announcements" element={<Announcements />} />
           <Route path="/admin/payments" element={<AdminPayments />} />
+          <Route path="/admin/marks" element={<AdminMarks />} />
+          <Route path="/admin/rankings" element={<AdminRankings />} />
           <Route path="/submit-enrollment" element={<SubmitEnrollment />} />
           <Route path="/receipt/:id" element={<ReceiptPage />} />
           <Route path="/teacher" element={<TeacherDashboard />} />
+          <Route path="/teacher/marks" element={<TeacherMarks />} />
           <Route path="/student" element={<StudentDashboard />} />
           <Route path="*" element={<NotFound />} />
         </Routes>

@@ -40,7 +40,17 @@ export interface Teacher {
   password: string;
 }
 
+export interface Test {
+  id: string;
+  name: string;
+  date: string;
+  description: string;
+  classes: string[]; // Which classes this test is for
+}
+
 export interface Mark {
+  id: string;
+  testId: string;
   studentId: string;
   subject: string;
   marks: number | null;
@@ -231,22 +241,18 @@ export const teachers: Teacher[] = [
   { id: '3', name: 'Mr. Arjun Desai', email: 'arjun@academy.com', assignedClasses: ['Class 12'], assignedBatches: ['Batch B - Evening'], assignedSubjects: ['Physics', 'Chemistry'], password: 'teacher123' },
 ];
 
+export const tests: Test[] = [
+  { id: '1', name: 'June Monthly Test', date: '2025-06-15', description: 'Internal assessment for June month.', classes: ['Class 10', 'Class 12'] },
+  { id: '2', name: 'First Term Examination', date: '2025-09-20', description: 'Comprehensive examination for the first term.', classes: ['Class 10', 'Class 11', 'Class 12'] },
+];
+
 export const marks: Mark[] = [
-  { studentId: '1', subject: 'Mathematics', marks: 92, totalMarks: 100 },
-  { studentId: '1', subject: 'Science', marks: 88, totalMarks: 100 },
-  { studentId: '1', subject: 'English', marks: 76, totalMarks: 100 },
-  { studentId: '2', subject: 'Mathematics', marks: 95, totalMarks: 100 },
-  { studentId: '2', subject: 'Science', marks: 91, totalMarks: 100 },
-  { studentId: '2', subject: 'English', marks: 89, totalMarks: 100 },
-  { studentId: '3', subject: 'Mathematics', marks: 65, totalMarks: 100 },
-  { studentId: '3', subject: 'Science', marks: null, totalMarks: 100 },
-  { studentId: '3', subject: 'English', marks: 58, totalMarks: 100 },
-  { studentId: '4', subject: 'Physics', marks: 88, totalMarks: 100 },
-  { studentId: '4', subject: 'Chemistry', marks: null, totalMarks: 100 },
-  { studentId: '4', subject: 'English', marks: 92, totalMarks: 100 },
-  { studentId: '5', subject: 'Physics', marks: 78, totalMarks: 100 },
-  { studentId: '5', subject: 'Chemistry', marks: 82, totalMarks: 100 },
-  { studentId: '5', subject: 'English', marks: 70, totalMarks: 100 },
+  { id: '1', testId: '1', studentId: '1', subject: 'Mathematics', marks: 92, totalMarks: 100 },
+  { id: '2', testId: '1', studentId: '1', subject: 'Science', marks: 88, totalMarks: 100 },
+  { id: '3', testId: '1', studentId: '1', subject: 'English', marks: 76, totalMarks: 100 },
+  { id: '4', testId: '1', studentId: '2', subject: 'Mathematics', marks: 95, totalMarks: 100 },
+  { id: '5', testId: '1', studentId: '2', subject: 'Science', marks: 91, totalMarks: 100 },
+  { id: '6', testId: '1', studentId: '2', subject: 'English', marks: 89, totalMarks: 100 },
 ];
 
 export const enrollments: Enrollment[] = [
