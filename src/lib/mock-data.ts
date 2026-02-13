@@ -1,0 +1,250 @@
+// Mock data for the educational management system
+
+export interface Course {
+  id: string;
+  name: string;
+  class: string;
+  batch: string;
+  duration: string;
+  fee: number;
+  description: string;
+  image?: string;
+}
+
+export interface Student {
+  id: string;
+  uniqueId: string;
+  registerNumber: string;
+  rollNumber: string;
+  name: string;
+  email: string;
+  phone: string;
+  class: string;
+  batch: string;
+  category: 'slow_learner' | 'normal';
+  paymentStatus: 'paid' | 'pending' | 'partial';
+  enrollmentStatus: 'pending' | 'confirmed';
+  password: string;
+  isFirstLogin: boolean;
+}
+
+export interface Teacher {
+  id: string;
+  name: string;
+  email: string;
+  assignedClasses: string[];
+  assignedBatches: string[];
+  assignedSubjects: string[];
+  password: string;
+}
+
+export interface Mark {
+  studentId: string;
+  subject: string;
+  marks: number | null;
+  totalMarks: number;
+}
+
+export interface Enrollment {
+  id: string;
+  uniqueId: string;
+  name: string;
+  phone: string;
+  email: string;
+  class: string;
+  batch: string;
+  registerNumber: string;
+  mode: 'online' | 'offline';
+  status: 'pending' | 'confirmed';
+  date: string;
+}
+
+export interface Attendance {
+  studentId: string;
+  date: string;
+  status: 'present' | 'absent';
+}
+
+export interface Payment {
+  id: string;
+  studentId: string;
+  studentName: string;
+  amount: number;
+  totalFee: number;
+  installment: number;
+  totalInstallments: number;
+  status: 'paid' | 'pending' | 'not_paid';
+  dueDate: string;
+  paidDate?: string;
+  month: string;
+}
+
+export const courses: Course[] = [
+  {
+    id: '1',
+    name: 'Mathematics Foundation',
+    class: 'Class 10',
+    batch: 'Batch A - Morning',
+    duration: '6 Months',
+    fee: 15000,
+    description: 'Comprehensive mathematics course covering algebra, geometry, trigonometry and statistics for Class 10 students.',
+  },
+  {
+    id: '2',
+    name: 'Science Excellence',
+    class: 'Class 10',
+    batch: 'Batch B - Evening',
+    duration: '6 Months',
+    fee: 18000,
+    description: 'In-depth science program covering Physics, Chemistry & Biology with lab practicals and weekly tests.',
+  },
+  {
+    id: '3',
+    name: 'English Mastery',
+    class: 'Class 12',
+    batch: 'Batch A - Morning',
+    duration: '4 Months',
+    fee: 12000,
+    description: 'Advanced English course focusing on literature, grammar, and communication skills for competitive exams.',
+  },
+  {
+    id: '4',
+    name: 'Physics Advanced',
+    class: 'Class 12',
+    batch: 'Batch B - Evening',
+    duration: '8 Months',
+    fee: 22000,
+    description: 'Advanced physics concepts including mechanics, thermodynamics, optics and modern physics with problem solving.',
+  },
+  {
+    id: '5',
+    name: 'Computer Science',
+    class: 'Class 11',
+    batch: 'Batch A - Morning',
+    duration: '12 Months',
+    fee: 25000,
+    description: 'Full computer science curriculum covering programming, data structures, and web development fundamentals.',
+  },
+  {
+    id: '6',
+    name: 'Chemistry Crash Course',
+    class: 'Class 11',
+    batch: 'Batch C - Weekend',
+    duration: '3 Months',
+    fee: 10000,
+    description: 'Intensive weekend chemistry program for quick revision and exam preparation with practice papers.',
+  },
+];
+
+export const students: Student[] = [
+  { id: '1', uniqueId: 'STU-2025-001', registerNumber: 'REG001', rollNumber: '01', name: 'Aarav Sharma', email: 'aarav@test.com', phone: '9876543210', class: 'Class 10', batch: 'Batch A - Morning', category: 'normal', paymentStatus: 'paid', enrollmentStatus: 'confirmed', password: 'student123', isFirstLogin: true },
+  { id: '2', uniqueId: 'STU-2025-002', registerNumber: 'REG002', rollNumber: '02', name: 'Priya Patel', email: 'priya@test.com', phone: '9876543211', class: 'Class 10', batch: 'Batch A - Morning', category: 'normal', paymentStatus: 'paid', enrollmentStatus: 'confirmed', password: 'student123', isFirstLogin: false },
+  { id: '3', uniqueId: 'STU-2025-003', registerNumber: 'REG003', rollNumber: '03', name: 'Rohan Kumar', email: 'rohan@test.com', phone: '9876543212', class: 'Class 10', batch: 'Batch B - Evening', category: 'slow_learner', paymentStatus: 'partial', enrollmentStatus: 'confirmed', password: 'student123', isFirstLogin: true },
+  { id: '4', uniqueId: 'STU-2025-004', registerNumber: 'REG004', rollNumber: '04', name: 'Ananya Gupta', email: 'ananya@test.com', phone: '9876543213', class: 'Class 12', batch: 'Batch A - Morning', category: 'normal', paymentStatus: 'pending', enrollmentStatus: 'confirmed', password: 'student123', isFirstLogin: true },
+  { id: '5', uniqueId: 'STU-2025-005', registerNumber: 'REG005', rollNumber: '05', name: 'Vikram Singh', email: 'vikram@test.com', phone: '9876543214', class: 'Class 12', batch: 'Batch B - Evening', category: 'normal', paymentStatus: 'paid', enrollmentStatus: 'confirmed', password: 'student123', isFirstLogin: false },
+  { id: '6', uniqueId: 'STU-2025-006', registerNumber: 'REG006', rollNumber: '06', name: 'Kavya Nair', email: 'kavya@test.com', phone: '9876543215', class: 'Class 11', batch: 'Batch A - Morning', category: 'normal', paymentStatus: 'paid', enrollmentStatus: 'confirmed', password: 'student123', isFirstLogin: true },
+];
+
+export const teachers: Teacher[] = [
+  { id: '1', name: 'Dr. Rajesh Iyer', email: 'rajesh@academy.com', assignedClasses: ['Class 10'], assignedBatches: ['Batch A - Morning'], assignedSubjects: ['Mathematics'], password: 'teacher123' },
+  { id: '2', name: 'Mrs. Sunita Verma', email: 'sunita@academy.com', assignedClasses: ['Class 10', 'Class 12'], assignedBatches: ['Batch A - Morning', 'Batch B - Evening'], assignedSubjects: ['English', 'Hindi'], password: 'teacher123' },
+  { id: '3', name: 'Mr. Arjun Desai', email: 'arjun@academy.com', assignedClasses: ['Class 12'], assignedBatches: ['Batch B - Evening'], assignedSubjects: ['Physics', 'Chemistry'], password: 'teacher123' },
+];
+
+export const marks: Mark[] = [
+  { studentId: '1', subject: 'Mathematics', marks: 92, totalMarks: 100 },
+  { studentId: '1', subject: 'Science', marks: 88, totalMarks: 100 },
+  { studentId: '1', subject: 'English', marks: 76, totalMarks: 100 },
+  { studentId: '2', subject: 'Mathematics', marks: 95, totalMarks: 100 },
+  { studentId: '2', subject: 'Science', marks: 91, totalMarks: 100 },
+  { studentId: '2', subject: 'English', marks: 89, totalMarks: 100 },
+  { studentId: '3', subject: 'Mathematics', marks: 65, totalMarks: 100 },
+  { studentId: '3', subject: 'Science', marks: null, totalMarks: 100 },
+  { studentId: '3', subject: 'English', marks: 58, totalMarks: 100 },
+  { studentId: '4', subject: 'Physics', marks: 88, totalMarks: 100 },
+  { studentId: '4', subject: 'Chemistry', marks: null, totalMarks: 100 },
+  { studentId: '4', subject: 'English', marks: 92, totalMarks: 100 },
+  { studentId: '5', subject: 'Physics', marks: 78, totalMarks: 100 },
+  { studentId: '5', subject: 'Chemistry', marks: 82, totalMarks: 100 },
+  { studentId: '5', subject: 'English', marks: 70, totalMarks: 100 },
+];
+
+export const enrollments: Enrollment[] = [
+  { id: '1', uniqueId: 'ENR-2025-101', name: 'Meera Joshi', phone: '9988776655', email: 'meera@test.com', class: 'Class 10', batch: 'Batch A - Morning', registerNumber: '', mode: 'online', status: 'pending', date: '2025-02-10' },
+  { id: '2', uniqueId: 'ENR-2025-102', name: 'Arjun Reddy', phone: '9988776656', email: 'arjun.r@test.com', class: 'Class 12', batch: 'Batch B - Evening', registerNumber: 'REG007', mode: 'offline', status: 'pending', date: '2025-02-11' },
+  { id: '3', uniqueId: 'ENR-2025-103', name: 'Divya Menon', phone: '9988776657', email: 'divya@test.com', class: 'Class 11', batch: 'Batch A - Morning', registerNumber: '', mode: 'online', status: 'pending', date: '2025-02-12' },
+];
+
+export const attendance: Attendance[] = [
+  { studentId: '1', date: '2025-02-10', status: 'present' },
+  { studentId: '1', date: '2025-02-11', status: 'present' },
+  { studentId: '1', date: '2025-02-12', status: 'absent' },
+  { studentId: '1', date: '2025-02-13', status: 'present' },
+  { studentId: '2', date: '2025-02-10', status: 'present' },
+  { studentId: '2', date: '2025-02-11', status: 'present' },
+  { studentId: '2', date: '2025-02-12', status: 'present' },
+  { studentId: '2', date: '2025-02-13', status: 'present' },
+  { studentId: '3', date: '2025-02-10', status: 'absent' },
+  { studentId: '3', date: '2025-02-11', status: 'present' },
+  { studentId: '3', date: '2025-02-12', status: 'absent' },
+  { studentId: '3', date: '2025-02-13', status: 'present' },
+];
+
+export const payments: Payment[] = [
+  { id: '1', studentId: '1', studentName: 'Aarav Sharma', amount: 15000, totalFee: 15000, installment: 1, totalInstallments: 1, status: 'paid', dueDate: '2025-01-15', paidDate: '2025-01-14', month: 'January' },
+  { id: '2', studentId: '2', studentName: 'Priya Patel', amount: 7500, totalFee: 15000, installment: 1, totalInstallments: 2, status: 'paid', dueDate: '2025-01-15', paidDate: '2025-01-15', month: 'January' },
+  { id: '3', studentId: '2', studentName: 'Priya Patel', amount: 7500, totalFee: 15000, installment: 2, totalInstallments: 2, status: 'pending', dueDate: '2025-03-15', month: 'March' },
+  { id: '4', studentId: '3', studentName: 'Rohan Kumar', amount: 9000, totalFee: 18000, installment: 1, totalInstallments: 2, status: 'paid', dueDate: '2025-01-20', paidDate: '2025-01-18', month: 'January' },
+  { id: '5', studentId: '3', studentName: 'Rohan Kumar', amount: 9000, totalFee: 18000, installment: 2, totalInstallments: 2, status: 'not_paid', dueDate: '2025-03-20', month: 'March' },
+  { id: '6', studentId: '4', studentName: 'Ananya Gupta', amount: 12000, totalFee: 12000, installment: 1, totalInstallments: 1, status: 'pending', dueDate: '2025-02-01', month: 'February' },
+];
+
+export const subjects = ['Mathematics', 'Science', 'English', 'Physics', 'Chemistry', 'Hindi', 'Computer Science', 'Biology'];
+
+export const classes = ['Class 10', 'Class 11', 'Class 12'];
+
+export const batches = ['Batch A - Morning', 'Batch B - Evening', 'Batch C - Weekend'];
+
+// Auth mock
+export type UserRole = 'admin' | 'teacher' | 'student';
+
+export interface AuthUser {
+  id: string;
+  name: string;
+  email: string;
+  role: UserRole;
+}
+
+export const adminUser: AuthUser = {
+  id: 'admin-1',
+  name: 'System Admin',
+  email: 'admin@academy.com',
+  role: 'admin',
+};
+
+export function authenticateUser(email: string, password: string): { user: AuthUser; redirect: string } | null {
+  // Admin
+  if (email === 'admin@academy.com' && password === 'admin123') {
+    return { user: adminUser, redirect: '/admin' };
+  }
+
+  // Teachers
+  const teacher = teachers.find(t => t.email === email && t.password === password);
+  if (teacher) {
+    return {
+      user: { id: teacher.id, name: teacher.name, email: teacher.email, role: 'teacher' },
+      redirect: '/teacher',
+    };
+  }
+
+  // Students (login by register number or email)
+  const student = students.find(s => (s.email === email || s.registerNumber === email) && s.password === password);
+  if (student) {
+    return {
+      user: { id: student.id, name: student.name, email: student.email, role: 'student' },
+      redirect: '/student',
+    };
+  }
+
+  return null;
+}
