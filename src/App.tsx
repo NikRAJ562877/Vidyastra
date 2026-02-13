@@ -9,6 +9,7 @@ import Results from "./pages/Results";
 import Enroll from "./pages/Enroll";
 import AdminDashboard from "./pages/admin/AdminDashboard";
 import AdminCourses from "./pages/admin/AdminCourses";
+import AdminAchievers from "./pages/admin/AdminAchievers";
 import Announcements from "./pages/landing/Announcement";
 import TeacherDashboard from "./pages/teacher/TeacherDashboard";
 import StudentDashboard from "./pages/student/StudentDashboard";
@@ -30,6 +31,7 @@ const App = () => (
           <Route path="/enroll/:classId" element={<Enroll />} />
           <Route path="/admin" element={<AdminDashboard />} />
           <Route path="/admin/courses" element={<AdminCourses />} />
+          <Route path="/admin/achievers" element={<AdminAchievers />} />
           <Route path="/admin/announcements" element={<Announcements />} />
           <Route path="/teacher" element={<TeacherDashboard />} />
           <Route path="/student" element={<StudentDashboard />} />

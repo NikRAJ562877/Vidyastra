@@ -16,8 +16,11 @@ import {
   ArrowRight,
   Megaphone,
   GraduationCap,
+  ChevronLeft,
+  ChevronRight,
 } from "lucide-react";
 import heroBg from "@/assets/hero-bg.jpg";
+import useAchievers from "@/hooks/use-achievers";
 
 // Calculate top achievers from mock data
 const achievers = students
@@ -35,6 +38,7 @@ const achievers = students
 const Index = () => {
   const navigate = useNavigate();
   const { announcements } = useAnnouncements();
+  const { achievers } = useAchievers();
   const [selectedCourse, setSelectedCourse] = useState<Course | null>(null);
   const [enrollOpen, setEnrollOpen] = useState(false);
 
@@ -114,8 +118,8 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Achievers */}
-      <section id="achievers" className="py-20">
+      {/* Achievers Slideshow */}
+      <section id="achievers" className="py-20 overflow-hidden">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
             <Badge variant="outline" className="mb-3">
@@ -128,38 +132,78 @@ const Index = () => {
               Celebrating excellence in academics
             </p>
           </div>
-          <div className="grid md:grid-cols-3 gap-6 max-w-3xl mx-auto">
-            {achievers.map((a, i) => (
-              <motion.div
-                key={a.id}
-                initial={{ opacity: 0, scale: 0.9 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.15 }}
-                className="bg-card rounded-xl border border-border p-6 text-center shadow-card hover:shadow-elevated transition-all relative"
-              >
-                {i === 0 && (
-                  <div className="absolute -top-3 left-1/2 -translate-x-1/2">
-                    <div className="gradient-primary rounded-full p-2">
-                      <Star className="h-4 w-4 text-primary-foreground" />
+
+          <div className="relative max-w-5xl mx-auto group">
+            <div className="flex gap-6 overflow-x-auto pb-8 snap-x no-scrollbar scroll-smooth">
+              {achievers.map((a, i) => (
+                <motion.div
+                  key={a.id}
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: i * 0.1 }}
+                  className="min-w-[280px] md:min-w-[320px] snap-center bg-card rounded-2xl border border-border p-8 text-center shadow-card hover:shadow-elevated transition-all relative overflow-hidden group/card"
+                >
+                  <div className="absolute top-0 left-0 w-full h-1 gradient-primary opacity-0 group-hover/card:opacity-100 transition-opacity" />
+
+                  {a.rank <= 3 && (
+                    <div className="absolute top-4 right-4 animate-float">
+                      <div className="gradient-primary rounded-full p-2 shadow-primary">
+                        <Star className="h-4 w-4 text-primary-foreground" />
+                      </div>
                     </div>
+                  )}
+
+                  <div className="w-24 h-24 rounded-full gradient-accent flex items-center justify-center mx-auto mb-6 p-1 border-4 border-background shadow-lg">
+                    {a.imageUrl ? (
+                      <img
+                        src={a.imageUrl}
+                        alt={a.name}
+                        className="w-full h-full object-cover rounded-full"
+                      />
+                    ) : (
+                      <GraduationCap className="h-10 w-10 text-accent-foreground" />
+                    )}
                   </div>
-                )}
-                <div className="w-14 h-14 rounded-full gradient-accent flex items-center justify-center mx-auto mt-2">
-                  <GraduationCap className="h-6 w-6 text-accent-foreground" />
-                </div>
-                <h3 className="font-heading font-bold mt-3">{a.name}</h3>
-                <p className="text-sm text-muted-foreground">{a.class}</p>
-                <div className="mt-3 gradient-primary rounded-lg py-2">
-                  <p className="text-sm text-primary-foreground font-semibold">
-                    Avg: {a.avg.toFixed(1)}%
-                  </p>
-                </div>
-                <p className="text-xs text-muted-foreground mt-2">
-                  Rank #{i + 1}
-                </p>
-              </motion.div>
-            ))}
+
+                  <h3 className="font-heading text-xl font-bold mb-1">
+                    {a.name}
+                  </h3>
+                  <p className="text-muted-foreground mb-4">{a.class}</p>
+
+                  <div className="gradient-primary rounded-xl py-3 px-4 shadow-primary">
+                    <p className="text-sm text-primary-foreground font-bold flex items-center justify-center gap-2">
+                      Average Score: {a.avg.toFixed(1)}%
+                    </p>
+                  </div>
+
+                  <div className="mt-4 inline-flex items-center justify-center w-10 h-10 rounded-full bg-muted font-heading font-bold text-sm">
+                    #{a.rank}
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+
+            <button
+              onClick={() =>
+                document
+                  .querySelector(".snap-x")
+                  ?.scrollBy({ left: -320, behavior: "smooth" })
+              }
+              className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 md:-translate-x-12 p-2 rounded-full bg-background border border-border shadow-lg opacity-0 group-hover:opacity-100 transition-opacity hidden md:flex"
+            >
+              <ChevronLeft className="h-6 w-6" />
+            </button>
+            <button
+              onClick={() =>
+                document
+                  .querySelector(".snap-x")
+                  ?.scrollBy({ left: 320, behavior: "smooth" })
+              }
+              className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 md:translate-x-12 p-2 rounded-full bg-background border border-border shadow-lg opacity-0 group-hover:opacity-100 transition-opacity hidden md:flex"
+            >
+              <ChevronRight className="h-6 w-6" />
+            </button>
           </div>
         </div>
       </section>
