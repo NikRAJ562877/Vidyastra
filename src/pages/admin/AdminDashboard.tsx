@@ -4,13 +4,14 @@ import { students, teachers, enrollments, payments } from '@/lib/mock-data';
 import { Users, GraduationCap, UserPlus, IndianRupee, ClipboardList, Trophy, BookOpen, CalendarCheck } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
-import { Button } from '@/components/ui/button';  
+import { Button } from '@/components/ui/button';
 
 const navItems = [
   { label: 'Dashboard', href: '/admin', icon: <ClipboardList className="h-4 w-4" /> },
   { label: 'Enrollments', href: '/admin/enrollments', icon: <UserPlus className="h-4 w-4" /> },
   { label: 'Students', href: '/admin/students', icon: <Users className="h-4 w-4" /> },
   { label: 'Teachers', href: '/admin/teachers', icon: <GraduationCap className="h-4 w-4" /> },
+  { label: 'Courses', href: '/admin/courses', icon: <BookOpen className="h-4 w-4" /> },
   { label: 'Marks & Ranking', href: '/admin/marks', icon: <Trophy className="h-4 w-4" /> },
   { label: 'Attendance', href: '/admin/attendance', icon: <CalendarCheck className="h-4 w-4" /> },
   { label: 'Payments', href: '/admin/payments', icon: <IndianRupee className="h-4 w-4" /> },

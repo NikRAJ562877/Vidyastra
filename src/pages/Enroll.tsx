@@ -5,20 +5,24 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import Navbar from '@/components/Navbar';
 import EnrollmentDialog from '@/components/EnrollmentDialog';
-import { courses, Course } from '@/lib/mock-data';
+import { Course } from '@/lib/mock-data';
 import { BookOpen, Clock, IndianRupee, GraduationCap } from 'lucide-react';
+import useCourses from '@/hooks/use-courses';
 
 const Enroll = () => {
     const { classId } = useParams<{ classId?: string }>();
     const [selectedCourse, setSelectedCourse] = useState<Course | null>(null);
     const [enrollOpen, setEnrollOpen] = useState(false);
-    const [filteredCourses, setFilteredCourses] = useState<Course[]>(courses);
+    const { courses } = useCourses();
+    const [filteredCourses, setFilteredCourses] = useState<Course[]>([]);
 
     useEffect(() => {
-        if (classId) {
-            setFilteredCourses(courses.filter(c => c.class === classId));
-        } else {
-            setFilteredCourses(courses);
+        if (courses.length > 0) { // Ensure courses are loaded before filtering
+            if (classId) {
+                setFilteredCourses(courses.filter(c => c.class === classId));
+            } else {
+                setFilteredCourses(courses);
+            }
         }
     }, [classId]);
 
