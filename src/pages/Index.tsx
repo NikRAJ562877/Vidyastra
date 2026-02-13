@@ -22,18 +22,7 @@ import {
 import heroBg from "@/assets/hero-bg.jpg";
 import useAchievers from "@/hooks/use-achievers";
 
-// Calculate top achievers from mock data
-const achievers = students
-  .map((s) => {
-    const studentMarks = marks.filter(
-      (m) => m.studentId === s.id && m.marks !== null,
-    );
-    const total = studentMarks.reduce((sum, m) => sum + (m.marks || 0), 0);
-    const avg = studentMarks.length > 0 ? total / studentMarks.length : 0;
-    return { ...s, total, avg, subjectCount: studentMarks.length };
-  })
-  .sort((a, b) => b.avg - a.avg)
-  .slice(0, 3);
+import Footer from "@/components/Footer";
 
 const Index = () => {
   const navigate = useNavigate();
@@ -244,20 +233,7 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="gradient-hero py-12 text-primary-foreground">
-        <div className="container mx-auto px-4 text-center">
-          <div className="flex items-center justify-center gap-2 mb-4">
-            <GraduationCap className="h-6 w-6" />
-            <span className="font-heading text-xl font-bold">
-              Vidyastara Tuition
-            </span>
-          </div>
-          <p className="text-primary-foreground/60 text-sm">
-            © 2025 Vidyastara Tuition. All rights reserved.
-          </p>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 };
