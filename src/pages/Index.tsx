@@ -57,7 +57,7 @@ const Index = () => {
               <Button size="lg" variant="secondary" onClick={() => navigate('/enroll')}>
                 Explore Courses <ArrowRight className="ml-2 h-4 w-4" />
               </Button>
-              <Button size="lg" variant="outline" className="border-primary-foreground/30 text-primary-foreground hover:bg-primary-foreground/10" onClick={() => document.getElementById('achievers')?.scrollIntoView({ behavior: 'smooth' })}>
+              <Button size="lg" variant="outline" className="bg-white text-secondary hover:bg-secondary hover:text-white border-none shadow-sm" onClick={() => document.getElementById('achievers')?.scrollIntoView({ behavior: 'smooth' })}>
                 <Trophy className="mr-2 h-4 w-4" /> View Achievers
               </Button>
             </div>
