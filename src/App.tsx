@@ -9,7 +9,7 @@ import Results from "./pages/Results";
 import Enroll from "./pages/Enroll";
 import AdminDashboard from "./pages/admin/AdminDashboard";
 import AdminCourses from "./pages/admin/AdminCourses";
-import Announcements from "./pages/landing/Announcement";
+import Announcements from "./pages/admin/Announcement";
 import TeacherDashboard from "./pages/teacher/TeacherDashboard";
 import StudentDashboard from "./pages/student/StudentDashboard";
 import NotFound from "./pages/NotFound";
