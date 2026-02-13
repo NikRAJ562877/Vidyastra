@@ -268,6 +268,20 @@ export const classes = ['Class 10', 'Class 11', 'Class 12', 'JEE', 'NEET', 'CET'
 
 export const batches = ['Batch A - Morning', 'Batch B - Evening', 'Batch C - Weekend'];
 
+// Announcements (default seed)
+export interface Announcement {
+  id: number | string;
+  title: string;
+  description: string;
+  date: string;
+}
+
+export const defaultAnnouncements: Announcement[] = [
+  { id: 1, title: 'Admissions Open for 2025-26', description: 'Enroll now for the upcoming academic year. Early bird discounts available!', date: 'Feb 10, 2025' },
+  { id: 2, title: 'Annual Day Celebration', description: 'Join us for our annual day celebrations on March 15, 2025.', date: 'Feb 8, 2025' },
+  { id: 3, title: 'Board Exam Preparation Crash Course', description: 'Special crash course starting Feb 20 for board exam students.', date: 'Feb 5, 2025' },
+];
+
 // Auth mock
 export type UserRole = 'admin' | 'teacher' | 'student';
 

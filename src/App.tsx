@@ -8,6 +8,7 @@ import Login from "./pages/Login";
 import Results from "./pages/Results";
 import Enroll from "./pages/Enroll";
 import AdminDashboard from "./pages/admin/AdminDashboard";
+import Announcements from "./pages/landing/Announcement";
 import TeacherDashboard from "./pages/teacher/TeacherDashboard";
 import StudentDashboard from "./pages/student/StudentDashboard";
 import NotFound from "./pages/NotFound";
@@ -27,6 +28,7 @@ const App = () => (
           <Route path="/enroll" element={<Enroll />} />
           <Route path="/enroll/:classId" element={<Enroll />} />
           <Route path="/admin" element={<AdminDashboard />} />
+          <Route path="/admin/announcements" element={<Announcements />} />
           <Route path="/teacher" element={<TeacherDashboard />} />
           <Route path="/student" element={<StudentDashboard />} />
           <Route path="*" element={<NotFound />} />
