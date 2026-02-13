@@ -26,10 +26,19 @@ import {
   DialogHeader,
   DialogTitle,
   DialogFooter,
+  DialogDescription,
 } from "@/components/ui/dialog";
 import useStudents from "@/hooks/use-students";
-import { classes as mockClasses } from "@/lib/mock-data";
-import { UserPlus, Search, Filter, Trash2, Edit } from "lucide-react";
+import { classes as mockClasses, Student } from "@/lib/mock-data";
+import {
+  UserPlus,
+  Search,
+  Filter,
+  Trash2,
+  Edit,
+  IndianRupee,
+  ExternalLink,
+} from "lucide-react";
 import { toast } from "sonner";
 
 const AdminStudents = () => {
@@ -37,6 +46,15 @@ const AdminStudents = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [classFilter, setClassFilter] = useState("all");
   const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
+  const [registerFilter, setRegisterFilter] = useState("");
+  const [offlinePaymentOpen, setOfflinePaymentOpen] = useState(false);
+  const [selectedStudent, setSelectedStudent] = useState<Student | null>(null);
+  const [paymentForm, setPaymentForm] = useState({
+    mode: "Cash",
+    type: "full" as "full" | "installment",
+    amount: "",
+    date: new Date().toISOString().split("T")[0],
+  });
 
   // Form state
   const [formData, setFormData] = useState({
@@ -68,6 +86,7 @@ const AdminStudents = () => {
       category: "normal",
       paymentStatus: "pending",
       password: "student123",
+      totalFee: 30000, // Default for mock
     });
 
     setIsAddDialogOpen(false);
@@ -81,6 +100,42 @@ const AdminStudents = () => {
       rollNumber: "",
     });
     toast.success("Student added successfully!");
+  };
+
+  const handleRecordPayment = (student: Student) => {
+    setSelectedStudent(student);
+    setPaymentForm({
+      ...paymentForm,
+      amount: student.totalFee ? (student.totalFee / 2).toString() : "15000",
+    });
+    setOfflinePaymentOpen(true);
+  };
+
+  const saveOfflinePayment = () => {
+    if (!selectedStudent || !paymentForm.amount) return;
+
+    const amount = parseFloat(paymentForm.amount);
+    const newRecord = {
+      id: Date.now().toString(),
+      date: paymentForm.date,
+      amount: amount,
+      mode: paymentForm.mode,
+      type: paymentForm.type,
+      receiptId: `REC-${Math.floor(Math.random() * 1000000)}`,
+    };
+
+    const history = [...(selectedStudent.paymentHistory || []), newRecord];
+    const totalPaid = history.reduce((sum, r) => sum + r.amount, 0);
+    const status =
+      totalPaid >= (selectedStudent.totalFee || 0) ? "paid" : "partial";
+
+    update(selectedStudent.id, {
+      paymentHistory: history,
+      paymentStatus: status,
+    });
+
+    toast.success("Payment recorded successfully!");
+    setOfflinePaymentOpen(false);
   };
 
   return (
@@ -167,6 +222,15 @@ const AdminStudents = () => {
                   </TableCell>
                   <TableCell className="text-right">
                     <div className="flex justify-end gap-1">
+                      <Button
+                        size="icon"
+                        variant="ghost"
+                        className="h-8 w-8 text-primary"
+                        title="Record Payment"
+                        onClick={() => handleRecordPayment(s)}
+                      >
+                        <IndianRupee className="h-4 w-4" />
+                      </Button>
                       <Button size="icon" variant="ghost" className="h-8 w-8">
                         <Edit className="h-4 w-4" />
                       </Button>
@@ -256,6 +320,89 @@ const AdminStudents = () => {
               Cancel
             </Button>
             <Button onClick={handleAddStudent}>Add Student</Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
+      {/* Offline Payment Modal */}
+      <Dialog open={offlinePaymentOpen} onOpenChange={setOfflinePaymentOpen}>
+        <DialogContent className="sm:max-w-[400px]">
+          <DialogHeader>
+            <DialogTitle>Record Offline Payment</DialogTitle>
+            <DialogDescription>
+              Record a manual payment for {selectedStudent?.name}
+            </DialogDescription>
+          </DialogHeader>
+          <div className="space-y-4 py-4">
+            <div className="space-y-2">
+              <Label>Payment Mode</Label>
+              <Select
+                value={paymentForm.mode}
+                onValueChange={(v) =>
+                  setPaymentForm({ ...paymentForm, mode: v })
+                }
+              >
+                <SelectTrigger>
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="Cash">Cash</SelectItem>
+                  <SelectItem value="Cheque">Cheque</SelectItem>
+                  <SelectItem value="UPI">UPI / Transfer</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+            <div className="space-y-2">
+              <Label>Payment Type</Label>
+              <Select
+                value={paymentForm.type}
+                onValueChange={(v) =>
+                  setPaymentForm({
+                    ...paymentForm,
+                    type: v as "full" | "installment",
+                  })
+                }
+              >
+                <SelectTrigger>
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="full">Full Payment</SelectItem>
+                  <SelectItem value="installment">Installment</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+            <div className="grid grid-cols-2 gap-4">
+              <div className="space-y-2">
+                <Label>Amount (₹)</Label>
+                <Input
+                  type="number"
+                  value={paymentForm.amount}
+                  onChange={(e) =>
+                    setPaymentForm({ ...paymentForm, amount: e.target.value })
+                  }
+                />
+              </div>
+              <div className="space-y-2">
+                <Label>Date</Label>
+                <Input
+                  type="date"
+                  value={paymentForm.date}
+                  onChange={(e) =>
+                    setPaymentForm({ ...paymentForm, date: e.target.value })
+                  }
+                />
+              </div>
+            </div>
+          </div>
+          <DialogFooter>
+            <Button
+              variant="outline"
+              onClick={() => setOfflinePaymentOpen(false)}
+            >
+              Cancel
+            </Button>
+            <Button onClick={saveOfflinePayment}>Save Payment</Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>

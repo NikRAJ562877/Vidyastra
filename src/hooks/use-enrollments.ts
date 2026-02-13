@@ -40,9 +40,13 @@ export default function useEnrollments() {
         setEnrollments(prev => prev.map(e => (e.id === id ? { ...e, status } : e)));
     }, []);
 
+    const update = useCallback((id: string, patch: Partial<Enrollment>) => {
+        setEnrollments(prev => prev.map(e => (e.id === id ? { ...e, ...patch } : e)));
+    }, []);
+
     const remove = useCallback((id: string) => {
         setEnrollments(prev => prev.filter(e => e.id !== id));
     }, []);
 
-    return { enrollments, add, updateStatus, remove, setEnrollments } as const;
+    return { enrollments, add, updateStatus, update, remove, setEnrollments } as const;
 }

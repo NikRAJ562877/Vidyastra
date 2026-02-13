@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import DashboardLayout from "@/components/DashboardLayout";
 import { adminNavItems } from "@/lib/nav-config";
 import {
@@ -25,20 +26,33 @@ import useEnrollments from "@/hooks/use-enrollments";
 import useStudents from "@/hooks/use-students";
 import { Student, Enrollment } from "@/lib/mock-data";
 import { toast } from "sonner";
-import { UserPlus, Trash2, CheckCircle } from "lucide-react";
+import {
+  UserPlus,
+  Trash2,
+  CheckCircle,
+  CreditCard,
+  ExternalLink,
+} from "lucide-react";
 
 const AdminEnrollments = () => {
+  const navigate = useNavigate();
   const { enrollments, remove, updateStatus } = useEnrollments();
   const { add: addStudent } = useStudents();
   const [selectedEnrollment, setSelectedEnrollment] =
     useState<Enrollment | null>(null);
   const [registerNumber, setRegisterNumber] = useState("");
   const [confirmOpen, setConfirmOpen] = useState(false);
+  const [paymentModalOpen, setPaymentModalOpen] = useState(false);
 
   const handleEnroll = (enrollment: Enrollment) => {
     setSelectedEnrollment(enrollment);
     setRegisterNumber("");
     setConfirmOpen(true);
+  };
+
+  const handleViewPayment = (enrollment: Enrollment) => {
+    setSelectedEnrollment(enrollment);
+    setPaymentModalOpen(true);
   };
 
   const processEnrollment = () => {
@@ -82,7 +96,8 @@ const AdminEnrollments = () => {
               <TableHead>Name</TableHead>
               <TableHead>Contact</TableHead>
               <TableHead>Class/Batch</TableHead>
-              <TableHead>Date</TableHead>
+              <TableHead>Mode</TableHead>
+              <TableHead>Payment</TableHead>
               <TableHead>Status</TableHead>
               <TableHead className="text-right">Actions</TableHead>
             </TableRow>
@@ -91,7 +106,7 @@ const AdminEnrollments = () => {
             {enrollments.length === 0 ? (
               <TableRow>
                 <TableCell
-                  colSpan={6}
+                  colSpan={7}
                   className="text-center py-8 text-muted-foreground"
                 >
                   No pending enrollments found.
@@ -113,11 +128,27 @@ const AdminEnrollments = () => {
                       <p className="text-muted-foreground">{enr.batch}</p>
                     </div>
                   </TableCell>
-                  <TableCell className="text-xs">{enr.date}</TableCell>
+                  <TableCell className="capitalize">{enr.mode}</TableCell>
+                  <TableCell>
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      className="h-8 gap-1 text-xs"
+                      onClick={() => handleViewPayment(enr)}
+                    >
+                      <CreditCard className="h-3 w-3" />
+                      {enr.paymentType === "installment"
+                        ? "Installment"
+                        : "Full"}
+                    </Button>
+                  </TableCell>
                   <TableCell>
                     <Badge
-                      variant={
-                        enr.status === "confirmed" ? "default" : "secondary"
+                      variant="outline"
+                      className={
+                        enr.status === "confirmed"
+                          ? "text-success border-success"
+                          : "text-warning border-warning"
                       }
                     >
                       {enr.status}
@@ -173,6 +204,89 @@ const AdminEnrollments = () => {
               Cancel
             </Button>
             <Button onClick={processEnrollment}>Confirm & Enroll</Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
+      {/* Payment Details Modal */}
+      <Dialog open={paymentModalOpen} onOpenChange={setPaymentModalOpen}>
+        <DialogContent className="sm:max-w-[400px]">
+          <DialogHeader>
+            <DialogTitle>Payment Information</DialogTitle>
+            <DialogDescription>
+              Detailed payment status for {selectedEnrollment?.name}
+            </DialogDescription>
+          </DialogHeader>
+          <div className="space-y-4 py-4">
+            <div className="grid grid-cols-2 gap-4 text-sm">
+              <div className="space-y-1">
+                <p className="text-muted-foreground">Payment Mode</p>
+                <p className="font-bold border-b pb-1 uppercase">
+                  {selectedEnrollment?.mode}
+                </p>
+              </div>
+              <div className="space-y-1">
+                <p className="text-muted-foreground">Plan Type</p>
+                <p className="font-bold border-b pb-1 capitalize">
+                  {selectedEnrollment?.paymentType || "Full Payment"}
+                </p>
+              </div>
+              <div className="space-y-1">
+                <p className="text-muted-foreground">Amount Paid</p>
+                <p className="font-bold border-b pb-1">
+                  ₹{selectedEnrollment?.amountPaid?.toLocaleString() || 0}
+                </p>
+              </div>
+              <div className="space-y-1">
+                <p className="text-muted-foreground">Total Fee</p>
+                <p className="font-bold border-b pb-1">
+                  ₹{selectedEnrollment?.totalFee?.toLocaleString() || 0}
+                </p>
+              </div>
+              {selectedEnrollment?.transactionId && (
+                <div className="space-y-1 col-span-2">
+                  <p className="text-muted-foreground">Transaction ID</p>
+                  <p className="font-mono text-xs bg-muted p-1 rounded capitalize">
+                    {selectedEnrollment?.transactionId}
+                  </p>
+                </div>
+              )}
+            </div>
+
+            <div className="flex items-center justify-between p-3 bg-muted rounded-lg">
+              <span className="text-sm">Current Status</span>
+              <Badge
+                variant={
+                  selectedEnrollment?.paymentStatus === "paid"
+                    ? "default"
+                    : "secondary"
+                }
+                className={
+                  selectedEnrollment?.paymentStatus === "paid"
+                    ? "bg-success"
+                    : "bg-warning"
+                }
+              >
+                {selectedEnrollment?.paymentStatus?.toUpperCase() || "PENDING"}
+              </Badge>
+            </div>
+          </div>
+          <DialogFooter>
+            <Button
+              variant="outline"
+              onClick={() => setPaymentModalOpen(false)}
+            >
+              Close
+            </Button>
+            <Button
+              onClick={() =>
+                navigate(`/receipt/latest`, {
+                  state: { enrollment: selectedEnrollment },
+                })
+              }
+            >
+              <ExternalLink className="h-4 w-4 mr-2" /> View Receipt
+            </Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>

@@ -20,6 +20,8 @@ import AdminAchievers from "./pages/admin/AdminAchievers";
 
 import TeacherDashboard from "./pages/teacher/TeacherDashboard";
 import StudentDashboard from "./pages/student/StudentDashboard";
+import SubmitEnrollment from "./pages/SubmitEnrollment";
+import ReceiptPage from "./pages/ReceiptPage";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -44,6 +46,8 @@ const App = () => (
           <Route path="/admin/attendance" element={<AdminAttendance />} />
           <Route path="/admin/achievers" element={<AdminAchievers />} />
           <Route path="/admin/announcements" element={<Announcements />} />
+          <Route path="/submit-enrollment" element={<SubmitEnrollment />} />
+          <Route path="/receipt/:id" element={<ReceiptPage />} />
           <Route path="/teacher" element={<TeacherDashboard />} />
           <Route path="/student" element={<StudentDashboard />} />
           <Route path="*" element={<NotFound />} />

@@ -26,6 +26,8 @@ export interface Student {
   enrollmentStatus: 'pending' | 'confirmed';
   password: string;
   isFirstLogin: boolean;
+  paymentHistory?: PaymentRecord[];
+  totalFee?: number;
 }
 
 export interface Teacher {
@@ -57,6 +59,21 @@ export interface Enrollment {
   mode: 'online' | 'offline';
   status: 'pending' | 'confirmed';
   date: string;
+  paymentType?: 'full' | 'installment';
+  amountPaid?: number;
+  totalFee?: number;
+  transactionId?: string;
+  paymentStatus?: 'paid' | 'pending' | 'partial';
+}
+
+export interface PaymentRecord {
+  id: string;
+  date: string;
+  amount: number;
+  mode: string;
+  type: 'full' | 'installment';
+  transactionId?: string;
+  receiptId: string;
 }
 
 export interface Attendance {
