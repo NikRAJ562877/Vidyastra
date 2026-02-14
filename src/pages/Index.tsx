@@ -121,9 +121,6 @@ const Index = () => {
         }}
       />
 
-      {/* Infinite Scrolling Scanner */}
-      <InfiniteScrollingScanner />
-
       {/* Achievers Slideshow */}
       <section id="achievers" className="py-20 overflow-hidden">
         <div className="container mx-auto px-4">
@@ -249,6 +246,9 @@ const Index = () => {
           </div>
         </div>
       </section>
+
+      {/* Infinite Scrolling Scanner */}
+      <InfiniteScrollingScanner />
 
       {/* Contact Form */}
       <ContactForm />
