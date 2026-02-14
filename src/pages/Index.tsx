@@ -49,7 +49,7 @@ const Index = () => {
             alt="Students studying"
             className="w-full h-full object-cover"
           />
-          <div className="absolute inset-0 gradient-hero opacity-85" />
+          <div className="absolute inset-0 bg-[#3b2545] opacity-85" />
         </div>
         <div className="container mx-auto px-4 relative z-10 pt-16">
           <motion.div
@@ -58,7 +58,7 @@ const Index = () => {
             transition={{ duration: 0.8 }}
             className="max-w-2xl"
           >
-            <Badge className="mb-4 gradient-primary text-primary-foreground border-0 px-4 py-1.5 text-sm">
+            <Badge className="mb-4 bg-[#5a3668] text-primary-foreground border-0 px-4 py-1.5 text-sm">
               Admissions Open 2026-27
             </Badge>
             <h1 className="text-4xl md:text-6xl font-heading font-bold text-primary-foreground leading-tight">
@@ -95,7 +95,7 @@ const Index = () => {
       </section>
 
       {/* Stats Strip */}
-      <section className="gradient-primary py-6">
+      <section className="bg-[#3b2545] py-6">
         <div className="container mx-auto px-4 grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
           {[
             { label: "Students Enrolled", value: "500+" },
