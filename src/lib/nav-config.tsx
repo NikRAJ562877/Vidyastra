@@ -11,9 +11,9 @@ import {
   IndianRupee,
   FileText,
   FileCheck2,
+  Presentation,
 } from "lucide-react";
 import React from "react";
-import LogoImg from "@/assets/Backgroundless.png";
 
 export interface NavItem {
   label: string;
@@ -41,10 +41,7 @@ export const adminNavItems: NavItem[] = [
   {
     label: "Teachers",
     href: "/admin/teachers",
-    icon: React.createElement("img", {
-      src: LogoImg,
-      className: "h-4 w-4",
-    }),
+    icon: React.createElement(Presentation, { className: "h-4 w-4" }),
   },
   {
     label: "Attendance",

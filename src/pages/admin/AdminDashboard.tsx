@@ -11,8 +11,8 @@ import {
   CalendarCheck,
   LayoutPanelLeft,
   UserCheck,
+  Presentation,
 } from "lucide-react";
-import LogoImg from "@/assets/Backgroundless.png";
 import { Badge } from "@/components/ui/badge";
 import {
   Table,
@@ -48,7 +48,7 @@ const AdminDashboard = () => {
         <StatCard
           title="Total Teachers"
           value={teachers.length}
-          icon={<img src={LogoImg} className="h-5 w-5 opacity-80" />}
+          icon={<Presentation className="h-5 w-5" />}
         />
         <StatCard
           title="Pending Enrollments"
