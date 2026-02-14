@@ -25,6 +25,8 @@ import useAchievers from "@/hooks/use-achievers";
 import Footer from "@/components/Footer";
 import CourseShowcase from "@/components/CourseShowcase";
 import useCourses from "@/hooks/use-courses";
+import InfiniteScrollingScanner from "@/components/InfiniteScrollingScanner";
+import ContactForm from "@/components/ContactForm";
 
 const Index = () => {
   const navigate = useNavigate();
@@ -118,6 +120,9 @@ const Index = () => {
           setEnrollOpen(true);
         }}
       />
+
+      {/* Infinite Scrolling Scanner */}
+      <InfiniteScrollingScanner />
 
       {/* Achievers Slideshow */}
       <section id="achievers" className="py-20 overflow-hidden">
@@ -244,6 +249,9 @@ const Index = () => {
           </div>
         </div>
       </section>
+
+      {/* Contact Form */}
+      <ContactForm />
 
       <Footer />
     </div>
