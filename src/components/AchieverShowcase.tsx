@@ -1,8 +1,9 @@
 import { useState, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Star, GraduationCap, ChevronLeft, ChevronRight } from "lucide-react";
+import { Star, ChevronLeft, ChevronRight } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Achiever } from "@/hooks/use-achievers";
+import LogoImg from "@/assets/Backgroundless.png";
 
 interface AchieverShowcaseProps {
   achievers: Achiever[];
@@ -28,7 +29,11 @@ const AchieverCard = ({ achiever }: { achiever: Achiever }) => (
           className="w-full h-full object-cover rounded-full"
         />
       ) : (
-        <GraduationCap className="h-10 w-10 text-accent-foreground" />
+        <img
+          src={LogoImg}
+          alt="Vidyastara logo"
+          className="h-10 w-10 object-cover opacity-40"
+        />
       )}
     </div>
 

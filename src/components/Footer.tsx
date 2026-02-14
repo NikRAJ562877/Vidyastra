@@ -1,12 +1,6 @@
-import {
-  GraduationCap,
-  Facebook,
-  Twitter,
-  Instagram,
-  Youtube,
-  Linkedin,
-} from "lucide-react";
+import { Facebook, Twitter, Instagram, Youtube, Linkedin } from "lucide-react";
 import { Link } from "react-router-dom";
+import LogoImg from "@/assets/Backgroundless.png";
 
 const Footer = () => {
   const footerSections = [
@@ -109,9 +103,11 @@ const Footer = () => {
 
         <div className="border-t border-slate-200 pt-8 flex flex-col md:flex-row items-center justify-between gap-6">
           <div className="flex items-center gap-2">
-            <div className="gradient-primary p-1.5 rounded-lg">
-              <GraduationCap className="h-5 w-5 text-white" />
-            </div>
+            <img
+              src={LogoImg}
+              alt="Vidyastara logo"
+              className="h-10 w-10 object-cover"
+            />
             <span className="font-heading text-xl font-bold text-slate-900">
               Vidyastara
             </span>

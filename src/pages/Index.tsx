@@ -15,7 +15,6 @@ import {
   Star,
   ArrowRight,
   Megaphone,
-  GraduationCap,
   ChevronLeft,
   ChevronRight,
 } from "lucide-react";

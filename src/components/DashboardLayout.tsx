@@ -1,8 +1,9 @@
 import { ReactNode, useState, useEffect } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { GraduationCap, LogOut, Menu, X } from "lucide-react";
+import { LogOut, Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
+import LogoImg from "@/assets/Backgroundless.png";
 
 interface NavItem {
   label: string;
@@ -11,7 +12,7 @@ interface NavItem {
   children?: { label: string; href: string; icon: ReactNode }[];
 }
 
-type NavChild = NonNullable<NavItem['children']>[number];
+type NavChild = NonNullable<NavItem["children"]>[number];
 
 type NavLinkProps = {
   href: string;
@@ -61,11 +62,15 @@ const DashboardLayout = ({
           sidebarOpen ? "translate-x-0" : "-translate-x-full",
         )}
       >
-        <div className="flex items-center gap-2 p-4 border-b border-sidebar-border">
-          <div className="gradient-primary rounded-lg p-2">
-            <GraduationCap className="h-5 w-5 text-primary-foreground" />
-          </div>
-          <span className="font-heading text-base font-bold">Vidyastara</span>
+        <div className="flex items-center gap-2 p-4 border-b border-sidebar-border h-16">
+          <img
+            src={LogoImg}
+            alt="Vidyastara logo"
+            className="h-10 w-10 object-cover"
+          />
+          <span className="font-heading text-lg font-bold text-white">
+            Vidyastara
+          </span>
         </div>
 
         <nav className="flex-1 p-3 space-y-1 overflow-y-auto">
@@ -133,7 +138,14 @@ const DashboardLayout = ({
   );
 };
 
-const NavLink = ({ href, icon, label, isActive, onClick, className }: NavLinkProps) => (
+const NavLink = ({
+  href,
+  icon,
+  label,
+  isActive,
+  onClick,
+  className,
+}: NavLinkProps) => (
   <Link
     to={href}
     onClick={onClick}
@@ -151,7 +163,9 @@ const NavLink = ({ href, icon, label, isActive, onClick, className }: NavLinkPro
 );
 
 const NavGroup = ({ item, activePath, onNav }: NavGroupProps) => {
-  const isGroupActive = item.children?.some((child: NavChild) => activePath === child.href);
+  const isGroupActive = item.children?.some(
+    (child: NavChild) => activePath === child.href,
+  );
   const storageKey = `nav_group_expanded_${item.label}`;
 
   const [isExpanded, setIsExpanded] = useState(() => {

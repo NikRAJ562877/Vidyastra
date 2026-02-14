@@ -4,7 +4,6 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { toast } from "sonner";
 import {
-  GraduationCap,
   ArrowLeft,
   Search,
   CheckCircle,
@@ -13,6 +12,7 @@ import {
   User,
 } from "lucide-react";
 import { Link } from "react-router-dom";
+import LogoImg from "@/assets/Backgroundless.png";
 import {
   Table,
   TableBody,
@@ -80,9 +80,11 @@ const Results = () => {
 
         <div className="w-full max-w-md">
           <div className="text-center mb-8">
-            <div className="inline-flex items-center justify-center gradient-primary p-4 rounded-2xl mb-4 shadow-lg shadow-primary/20">
-              <GraduationCap className="h-10 w-10 text-white" />
-            </div>
+            <img
+              src={LogoImg}
+              alt="Vidyastara logo"
+              className="h-16 w-16 mx-auto mb-4"
+            />
             <h1 className="text-3xl font-heading font-bold text-slate-900">
               Result Portal
             </h1>
@@ -211,7 +213,7 @@ const Results = () => {
             </Button>
 
             <div className="bg-white rounded-3xl border border-border shadow-xl overflow-hidden">
-              <div className="gradient-primary p-8 text-white">
+              <div className="bg-[#3b2545] p-8 text-white">
                 <div className="flex justify-between items-start">
                   <div>
                     <span className="bg-white/20 px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider mb-2 inline-block">

@@ -19,11 +19,12 @@ import {
   DialogTitle,
   DialogFooter,
 } from "@/components/ui/dialog";
-import { Trash2, Edit2, Plus, Upload, GraduationCap } from "lucide-react";
+import { Trash2, Edit2, Plus, Upload } from "lucide-react";
 import useAchievers, { Achiever } from "@/hooks/use-achievers";
 import { classes } from "@/lib/mock-data";
 import { toast } from "sonner";
 import { adminNavItems } from "@/lib/nav-config";
+import LogoImg from "@/assets/Backgroundless.png";
 
 const AdminAchievers = () => {
   const { achievers, add, update, remove } = useAchievers();
@@ -144,7 +145,7 @@ const AdminAchievers = () => {
                           className="w-full h-full object-cover"
                         />
                       ) : (
-                        <GraduationCap className="h-5 w-5 text-muted-foreground" />
+                        <img src={LogoImg} className="h-5 w-5 opacity-40" />
                       )}
                     </div>
                   </TableCell>
@@ -219,7 +220,7 @@ const AdminAchievers = () => {
                     className="w-full h-full object-cover"
                   />
                 ) : (
-                  <GraduationCap className="h-10 w-10 text-muted-foreground opacity-20" />
+                  <img src={LogoImg} className="h-10 w-10 opacity-20" />
                 )}
                 <button
                   type="button"

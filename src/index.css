@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap");
 
 @tailwind base;
 @tailwind components;
@@ -15,46 +15,58 @@
     --popover: 0 0% 100%;
     --popover-foreground: 240 20% 10%;
 
-    --primary: 258 70% 55%;
+    --primary: 281 30% 25%;
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 220 70% 55%;
+    --secondary: 215 60% 50%;
     --secondary-foreground: 0 0% 100%;
 
-    --muted: 240 10% 95%;
+    --muted: 240 10% 96%;
     --muted-foreground: 240 10% 45%;
 
-    --accent: 258 60% 95%;
-    --accent-foreground: 258 70% 40%;
+    --accent: 281 30% 96%;
+    --accent-foreground: 281 30% 25%;
 
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 100%;
 
     --border: 240 10% 90%;
     --input: 240 10% 90%;
-    --ring: 258 70% 55%;
+    --ring: 281 30% 25%;
 
     --radius: 0.75rem;
 
-    --sidebar-background: 258 30% 12%;
-    --sidebar-foreground: 240 10% 95%;
-    --sidebar-primary: 258 70% 65%;
+    --sidebar-background: 281 30% 21%;
+    --sidebar-foreground: 0 0% 98%;
+    --sidebar-primary: 281 30% 40%;
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 258 30% 18%;
-    --sidebar-accent-foreground: 240 10% 90%;
-    --sidebar-border: 258 20% 20%;
-    --sidebar-ring: 258 70% 55%;
+    --sidebar-accent: 281 25% 28%;
+    --sidebar-accent-foreground: 0 0% 100%;
+    --sidebar-border: 281 20% 25%;
+    --sidebar-ring: 281 30% 25%;
 
-    --gradient-primary: linear-gradient(135deg, hsl(258 70% 55%), hsl(220 70% 55%));
-    --gradient-hero: linear-gradient(135deg, hsl(258 80% 25%), hsl(220 70% 35%), hsl(258 60% 45%));
-    --gradient-card: linear-gradient(145deg, hsl(0 0% 100%), hsl(258 40% 98%));
-    --gradient-accent: linear-gradient(135deg, hsl(258 60% 95%), hsl(220 60% 95%));
+    --gradient-primary: linear-gradient(
+      135deg,
+      hsl(281 30% 25%),
+      hsl(281 30% 35%)
+    );
+    --gradient-hero: linear-gradient(
+      135deg,
+      hsl(281 30% 21%),
+      hsl(281 25% 30%)
+    );
+    --gradient-card: linear-gradient(145deg, hsl(0 0% 100%), hsl(281 40% 99%));
+    --gradient-accent: linear-gradient(
+      135deg,
+      hsl(281 60% 97%),
+      hsl(215 60% 97%)
+    );
     --shadow-primary: 0 8px 32px -8px hsl(258 70% 55% / 0.3);
     --shadow-card: 0 4px 24px -4px hsl(240 20% 10% / 0.08);
     --shadow-elevated: 0 16px 48px -12px hsl(240 20% 10% / 0.15);
 
-    --font-heading: 'Space Grotesk', sans-serif;
-    --font-body: 'Plus Jakarta Sans', sans-serif;
+    --font-heading: "Space Grotesk", sans-serif;
+    --font-body: "Plus Jakarta Sans", sans-serif;
 
     --success: 152 60% 42%;
     --success-foreground: 0 0% 100%;
@@ -103,7 +115,12 @@
     @apply bg-background text-foreground;
     font-family: var(--font-body);
   }
-  h1, h2, h3, h4, h5, h6 {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     font-family: var(--font-heading);
   }
 }

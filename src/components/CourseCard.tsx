@@ -1,8 +1,9 @@
 import { Course } from "@/lib/mock-data";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Clock, GraduationCap, MapPin, Calendar, Globe } from "lucide-react";
+import { Clock, MapPin, Calendar, Globe } from "lucide-react";
 import { motion } from "framer-motion";
+import LogoImg from "@/assets/Backgroundless.png";
 
 interface CourseCardProps {
   course: Course;
@@ -21,7 +22,7 @@ const CourseCard = ({ course, onEnroll }: CourseCardProps) => {
       <div className="p-6 pb-4">
         <div className="flex items-center gap-2 mb-4">
           <div className="bg-primary/10 text-primary p-1.5 rounded-lg">
-            <GraduationCap className="h-4 w-4" />
+            <img src={LogoImg} className="h-4 w-4" />
           </div>
           <Badge
             variant="secondary"

@@ -3,7 +3,6 @@ import StatCard from "@/components/StatCard";
 import { students, teachers, enrollments, payments } from "@/lib/mock-data";
 import {
   Users,
-  GraduationCap,
   UserPlus,
   IndianRupee,
   ClipboardList,
@@ -13,6 +12,7 @@ import {
   LayoutPanelLeft,
   UserCheck,
 } from "lucide-react";
+import LogoImg from "@/assets/Backgroundless.png";
 import { Badge } from "@/components/ui/badge";
 import {
   Table,
@@ -48,7 +48,7 @@ const AdminDashboard = () => {
         <StatCard
           title="Total Teachers"
           value={teachers.length}
-          icon={<GraduationCap className="h-5 w-5" />}
+          icon={<img src={LogoImg} className="h-5 w-5 opacity-80" />}
         />
         <StatCard
           title="Pending Enrollments"
