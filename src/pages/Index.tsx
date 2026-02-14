@@ -42,7 +42,7 @@ const Index = () => {
       <Navbar />
 
       {/* Hero */}
-      <section className="relative min-h-[85vh] flex items-center overflow-hidden">
+      <section className="relative min-h-[85vh] flex items-center overflow-hidden bg-[#3b2545] border-0">
         <div className="absolute inset-0">
           <img
             src={heroBg}
@@ -95,7 +95,7 @@ const Index = () => {
       </section>
 
       {/* Stats Strip */}
-      <section className="bg-[#3b2545] py-6">
+      <section className="bg-[#3b2545] py-6 border-0">
         <div className="container mx-auto px-4 grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
           {[
             { label: "Students Enrolled", value: "500+" },
