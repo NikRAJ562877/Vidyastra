@@ -10,28 +10,34 @@ export interface Achiever {
   rank: number;
   imageUrl?: string;
   isCustom?: boolean;
+  category: 'ALL' | 'NEET' | 'JEE' | 'CLASSES 6-10';
 }
 
 const STORAGE_KEY = 'vidyastara_achievers_v1';
 
-// Seed initial achievers from mock data students
+// Seed initial achievers
 const getInitialAchievers = (): Achiever[] => {
+  const categories: Achiever['category'][] = ['NEET', 'JEE', 'CLASSES 6-10'];
+  
   return students
-    .map(s => {
-      // In a real app we'd have marks here, using mock avg/rank for seeds
+    .map((s, idx) => {
       const mockAvg = 85 + Math.random() * 10;
+      // Cyclically assign categories for seed data
+      const category = categories[idx % categories.length];
+      
       return {
         id: `seed-${s.id}`,
         studentId: s.id,
         name: s.name,
         class: s.class,
         avg: mockAvg,
-        rank: 0, // Will sort later
-        isCustom: false
+        rank: 0,
+        isCustom: false,
+        category: category
       };
     })
     .sort((a, b) => b.avg - a.avg)
-    .slice(0, 5)
+    .slice(0, 10) // More seeds for marquee
     .map((a, i) => ({ ...a, rank: i + 1 }));
 };
 

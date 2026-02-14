@@ -36,6 +36,7 @@ const AdminAchievers = () => {
     avg: 0,
     imageUrl: "",
     isCustom: true,
+    category: "JEE",
   });
 
   const handleOpenDialog = (achiever: Achiever | null = null) => {
@@ -47,6 +48,7 @@ const AdminAchievers = () => {
         avg: achiever.avg,
         imageUrl: achiever.imageUrl || "",
         isCustom: achiever.isCustom ?? true,
+        category: achiever.category || "JEE",
       });
     } else {
       setEditingAchiever(null);
@@ -56,6 +58,7 @@ const AdminAchievers = () => {
         avg: 0,
         imageUrl: "",
         isCustom: true,
+        category: "JEE",
       });
     }
     setIsDialogOpen(true);
@@ -122,6 +125,7 @@ const AdminAchievers = () => {
               <TableHead>Photo</TableHead>
               <TableHead>Name</TableHead>
               <TableHead>Class</TableHead>
+              <TableHead>Category</TableHead>
               <TableHead>Average %</TableHead>
               <TableHead>Rank</TableHead>
               <TableHead className="text-right">Actions</TableHead>
@@ -147,6 +151,9 @@ const AdminAchievers = () => {
                   <TableCell className="font-medium">{achiever.name}</TableCell>
                   <TableCell>
                     <Badge variant="outline">{achiever.class}</Badge>
+                  </TableCell>
+                  <TableCell>
+                    <Badge variant="secondary">{achiever.category}</Badge>
                   </TableCell>
                   <TableCell>{achiever.avg.toFixed(1)}%</TableCell>
                   <TableCell>
@@ -245,6 +252,26 @@ const AdminAchievers = () => {
                 placeholder="Student Name"
                 required
               />
+            </div>
+
+            <div className="grid gap-2">
+              <Label htmlFor="category">Category *</Label>
+              <select
+                id="category"
+                className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                value={formData.category}
+                onChange={(e) =>
+                  setFormData({
+                    ...formData,
+                    category: e.target.value as Achiever["category"],
+                  })
+                }
+                required
+              >
+                <option value="NEET">NEET</option>
+                <option value="JEE">JEE</option>
+                <option value="CLASSES 6-10">CLASSES 6-10</option>
+              </select>
             </div>
 
             <div className="grid grid-cols-2 gap-4">
