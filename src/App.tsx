@@ -28,6 +28,9 @@ import TeacherNotes from "./pages/teacher/TeacherNotes";
 import StudentDashboard from "./pages/student/StudentDashboard";
 import StudentNotes from "./pages/student/StudentNotes";
 import StudentMarks from "./pages/student/StudentMarks";
+import StudentAttendance from "./pages/student/StudentAttendance";
+import StudentPayments from "./pages/student/StudentPayments";
+import StudentRankings from "./pages/student/StudentRankings";
 import SubmitEnrollment from "./pages/SubmitEnrollment";
 import ReceiptPage from "./pages/ReceiptPage";
 import NotFound from "./pages/NotFound";
@@ -66,6 +69,9 @@ const App = () => (
           <Route path="/student" element={<StudentDashboard />} />
           <Route path="/student/marks" element={<StudentMarks />} />
           <Route path="/student/notes" element={<StudentNotes />} />
+          <Route path="/student/attendance" element={<StudentAttendance />} />
+          <Route path="/student/payments" element={<StudentPayments />} />
+          <Route path="/student/rankings" element={<StudentRankings />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>

@@ -1,16 +1,7 @@
 import { useState } from "react";
 import DashboardLayout from "@/components/DashboardLayout";
-import {
-  ClipboardList,
-  BookOpen,
-  CalendarCheck,
-  Trophy,
-  IndianRupee,
-  FileText,
-  Download,
-  Search,
-  Clock,
-} from "lucide-react";
+import { studentNavItems } from "@/lib/nav-config";
+import { FileText, Download, Search, Clock } from "lucide-react";
 import {
   Table,
   TableBody,
@@ -23,39 +14,6 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import useNotes from "@/hooks/use-notes";
 import { students } from "@/lib/mock-data";
-
-const navItems = [
-  {
-    label: "Dashboard",
-    href: "/student",
-    icon: <ClipboardList className="h-4 w-4" />,
-  },
-  {
-    label: "Marks",
-    href: "/student/marks",
-    icon: <BookOpen className="h-4 w-4" />,
-  },
-  {
-    label: "Attendance",
-    href: "/student/attendance",
-    icon: <CalendarCheck className="h-4 w-4" />,
-  },
-  {
-    label: "Notes",
-    href: "/student/notes",
-    icon: <FileText className="h-4 w-4" />,
-  },
-  {
-    label: "Rankings",
-    href: "/student/rankings",
-    icon: <Trophy className="h-4 w-4" />,
-  },
-  {
-    label: "Payments",
-    href: "/student/payments",
-    icon: <IndianRupee className="h-4 w-4" />,
-  },
-];
 
 const StudentNotes = () => {
   const user = JSON.parse(localStorage.getItem("auth_user") || "{}");
@@ -81,7 +39,7 @@ const StudentNotes = () => {
   return (
     <DashboardLayout
       title="Study Materials & Notes"
-      navItems={navItems}
+      navItems={studentNavItems}
       userName={user.name || "Student"}
       userRole="student"
     >

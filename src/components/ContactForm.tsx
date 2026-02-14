@@ -60,13 +60,13 @@ const ContactForm = () => {
                   Or call us directly
                 </p>
                 <a
-                  href="tel:+919513736499"
+                  href="tel:+91 9090909090"
                   className="flex items-center gap-3 text-xl font-bold text-primary hover:underline"
                 >
                   <div className="bg-primary text-primary-foreground p-2 rounded-full">
                     <Phone className="h-4 w-4" />
                   </div>
-                  +91 9513736499
+                  +91 9090909090
                 </a>
               </div>
             </div>

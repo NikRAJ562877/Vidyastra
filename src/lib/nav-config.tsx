@@ -90,3 +90,36 @@ export const adminNavItems: NavItem[] = [
     icon: React.createElement(FileCheck2, { className: "h-4 w-4" }),
   },
 ];
+
+export const studentNavItems: NavItem[] = [
+  {
+    label: "Dashboard",
+    href: "/student",
+    icon: React.createElement(ClipboardList, { className: "h-4 w-4" }),
+  },
+  {
+    label: "Marks",
+    href: "/student/marks",
+    icon: React.createElement(BookOpen, { className: "h-4 w-4" }),
+  },
+  {
+    label: "Attendance",
+    href: "/student/attendance",
+    icon: React.createElement(CalendarCheck, { className: "h-4 w-4" }),
+  },
+  {
+    label: "Notes",
+    href: "/student/notes",
+    icon: React.createElement(FileText, { className: "h-4 w-4" }),
+  },
+  {
+    label: "Rankings",
+    href: "/student/rankings",
+    icon: React.createElement(Trophy, { className: "h-4 w-4" }),
+  },
+  {
+    label: "Payments",
+    href: "/student/payments",
+    icon: React.createElement(IndianRupee, { className: "h-4 w-4" }),
+  },
+];
