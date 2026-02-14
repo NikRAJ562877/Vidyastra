@@ -31,6 +31,7 @@ import useCourses from "@/hooks/use-courses";
 import { classes, batches, Course } from "@/lib/mock-data";
 import { adminNavItems } from "@/lib/nav-config";
 import { toast } from "sonner";
+import { Checkbox } from "@/components/ui/checkbox";
 
 const AdminCourses = () => {
   const { courses, add, update, remove } = useCourses();
@@ -43,6 +44,7 @@ const AdminCourses = () => {
     duration: "",
     fee: 0,
     description: "",
+    showOnLandingPage: false,
   });
 
   const handleOpenDialog = (course: Course | null = null) => {
@@ -55,6 +57,7 @@ const AdminCourses = () => {
         duration: course.duration,
         fee: course.fee,
         description: course.description,
+        showOnLandingPage: course.showOnLandingPage || false,
       });
     } else {
       setEditingCourse(null);
@@ -65,6 +68,7 @@ const AdminCourses = () => {
         duration: "",
         fee: 0,
         description: "",
+        showOnLandingPage: false,
       });
     }
     setIsDialogOpen(true);
@@ -268,6 +272,24 @@ const AdminCourses = () => {
                 }
                 placeholder="Course details..."
               />
+            </div>
+            <div className="flex items-center space-x-2 py-2">
+              <Checkbox
+                id="showOnLandingPage"
+                checked={formData.showOnLandingPage}
+                onCheckedChange={(checked) =>
+                  setFormData({
+                    ...formData,
+                    showOnLandingPage: checked === true,
+                  })
+                }
+              />
+              <Label
+                htmlFor="showOnLandingPage"
+                className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 cursor-pointer"
+              >
+                Show on landing page popularity section
+              </Label>
             </div>
             <DialogFooter>
               <Button

@@ -23,11 +23,14 @@ import heroBg from "@/assets/hero-bg.jpg";
 import useAchievers from "@/hooks/use-achievers";
 
 import Footer from "@/components/Footer";
+import CourseShowcase from "@/components/CourseShowcase";
+import useCourses from "@/hooks/use-courses";
 
 const Index = () => {
   const navigate = useNavigate();
   const { announcements } = useAnnouncements();
   const { achievers } = useAchievers();
+  const { courses: allCourses } = useCourses();
   const [selectedCourse, setSelectedCourse] = useState<Course | null>(null);
   const [enrollOpen, setEnrollOpen] = useState(false);
 
@@ -106,6 +109,15 @@ const Index = () => {
           ))}
         </div>
       </section>
+
+      {/* Popular Courses Showcase */}
+      <CourseShowcase
+        courses={allCourses}
+        onEnroll={(course) => {
+          setSelectedCourse(course);
+          setEnrollOpen(true);
+        }}
+      />
 
       {/* Achievers Slideshow */}
       <section id="achievers" className="py-20 overflow-hidden">

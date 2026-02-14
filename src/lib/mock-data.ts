@@ -9,6 +9,16 @@ export interface Course {
   fee: number;
   description: string;
   image?: string;
+  tag?: string;
+  startDate?: string;
+  language?: string;
+  achiever?: {
+    name: string;
+    rank: string;
+    achievement: string;
+    imageUrl?: string;
+  };
+  showOnLandingPage?: boolean;
 }
 
 export interface Student {
@@ -176,30 +186,93 @@ export const courses: Course[] = [
   },
   {
     id: '7',
-    name: 'JEE Mains Foundation',
+    name: 'JEE Nurture Online Course: Target 2028',
     class: 'JEE',
     batch: 'Batch A - Morning',
-    duration: '12 Months',
+    duration: '1 Year',
     fee: 45000,
     description: 'Specialized JEE preparation focusing on Physics, Chemistry, and Mathematics concepts.',
+    tag: 'Live Course',
+    startDate: '15 Dec, 2025',
+    language: 'Hinglish, English',
+    achiever: {
+      name: 'Chirag Singh',
+      rank: 'AIR 516',
+      achievement: 'IIT Delhi',
+    },
+    showOnLandingPage: true
   },
   {
     id: '8',
-    name: 'NEET Bio Mastery',
+    name: 'NEET Bio Mastery: Target 2026',
     class: 'NEET',
     batch: 'Batch B - Evening',
-    duration: '12 Months',
+    duration: '1 Year',
     fee: 42000,
     description: 'Comprehensive Biology and Chemistry focus for NEET aspirants with regular mock tests.',
+    tag: 'Live Course',
+    startDate: '21 Dec, 2025',
+    language: 'English',
+    achiever: {
+      name: 'Priya Patel',
+      rank: 'AIR 124',
+      achievement: 'AIIMS Delhi',
+    },
+    showOnLandingPage: true
   },
   {
     id: '9',
-    name: 'CET Practice Batch',
+    name: 'CET Practice Batch: Target 2026',
     class: 'CET',
     batch: 'Batch C - Weekend',
     duration: '6 Months',
     fee: 25000,
     description: 'Fast-paced revision and practice for CET exams with emphasis on previous year papers.',
+    tag: 'Crash Course',
+    startDate: '10 Jan, 2026',
+    language: 'Hinglish, Kannada',
+    achiever: {
+      name: 'Rohan Kumar',
+      rank: 'Rank 45',
+      achievement: 'RVCE Bangalore',
+    },
+    showOnLandingPage: true
+  },
+  {
+    id: '14',
+    name: 'JEE Major Online Test Series: Target 2026',
+    class: 'JEE',
+    batch: 'Batch C - Weekend',
+    duration: '1 Year',
+    fee: 15000,
+    description: 'Comprehensive test series for JEE Mains and Advanced.',
+    tag: 'Online Test Series',
+    startDate: '21 Dec, 2025',
+    language: 'English',
+    achiever: {
+      name: 'Natu Dhruv Amol',
+      rank: 'AIR 293',
+      achievement: 'IIT Bombay',
+    },
+    showOnLandingPage: true
+  },
+  {
+    id: '15',
+    name: 'NEET Conqueror Test Series: Target 2026',
+    class: 'NEET',
+    batch: 'Batch C - Weekend',
+    duration: '1 Year',
+    fee: 12000,
+    description: 'Mock tests and analysis for NEET aspirants.',
+    tag: 'Online Test Series',
+    startDate: '15 Dec, 2025',
+    language: 'English',
+    achiever: {
+      name: 'Ananya Gupta',
+      rank: 'AIR 412',
+      achievement: 'MAMC Delhi',
+    },
+    showOnLandingPage: true
   },
   {
     id: '10',
