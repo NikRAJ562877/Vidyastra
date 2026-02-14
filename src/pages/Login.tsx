@@ -6,6 +6,7 @@ import { Label } from '@/components/ui/label';
 import { authenticateUser } from '@/lib/mock-data';
 import { toast } from 'sonner';
 import { GraduationCap, Eye, EyeOff } from 'lucide-react';
+import LogoImg from '@/assets/Logo4.png';
 
 const Login = () => {
   const navigate = useNavigate();
@@ -36,12 +37,10 @@ const Login = () => {
       {/* Left - Form */}
       <div className="flex-1 flex items-center justify-center p-8">
         <div className="w-full max-w-sm">
-          <Link to="/" className="flex items-center gap-2 mb-8">
-            <div className="gradient-primary rounded-lg p-2">
-              <GraduationCap className="h-5 w-5 text-primary-foreground" />
-            </div>
-            <span className="font-heading text-lg font-bold">Vidyastara</span>
-          </Link>
+          <Link to="/" className="flex items-center gap-2">
+          <img src={LogoImg} alt="Vidyastara logo" className="h-20 w-15 object-cover" loading="lazy" />
+          <span className="font-heading text-lg font-bold text-foreground">Vidyastara</span>
+        </Link>
 
           <h1 className="text-2xl font-heading font-bold">Welcome back</h1>
           <p className="text-sm text-muted-foreground mt-1 mb-6">Sign in to your account</p>

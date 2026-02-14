@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { GraduationCap, Menu, X, ChevronDown } from 'lucide-react';
 import { motion } from 'framer-motion';
-
+import LogoImg from '@/assets/Logo4.png';
 
 const Navbar = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -15,9 +15,7 @@ const Navbar = () => {
     <nav className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-xl border-b border-border">
       <div className="container mx-auto flex items-center justify-between h-16 px-4">
         <Link to="/" className="flex items-center gap-2">
-          <div className="gradient-primary rounded-lg p-2">
-            <GraduationCap className="h-5 w-5 text-primary-foreground" />
-          </div>
+          <img src={LogoImg} alt="Vidyastara logo" className="h-20 w-20 object-cover" loading="lazy" />
           <span className="font-heading text-lg font-bold text-foreground">Vidyastara</span>
         </Link>
 

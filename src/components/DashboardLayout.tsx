@@ -1,7 +1,8 @@
 import { ReactNode, useState, useEffect } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { GraduationCap, LogOut, Menu, X } from "lucide-react";
+import { LogOut, Menu, X } from "lucide-react";
+import LogoImg from '@/assets/Logo4.png';
 import { cn } from "@/lib/utils";
 
 interface NavItem {
@@ -10,6 +11,23 @@ interface NavItem {
   icon: ReactNode;
   children?: { label: string; href: string; icon: ReactNode }[];
 }
+
+type NavChild = NonNullable<NavItem['children']>[number];
+
+type NavLinkProps = {
+  href: string;
+  icon: ReactNode;
+  label: string;
+  isActive?: boolean;
+  onClick?: () => void;
+  className?: string;
+};
+
+type NavGroupProps = {
+  item: NavItem;
+  activePath: string;
+  onNav?: () => void;
+};
 
 interface Props {
   children: ReactNode;
@@ -45,9 +63,7 @@ const DashboardLayout = ({
         )}
       >
         <div className="flex items-center gap-2 p-4 border-b border-sidebar-border">
-          <div className="gradient-primary rounded-lg p-2">
-            <GraduationCap className="h-5 w-5 text-primary-foreground" />
-          </div>
+          <img src={LogoImg} alt="Vidyastara logo" className="h-10 w-15 object-cover rounded-md" loading="lazy" />
           <span className="font-heading text-base font-bold">Vidyastara</span>
         </div>
 
@@ -116,7 +132,7 @@ const DashboardLayout = ({
   );
 };
 
-const NavLink = ({ href, icon, label, isActive, onClick, className }: any) => (
+const NavLink = ({ href, icon, label, isActive, onClick, className }: NavLinkProps) => (
   <Link
     to={href}
     onClick={onClick}
@@ -133,10 +149,8 @@ const NavLink = ({ href, icon, label, isActive, onClick, className }: any) => (
   </Link>
 );
 
-const NavGroup = ({ item, activePath, onNav }: any) => {
-  const isGroupActive = item.children?.some(
-    (child: any) => activePath === child.href,
-  );
+const NavGroup = ({ item, activePath, onNav }: NavGroupProps) => {
+  const isGroupActive = item.children?.some((child: NavChild) => activePath === child.href);
   const storageKey = `nav_group_expanded_${item.label}`;
 
   const [isExpanded, setIsExpanded] = useState(() => {
@@ -181,7 +195,7 @@ const NavGroup = ({ item, activePath, onNav }: any) => {
       </button>
       {isExpanded && (
         <div className="pl-9 space-y-1">
-          {item.children?.map((child: any) => (
+          {item.children?.map((child: NavChild) => (
             <Link
               key={child.href}
               to={child.href}
