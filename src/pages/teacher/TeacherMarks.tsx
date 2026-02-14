@@ -1,15 +1,6 @@
 import { useState } from "react";
 import DashboardLayout from "@/components/DashboardLayout";
-import {
-  BookOpen,
-  ClipboardList,
-  CalendarCheck,
-  Trophy,
-  Upload,
-  Plus,
-  Save,
-  User,
-} from "lucide-react";
+import { BookOpen, ClipboardList, CalendarCheck, Trophy, Upload, Plus, Save, User, } from "lucide-react";
 import {
   Table,
   TableBody,
@@ -35,33 +26,7 @@ import useMarks from "@/hooks/use-marks";
 import useStudents from "@/hooks/use-students";
 import { teachers } from "@/lib/mock-data";
 
-const navItems = [
-  {
-    label: "Dashboard",
-    href: "/teacher",
-    icon: <ClipboardList className="h-4 w-4" />,
-  },
-  {
-    label: "Upload Notes",
-    href: "/teacher/notes",
-    icon: <Upload className="h-4 w-4" />,
-  },
-  {
-    label: "Upload Marks",
-    href: "/teacher/marks",
-    icon: <BookOpen className="h-4 w-4" />,
-  },
-  {
-    label: "Attendance",
-    href: "/teacher/attendance",
-    icon: <CalendarCheck className="h-4 w-4" />,
-  },
-  {
-    label: "Rankings",
-    href: "/teacher/rankings",
-    icon: <Trophy className="h-4 w-4" />,
-  },
-];
+import { teacherNavItems } from '@/lib/nav-config';
 
 const TeacherMarks = () => {
   const user = JSON.parse(localStorage.getItem("auth_user") || "{}");
@@ -101,12 +66,7 @@ const TeacherMarks = () => {
   };
 
   return (
-    <DashboardLayout
-      title="Upload Subject Marks"
-      navItems={navItems}
-      userName={user.name || "Teacher"}
-      userRole="teacher"
-    >
+    <DashboardLayout title="Upload Subject Marks" navItems={teacherNavItems} userName={user.name || "Teacher"} userRole="teacher">
       <div className="text-sm text-muted-foreground mb-6">
         Select a test and class to enter marks for your assigned subjects.
       </div>

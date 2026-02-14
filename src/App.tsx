@@ -21,10 +21,17 @@ import AdminPayments from "./pages/admin/AdminPayments";
 import AdminMarks from "./pages/admin/AdminMarks";
 import AdminRankings from "./pages/admin/AdminRankings";
 import AdminNotes from "./pages/admin/AdminNotes";
+import AdminSlowLearners from "./pages/admin/AdminSlowLearners";
 
+//core teacher pages
 import TeacherDashboard from "./pages/teacher/TeacherDashboard";
 import TeacherMarks from "./pages/teacher/TeacherMarks";
 import TeacherNotes from "./pages/teacher/TeacherNotes";
+import TeacherAttendance from "./pages/teacher/TeacherAttendance";
+import TeacherRankings from "./pages/teacher/TeacherRankings";
+import TeacherSlowLearners from "./pages/teacher/TeacherSlowLearners";
+
+//core student pages
 import StudentDashboard from "./pages/student/StudentDashboard";
 import StudentNotes from "./pages/student/StudentNotes";
 import StudentMarks from "./pages/student/StudentMarks";
@@ -49,6 +56,8 @@ const App = () => (
           <Route path="/results" element={<Results />} />
           <Route path="/enroll" element={<Enroll />} />
           <Route path="/enroll/:classId" element={<Enroll />} />
+
+          // Admin routes
           <Route path="/admin" element={<AdminDashboard />} />
           <Route path="/admin/courses" element={<AdminCourses />} />
           <Route path="/admin/enrollments" element={<AdminEnrollments />} />
@@ -61,11 +70,20 @@ const App = () => (
           <Route path="/admin/marks" element={<AdminMarks />} />
           <Route path="/admin/rankings" element={<AdminRankings />} />
           <Route path="/admin/notes" element={<AdminNotes />} />
+          <Route path="/admin/slow-learners" element={<AdminSlowLearners />} />
+
           <Route path="/submit-enrollment" element={<SubmitEnrollment />} />
           <Route path="/receipt/:id" element={<ReceiptPage />} />
+
+          //teacher routes
           <Route path="/teacher" element={<TeacherDashboard />} />
           <Route path="/teacher/marks" element={<TeacherMarks />} />
           <Route path="/teacher/notes" element={<TeacherNotes />} />
+          <Route path="/teacher/attendance" element={<TeacherAttendance />} />
+          <Route path="/teacher/rankings" element={<TeacherRankings />} />
+          <Route path="/teacher/slow-learners" element={<TeacherSlowLearners />} />
+
+          //student routes
           <Route path="/student" element={<StudentDashboard />} />
           <Route path="/student/marks" element={<StudentMarks />} />
           <Route path="/student/notes" element={<StudentNotes />} />

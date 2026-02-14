@@ -127,6 +127,7 @@ export interface Note {
   fileName: string;
   date: string;
   uploadedBy: string; // admin or teacher name
+  isSlowLearnerOnly?: boolean;
 }
 
 export const courses: Course[] = [

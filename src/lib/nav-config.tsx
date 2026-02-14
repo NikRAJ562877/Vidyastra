@@ -89,6 +89,11 @@ export const adminNavItems: NavItem[] = [
     href: "/admin/notes",
     icon: React.createElement(FileCheck2, { className: "h-4 w-4" }),
   },
+  {
+    label: "Slow Learners",
+    href: "/admin/slow-learners",
+    icon: React.createElement(Users, { className: "h-4 w-4" }),
+  },
 ];
 
 export const studentNavItems: NavItem[] = [
@@ -121,5 +126,38 @@ export const studentNavItems: NavItem[] = [
     label: "Payments",
     href: "/student/payments",
     icon: React.createElement(IndianRupee, { className: "h-4 w-4" }),
+  },
+];
+
+export const teacherNavItems: NavItem[] = [
+  {
+    label: "Dashboard",
+    href: "/teacher",
+    icon: React.createElement(ClipboardList, { className: "h-4 w-4" }),
+  },
+  {
+    label: "Upload Marks",
+    href: "/teacher/marks",
+    icon: React.createElement(BookOpen, { className: "h-4 w-4" }),
+  },
+  {
+    label: "Upload Notes",
+    href: "/teacher/notes",
+    icon: React.createElement(FileText, { className: "h-4 w-4" }),
+  },
+  {
+    label: "Attendance",
+    href: "/teacher/attendance",
+    icon: React.createElement(CalendarCheck, { className: "h-4 w-4" }),
+  },
+  {
+    label: "Rankings",
+    href: "/teacher/rankings",
+    icon: React.createElement(Trophy, { className: "h-4 w-4" }),
+  },
+  {
+    label: "Slow Learners",
+    href: "/teacher/slow-learners",
+    icon: React.createElement(Users, { className: "h-4 w-4" }),
   },
 ];

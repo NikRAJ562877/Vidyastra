@@ -28,13 +28,20 @@ const StudentNotes = () => {
       </div>
     );
 
-  const studentNotes = notes.filter(
-    (n) =>
-      n.class === student.class &&
-      (n.batch === "All Batches" || n.batch === student.batch) &&
-      (n.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        n.subject.toLowerCase().includes(searchTerm.toLowerCase())),
-  );
+  const studentNotes = notes.filter((n) => {
+    const isTargetedToClass = n.class === student.class;
+    const isTargetedToBatch = n.batch === "All Batches" || n.batch === student.batch;
+    const matchesSearch =
+      n.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      n.subject.toLowerCase().includes(searchTerm.toLowerCase());
+
+    // Slow learner logic
+    // Common notes (not isSlowLearnerOnly) are shown to everyone
+    // Slow learner notes are ONLY shown to slow learners
+    const isVisibleToStudent = !n.isSlowLearnerOnly || student.category === "slow_learner";
+
+    return isTargetedToClass && isTargetedToBatch && matchesSearch && isVisibleToStudent;
+  });
 
   return (
     <DashboardLayout

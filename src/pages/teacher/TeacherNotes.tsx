@@ -1,17 +1,6 @@
 import { useState } from "react";
 import DashboardLayout from "@/components/DashboardLayout";
-import {
-  ClipboardList,
-  Upload,
-  BookOpen,
-  CalendarCheck,
-  Trophy,
-  FileText,
-  Plus,
-  Trash2,
-  Download,
-  Search,
-} from "lucide-react";
+import { ClipboardList, Upload, BookOpen, CalendarCheck, Trophy, FileText, Plus, Trash2, Download, Search, } from "lucide-react";
 import {
   Table,
   TableBody,
@@ -21,8 +10,10 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import useStudents from "@/hooks/use-students";
 import {
   Dialog,
   DialogContent,
@@ -42,6 +33,7 @@ import {
 import { classes, batches, subjects } from "@/lib/mock-data";
 import useNotes from "@/hooks/use-notes";
 import { toast } from "sonner";
+import { teacherNavItems } from '@/lib/nav-config';
 
 const TeacherNotes = () => {
   const { notes, addNote, removeNote } = useNotes();
@@ -60,35 +52,13 @@ const TeacherNotes = () => {
     batch: "",
     subject: "",
     fileName: "",
+    isSlowLearnerOnly: false,
   });
 
-  const navItems = [
-    {
-      label: "Dashboard",
-      href: "/teacher",
-      icon: <ClipboardList className="h-4 w-4" />,
-    },
-    {
-      label: "Upload Notes",
-      href: "/teacher/notes",
-      icon: <Upload className="h-4 w-4" />,
-    },
-    {
-      label: "Upload Marks",
-      href: "/teacher/marks",
-      icon: <BookOpen className="h-4 w-4" />,
-    },
-    {
-      label: "Attendance",
-      href: "/teacher/attendance",
-      icon: <CalendarCheck className="h-4 w-4" />,
-    },
-    {
-      label: "Rankings",
-      href: "/teacher/rankings",
-      icon: <Trophy className="h-4 w-4" />,
-    },
-  ];
+  const { students } = useStudents();
+  const slowLearnersInClass = students.filter(
+    (s) => s.class === newNote.class && s.category === "slow_learner",
+  );
 
   const handleUpload = () => {
     if (
@@ -115,6 +85,7 @@ const TeacherNotes = () => {
       batch: "",
       subject: "",
       fileName: "",
+      isSlowLearnerOnly: false,
     });
     toast.success("Study material uploaded successfully");
   };
@@ -129,12 +100,7 @@ const TeacherNotes = () => {
   );
 
   return (
-    <DashboardLayout
-      title="Study Materials & Notes"
-      navItems={navItems}
-      userName={teacherName}
-      userRole="teacher"
-    >
+    <DashboardLayout title="Study Materials & Notes" navItems={teacherNavItems} userName={teacherName} userRole="teacher">
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-8">
         <div className="relative w-full md:w-96">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
@@ -233,6 +199,48 @@ const TeacherNotes = () => {
                   </SelectContent>
                 </Select>
               </div>
+
+              <div className="flex items-center space-x-2 py-2">
+                <div className="flex items-center space-x-2">
+                  <input
+                    type="checkbox"
+                    id="slowLearnerOnly"
+                    checked={newNote.isSlowLearnerOnly}
+                    onChange={(e) =>
+                      setNewNote({
+                        ...newNote,
+                        isSlowLearnerOnly: e.target.checked,
+                      })
+                    }
+                    className="h-4 w-4 rounded border-gray-300 text-primary focus:ring-primary"
+                  />
+                  <Label htmlFor="slowLearnerOnly" className="cursor-pointer">
+                    Target Slow Learners Only
+                  </Label>
+                </div>
+              </div>
+
+              {newNote.isSlowLearnerOnly && newNote.class && (
+                <div className="bg-muted/50 p-3 rounded-lg space-y-2">
+                  <p className="text-xs font-bold uppercase tracking-wider text-muted-foreground">
+                    Slow Learners in {newNote.class}:
+                  </p>
+                  <div className="flex flex-wrap gap-1">
+                    {slowLearnersInClass.length > 0 ? (
+                      slowLearnersInClass.map((s) => (
+                        <Badge key={s.id} variant="secondary" className="text-[10px]">
+                          {s.name}
+                        </Badge>
+                      ))
+                    ) : (
+                      <p className="text-xs text-muted-foreground italic">
+                        No slow learners found in this class.
+                      </p>
+                    )}
+                  </div>
+                </div>
+              )}
+
               <div className="grid gap-2">
                 <Label htmlFor="file">File Name (Mock) *</Label>
                 <Input
@@ -285,7 +293,14 @@ const TeacherNotes = () => {
                 <TableRow key={note.id}>
                   <TableCell>
                     <div>
-                      <p className="font-bold text-slate-800">{note.title}</p>
+                      <div className="flex items-center gap-2">
+                        <p className="font-bold text-slate-800">{note.title}</p>
+                        {note.isSlowLearnerOnly && (
+                          <Badge variant="destructive" className="text-[8px] h-4 py-0 uppercase">
+                            Slow Learner
+                          </Badge>
+                        )}
+                      </div>
                       <p className="text-xs text-muted-foreground">
                         {note.fileName}
                       </p>
