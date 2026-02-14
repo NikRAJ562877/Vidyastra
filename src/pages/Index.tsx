@@ -49,7 +49,7 @@ const Index = () => {
             alt="Students studying"
             className="w-full h-full object-cover"
           />
-          <div className="absolute inset-0 bg-[#3b2545] opacity-85" />
+          <div className="absolute inset-0 bg-[#3b2545]/50" />
         </div>
         <div className="container mx-auto px-4 relative z-10 pt-16">
           <motion.div
