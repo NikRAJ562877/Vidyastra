@@ -106,7 +106,7 @@ const DashboardLayout = ({
             variant="ghost"
             size="sm"
             onClick={handleLogout}
-            className="w-full justify-start text-sidebar-foreground/70 hover:text-sidebar-foreground"
+            className="w-full justify-start text-sidebar-foreground/70 hover:text-red-400 hover:bg-red-400/10 transition-colors"
           >
             <LogOut className="h-4 w-4 mr-2" /> Logout
           </Button>
