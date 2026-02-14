@@ -11,6 +11,23 @@ interface NavItem {
   children?: { label: string; href: string; icon: ReactNode }[];
 }
 
+type NavChild = NonNullable<NavItem['children']>[number];
+
+type NavLinkProps = {
+  href: string;
+  icon: ReactNode;
+  label: string;
+  isActive?: boolean;
+  onClick?: () => void;
+  className?: string;
+};
+
+type NavGroupProps = {
+  item: NavItem;
+  activePath: string;
+  onNav?: () => void;
+};
+
 interface Props {
   children: ReactNode;
   title: string;
@@ -116,7 +133,7 @@ const DashboardLayout = ({
   );
 };
 
-const NavLink = ({ href, icon, label, isActive, onClick, className }: any) => (
+const NavLink = ({ href, icon, label, isActive, onClick, className }: NavLinkProps) => (
   <Link
     to={href}
     onClick={onClick}
@@ -133,10 +150,8 @@ const NavLink = ({ href, icon, label, isActive, onClick, className }: any) => (
   </Link>
 );
 
-const NavGroup = ({ item, activePath, onNav }: any) => {
-  const isGroupActive = item.children?.some(
-    (child: any) => activePath === child.href,
-  );
+const NavGroup = ({ item, activePath, onNav }: NavGroupProps) => {
+  const isGroupActive = item.children?.some((child: NavChild) => activePath === child.href);
   const storageKey = `nav_group_expanded_${item.label}`;
 
   const [isExpanded, setIsExpanded] = useState(() => {
@@ -181,7 +196,7 @@ const NavGroup = ({ item, activePath, onNav }: any) => {
       </button>
       {isExpanded && (
         <div className="pl-9 space-y-1">
-          {item.children?.map((child: any) => (
+          {item.children?.map((child: NavChild) => (
             <Link
               key={child.href}
               to={child.href}
