@@ -1,6 +1,8 @@
 import DashboardLayout from '@/components/DashboardLayout';
 import StatCard from '@/components/StatCard';
-import { students, marks, attendance, payments } from '@/lib/mock-data';
+import { students, attendance, payments } from '@/lib/mock-data';
+import useMarks from '@/hooks/use-marks';
+import { Link } from 'react-router-dom';
 import { BookOpen, CalendarCheck, Trophy, IndianRupee, FileText, ClipboardList } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
@@ -17,10 +19,10 @@ const navItems = [
 
 const StudentDashboard = () => {
   const user = JSON.parse(localStorage.getItem('auth_user') || '{}');
+  const { marks } = useMarks();
   const student = students.find(s => s.id === user.id);
 
   if (!student) return <div className="p-8 text-center text-muted-foreground">Student not found</div>;
-
   const studentMarks = marks.filter(m => m.studentId === student.id);
   const validMarks = studentMarks.filter(m => m.marks !== null);
   const totalMarks = validMarks.reduce((s, m) => s + (m.marks || 0), 0);
@@ -75,6 +77,7 @@ const StudentDashboard = () => {
                   <TableHead>Subject</TableHead>
                   <TableHead className="text-right">Marks</TableHead>
                   <TableHead className="text-right">Total</TableHead>
+                  <TableHead className="text-right">Percentage</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
@@ -85,10 +88,25 @@ const StudentDashboard = () => {
                       {m.marks !== null ? m.marks : <span className="text-muted-foreground italic text-xs">Result Not Published</span>}
                     </TableCell>
                     <TableCell className="text-right">{m.totalMarks}</TableCell>
+                    <TableCell className="text-right w-32">
+                      {m.marks !== null ? (
+                        <div className="flex items-center justify-end gap-3">
+                          <div className="w-24">
+                            <Progress value={Math.round((m.marks / m.totalMarks) * 100)} className="h-2" />
+                          </div>
+                          <div className="text-sm font-semibold">{Math.round((m.marks / m.totalMarks) * 100)}%</div>
+                        </div>
+                      ) : (
+                        <span className="text-muted-foreground italic text-xs">—</span>
+                      )}
+                    </TableCell>
                   </TableRow>
                 ))}
               </TableBody>
             </Table>
+            <div className="mt-4 text-right">
+              <Link to="/student/marks" className="text-sm font-medium text-primary hover:underline">View full marks &amp; history</Link>
+            </div>
           </div>
         </div>
 
