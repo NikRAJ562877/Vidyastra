@@ -36,6 +36,7 @@ export interface Student {
   enrollmentStatus: 'pending' | 'confirmed';
   password: string;
   isFirstLogin: boolean;
+  role: 'student';
   paymentHistory?: PaymentRecord[];
   totalFee?: number;
 }
@@ -48,6 +49,8 @@ export interface Teacher {
   assignedBatches: string[];
   assignedSubjects: string[];
   password: string;
+  role: 'teacher';
+  isFirstLogin: boolean;
 }
 
 export interface Test {
@@ -314,18 +317,18 @@ export const courses: Course[] = [
 ];
 
 export const students: Student[] = [
-  { id: '1', uniqueId: 'STU-2025-001', registerNumber: 'REG001', rollNumber: '01', name: 'Aarav Sharma', email: 'aarav@test.com', phone: '9876543210', class: 'Class 10', batch: 'Batch A - Morning', category: 'normal', paymentStatus: 'paid', enrollmentStatus: 'confirmed', password: 'student123', isFirstLogin: true },
-  { id: '2', uniqueId: 'STU-2025-002', registerNumber: 'REG002', rollNumber: '02', name: 'Priya Patel', email: 'priya@test.com', phone: '9876543211', class: 'Class 10', batch: 'Batch A - Morning', category: 'normal', paymentStatus: 'paid', enrollmentStatus: 'confirmed', password: 'student123', isFirstLogin: false },
-  { id: '3', uniqueId: 'STU-2025-003', registerNumber: 'REG003', rollNumber: '03', name: 'Rohan Kumar', email: 'rohan@test.com', phone: '9876543212', class: 'Class 10', batch: 'Batch B - Evening', category: 'slow_learner', paymentStatus: 'partial', enrollmentStatus: 'confirmed', password: 'student123', isFirstLogin: true },
-  { id: '4', uniqueId: 'STU-2025-004', registerNumber: 'REG004', rollNumber: '04', name: 'Ananya Gupta', email: 'ananya@test.com', phone: '9876543213', class: 'Class 12', batch: 'Batch A - Morning', category: 'normal', paymentStatus: 'pending', enrollmentStatus: 'confirmed', password: 'student123', isFirstLogin: true },
-  { id: '5', uniqueId: 'STU-2025-005', registerNumber: 'REG005', rollNumber: '05', name: 'Vikram Singh', email: 'vikram@test.com', phone: '9876543214', class: 'Class 12', batch: 'Batch B - Evening', category: 'normal', paymentStatus: 'paid', enrollmentStatus: 'confirmed', password: 'student123', isFirstLogin: false },
-  { id: '6', uniqueId: 'STU-2025-006', registerNumber: 'REG006', rollNumber: '06', name: 'Kavya Nair', email: 'kavya@test.com', phone: '9876543215', class: 'Class 11', batch: 'Batch A - Morning', category: 'normal', paymentStatus: 'paid', enrollmentStatus: 'confirmed', password: 'student123', isFirstLogin: true },
+  { id: '1', uniqueId: 'STU-2025-001', registerNumber: 'REG001', rollNumber: '01', name: 'Aarav Sharma', email: 'aarav@test.com', phone: '9876543210', class: 'Class 10', batch: 'Batch A - Morning', category: 'normal', paymentStatus: 'paid', enrollmentStatus: 'confirmed', password: 'student123', isFirstLogin: true, role: 'student' },
+  { id: '2', uniqueId: 'STU-2025-002', registerNumber: 'REG002', rollNumber: '02', name: 'Priya Patel', email: 'priya@test.com', phone: '9876543211', class: 'Class 10', batch: 'Batch A - Morning', category: 'normal', paymentStatus: 'paid', enrollmentStatus: 'confirmed', password: 'student123', isFirstLogin: false, role: 'student' },
+  { id: '3', uniqueId: 'STU-2025-003', registerNumber: 'REG003', rollNumber: '03', name: 'Rohan Kumar', email: 'rohan@test.com', phone: '9876543212', class: 'Class 10', batch: 'Batch B - Evening', category: 'slow_learner', paymentStatus: 'partial', enrollmentStatus: 'confirmed', password: 'student123', isFirstLogin: true, role: 'student' },
+  { id: '4', uniqueId: 'STU-2025-004', registerNumber: 'REG004', rollNumber: '04', name: 'Ananya Gupta', email: 'ananya@test.com', phone: '9876543213', class: 'Class 12', batch: 'Batch A - Morning', category: 'normal', paymentStatus: 'pending', enrollmentStatus: 'confirmed', password: 'student123', isFirstLogin: true, role: 'student' },
+  { id: '5', uniqueId: 'STU-2025-005', registerNumber: 'REG005', rollNumber: '05', name: 'Vikram Singh', email: 'vikram@test.com', phone: '9876543214', class: 'Class 12', batch: 'Batch B - Evening', category: 'normal', paymentStatus: 'paid', enrollmentStatus: 'confirmed', password: 'student123', isFirstLogin: false, role: 'student' },
+  { id: '6', uniqueId: 'STU-2025-006', registerNumber: 'REG006', rollNumber: '06', name: 'Kavya Nair', email: 'kavya@test.com', phone: '9876543215', class: 'Class 11', batch: 'Batch A - Morning', category: 'normal', paymentStatus: 'paid', enrollmentStatus: 'confirmed', password: 'student123', isFirstLogin: true, role: 'student' },
 ];
 
 export const teachers: Teacher[] = [
-  { id: '1', name: 'Dr. Rajesh Iyer', email: 'rajesh@academy.com', assignedClasses: ['Class 10'], assignedBatches: ['Batch A - Morning'], assignedSubjects: ['Mathematics'], password: 'teacher123' },
-  { id: '2', name: 'Mrs. Sunita Verma', email: 'sunita@academy.com', assignedClasses: ['Class 10', 'Class 12'], assignedBatches: ['Batch A - Morning', 'Batch B - Evening'], assignedSubjects: ['English', 'Hindi'], password: 'teacher123' },
-  { id: '3', name: 'Mr. Arjun Desai', email: 'arjun@academy.com', assignedClasses: ['Class 12'], assignedBatches: ['Batch B - Evening'], assignedSubjects: ['Physics', 'Chemistry'], password: 'teacher123' },
+  { id: '1', name: 'Dr. Rajesh Iyer', email: 'rajesh@academy.com', assignedClasses: ['Class 10'], assignedBatches: ['Batch A - Morning'], assignedSubjects: ['Mathematics'], password: 'teacher123', role: 'teacher', isFirstLogin: false },
+  { id: '2', name: 'Mrs. Sunita Verma', email: 'sunita@academy.com', assignedClasses: ['Class 10', 'Class 12'], assignedBatches: ['Batch A - Morning', 'Batch B - Evening'], assignedSubjects: ['English', 'Hindi'], password: 'teacher123', role: 'teacher', isFirstLogin: false },
+  { id: '3', name: 'Mr. Arjun Desai', email: 'arjun@academy.com', assignedClasses: ['Class 12'], assignedBatches: ['Batch B - Evening'], assignedSubjects: ['Physics', 'Chemistry'], password: 'teacher123', role: 'teacher', isFirstLogin: true },
 ];
 
 export const tests: Test[] = [
@@ -415,6 +418,7 @@ export interface AuthUser {
   name: string;
   email: string;
   role: UserRole;
+  isFirstLogin?: boolean;
 }
 
 export const adminUser: AuthUser = {
@@ -430,20 +434,27 @@ export function authenticateUser(email: string, password: string): { user: AuthU
     return { user: adminUser, redirect: '/admin' };
   }
 
+  // Get live data from localStorage if available
+  const storedTeachers = localStorage.getItem('vidyastara_teachers_v1');
+  const liveTeachers: Teacher[] = storedTeachers ? JSON.parse(storedTeachers) : teachers;
+
+  const storedStudents = localStorage.getItem('vidyastara_students_v1');
+  const liveStudents: Student[] = storedStudents ? JSON.parse(storedStudents) : students;
+
   // Teachers
-  const teacher = teachers.find(t => t.email === email && t.password === password);
+  const teacher = liveTeachers.find(t => t.email === email && t.password === password);
   if (teacher) {
     return {
-      user: { id: teacher.id, name: teacher.name, email: teacher.email, role: 'teacher' },
+      user: { id: teacher.id, name: teacher.name, email: teacher.email, role: 'teacher', isFirstLogin: teacher.isFirstLogin },
       redirect: '/teacher',
     };
   }
 
   // Students (login by register number or email)
-  const student = students.find(s => (s.email === email || s.registerNumber === email) && s.password === password);
+  const student = liveStudents.find(s => (s.email === email || s.registerNumber === email) && s.password === password);
   if (student) {
     return {
-      user: { id: student.id, name: student.name, email: student.email, role: 'student' },
+      user: { id: student.id, name: student.name, email: student.email, role: 'student', isFirstLogin: student.isFirstLogin },
       redirect: '/student',
     };
   }

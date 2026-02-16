@@ -24,7 +24,7 @@ export default function useStudents() {
         }
     }, [students]);
 
-    const add = useCallback((s: Omit<Student, 'id' | 'uniqueId' | 'enrollmentStatus' | 'isFirstLogin'>) => {
+    const add = useCallback((s: Omit<Student, 'id' | 'uniqueId' | 'enrollmentStatus' | 'isFirstLogin' | 'role'>) => {
         setStudents(prev => {
             const newStudent: Student = {
                 ...s,
@@ -32,6 +32,7 @@ export default function useStudents() {
                 uniqueId: `STU-${new Date().getFullYear()}-${Math.floor(100 + Math.random() * 900)}`,
                 enrollmentStatus: 'confirmed',
                 isFirstLogin: true,
+                role: 'student',
             };
             return [newStudent, ...prev];
         });

@@ -4,9 +4,12 @@ import { teachers, students } from "@/lib/mock-data";
 import { BookOpen, Users, ClipboardList } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { teacherNavItems } from "@/lib/nav-config";
+import ChangePassword from "@/components/ChangePassword";
+import useTeachers from "@/hooks/use-teachers";
 
 const TeacherDashboard = () => {
   const user = JSON.parse(localStorage.getItem("auth_user") || "{}");
+  const { teachers } = useTeachers();
   const teacher = teachers.find((t) => t.id === user.id);
 
   if (!teacher)
@@ -25,6 +28,17 @@ const TeacherDashboard = () => {
       userName={user.name || "Teacher"}
       userRole="teacher"
     >
+      {user.isFirstLogin && (
+        <div className="mb-8">
+          <ChangePassword
+            userId={user.id}
+            userRole="teacher"
+            onSuccess={() => {
+              window.location.reload();
+            }}
+          />
+        </div>
+      )}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
         <StatCard title="Assigned Classes" value={teacher.assignedClasses.length} icon={<BookOpen className="h-5 w-5" />} />
         <StatCard title="Total Students" value={assignedStudents.length} icon={<Users className="h-5 w-5" />} />

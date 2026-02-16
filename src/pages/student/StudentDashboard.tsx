@@ -22,10 +22,13 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Progress } from "@/components/ui/progress";
+import ChangePassword from "@/components/ChangePassword";
+import useStudents from "@/hooks/use-students";
 
 const StudentDashboard = () => {
   const user = JSON.parse(localStorage.getItem("auth_user") || "{}");
   const { marks } = useMarks();
+  const { students } = useStudents();
   const student = students.find((s) => s.id === user.id);
 
   if (!student)
@@ -72,6 +75,19 @@ const StudentDashboard = () => {
       userName={user.name || "Student"}
       userRole="student"
     >
+      {user.isFirstLogin && (
+        <div className="mb-8">
+          <ChangePassword
+            userId={user.id}
+            userRole="student"
+            onSuccess={() => {
+              // Reload to hide the component
+              window.location.reload();
+            }}
+          />
+        </div>
+      )}
+
       {/* Rank Banner */}
       <div className="gradient-primary rounded-xl p-5 mb-6 text-primary-foreground">
         <div className="flex items-center justify-between">

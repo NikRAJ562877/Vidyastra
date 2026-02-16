@@ -24,11 +24,13 @@ export default function useTeachers() {
         }
     }, [teachers]);
 
-    const add = useCallback((t: Omit<Teacher, 'id'>) => {
+    const add = useCallback((t: Omit<Teacher, 'id' | 'role' | 'isFirstLogin'>) => {
         setTeachers(prev => {
             const newTeacher: Teacher = {
                 ...t,
                 id: Date.now().toString(),
+                role: 'teacher',
+                isFirstLogin: true,
             };
             return [newTeacher, ...prev];
         });

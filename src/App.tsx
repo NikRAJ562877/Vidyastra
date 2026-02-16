@@ -7,6 +7,7 @@ import Index from "./pages/Index";
 import Login from "./pages/Login";
 import Results from "./pages/Results";
 import Enroll from "./pages/Enroll";
+import ForgotPassword from "./pages/ForgotPassword";
 
 // Core admin pages
 import AdminDashboard from "./pages/admin/AdminDashboard";
@@ -53,6 +54,7 @@ const App = () => (
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/results" element={<Results />} />
           <Route path="/enroll" element={<Enroll />} />
           <Route path="/enroll/:classId" element={<Enroll />} />
