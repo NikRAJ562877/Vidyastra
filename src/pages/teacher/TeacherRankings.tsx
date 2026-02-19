@@ -1,5 +1,6 @@
 import { useState, useMemo } from "react";
 import DashboardLayout from "@/components/DashboardLayout";
+import { useAuth } from "@/hooks/useAuth";
 import { teacherNavItems } from "@/lib/nav-config";
 import {
   Table,
@@ -37,7 +38,7 @@ interface StudentRanking {
 }
 
 const TeacherRankings = () => {
-  const user = JSON.parse(localStorage.getItem("auth_user") || "{}");
+  const { user } = useAuth();
   const teacher = teachers.find((t) => t.id === user.id);
 
   const { tests } = useTests();
@@ -145,18 +146,18 @@ const TeacherRankings = () => {
         <div className="space-y-6">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             {rankings.slice(0, 3).map((r, i) => (
-              <div key={r.id} className={cn("p-6 rounded-2xl border relative overflow-hidden bg-white shadow-sm transition-all hover:shadow-md", i === 0 ? "border-amber-200" : i === 1 ? "border-slate-200" : "border-amber-800/10") }>
+              <div key={r.id} className={cn("p-6 rounded-2xl border relative overflow-hidden bg-white shadow-sm transition-all hover:shadow-md", i === 0 ? "border-amber-200" : i === 1 ? "border-slate-200" : "border-amber-800/10")}>
                 <div className="flex justify-between items-start relative z-10">
                   <div>
                     <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground mb-1">Rank #{r.rank}</p>
                     <h3 className="font-heading font-bold text-xl">{r.name}</h3>
                     <p className="text-sm text-muted-foreground">{r.percentage.toFixed(1)}% ({r.totalMarks}/{r.maxMarks})</p>
                   </div>
-                  <div className={cn("w-10 h-10 rounded-full flex items-center justify-center", i === 0 ? "bg-amber-100 text-amber-600" : i === 1 ? "bg-slate-100 text-slate-600" : "bg-orange-100 text-orange-600") }>
+                  <div className={cn("w-10 h-10 rounded-full flex items-center justify-center", i === 0 ? "bg-amber-100 text-amber-600" : i === 1 ? "bg-slate-100 text-slate-600" : "bg-orange-100 text-orange-600")}>
                     <Medal className="h-6 w-6" />
                   </div>
                 </div>
-                <div className={cn("absolute -right-4 -bottom-4 opacity-5", i === 0 ? "text-amber-500" : i === 1 ? "text-slate-500" : "text-orange-950") }>
+                <div className={cn("absolute -right-4 -bottom-4 opacity-5", i === 0 ? "text-amber-500" : i === 1 ? "text-slate-500" : "text-orange-950")}>
                   <Trophy className="w-24 h-24" />
                 </div>
               </div>
@@ -189,7 +190,7 @@ const TeacherRankings = () => {
                   rankings.map((r) => (
                     <TableRow key={r.id} className={cn(r.rank <= 3 && "bg-primary/5")}>
                       <TableCell className="font-bold">
-                        <div className={cn("w-7 h-7 rounded-sm flex items-center justify-center text-xs", r.rank === 1 ? "bg-amber-100 text-amber-700" : r.rank === 2 ? "bg-slate-100 text-slate-700" : r.rank === 3 ? "bg-orange-100 text-orange-700" : "bg-muted text-muted-foreground") }>
+                        <div className={cn("w-7 h-7 rounded-sm flex items-center justify-center text-xs", r.rank === 1 ? "bg-amber-100 text-amber-700" : r.rank === 2 ? "bg-slate-100 text-slate-700" : r.rank === 3 ? "bg-orange-100 text-orange-700" : "bg-muted text-muted-foreground")}>
                           #{r.rank}
                         </div>
                       </TableCell>

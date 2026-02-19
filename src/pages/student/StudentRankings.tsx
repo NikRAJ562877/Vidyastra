@@ -1,5 +1,6 @@
 import { useMemo } from "react";
 import DashboardLayout from "@/components/DashboardLayout";
+import { useAuth } from "@/hooks/useAuth";
 import { students } from "@/lib/mock-data";
 import { studentNavItems } from "@/lib/nav-config";
 import useMarks from "@/hooks/use-marks";
@@ -18,7 +19,7 @@ import {
 } from "@/components/ui/table";
 
 const StudentRankings = () => {
-  const user = JSON.parse(localStorage.getItem("auth_user") || "{}");
+  const { user } = useAuth();
   const { marks } = useMarks();
   const student = students.find((s) => s.id === user.id);
 
@@ -271,7 +272,7 @@ const StudentRankings = () => {
                   <p className="text-xl font-bold font-heading">
                     {Math.round(
                       ((classmates.length - currentRank) / classmates.length) *
-                        100,
+                      100,
                     )}
                     th
                   </p>

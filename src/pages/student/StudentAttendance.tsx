@@ -1,5 +1,6 @@
 import { useState, useMemo } from "react";
 import DashboardLayout from "@/components/DashboardLayout";
+import { useAuth } from "@/hooks/useAuth";
 import { attendance } from "@/lib/mock-data";
 import { studentNavItems } from "@/lib/nav-config";
 import {
@@ -21,7 +22,7 @@ import {
 } from "@/components/ui/tooltip";
 
 const StudentAttendance = () => {
-  const user = JSON.parse(localStorage.getItem("auth_user") || "{}");
+  const { user } = useAuth();
   const [currentMonth, setCurrentMonth] = useState(new Date());
 
   const studentAttendance = useMemo(
@@ -130,7 +131,7 @@ const StudentAttendance = () => {
                       ? "border-transparent"
                       : "border-border/40 hover:border-primary/50 cursor-default",
                     d?.status === "present" &&
-                      "bg-green-500/10 border-green-200",
+                    "bg-green-500/10 border-green-200",
                     d?.status === "absent" && "bg-red-500/10 border-red-200",
                   )}
                 >

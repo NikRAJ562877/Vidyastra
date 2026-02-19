@@ -6,6 +6,7 @@ import { toast } from "sonner";
 import { Lock, CheckCircle2 } from "lucide-react";
 import useStudents from "@/hooks/use-students";
 import useTeachers from "@/hooks/use-teachers";
+import { useAuth } from "@/hooks/useAuth";
 
 interface ChangePasswordProps {
     userId: string;
@@ -16,6 +17,7 @@ interface ChangePasswordProps {
 const ChangePassword = ({ userId, userRole, onSuccess }: ChangePasswordProps) => {
     const { students, update: updateStudent } = useStudents();
     const { teachers, update: updateTeacher } = useTeachers();
+    const { user, setToken } = useAuth();
 
     const [formData, setFormData] = useState({
         oldPassword: "",
@@ -72,8 +74,9 @@ const ChangePassword = ({ userId, userRole, onSuccess }: ChangePasswordProps) =>
             }
 
             // Update local storage user object too
-            const authUser = JSON.parse(localStorage.getItem("auth_user") || "{}");
-            localStorage.setItem("auth_user", JSON.stringify({ ...authUser, isFirstLogin: false }));
+            if (user) {
+                setToken({ ...user, isFirstLogin: false });
+            }
 
             toast.success("Password changed successfully!");
             setLoading(false);

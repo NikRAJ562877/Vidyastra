@@ -1,4 +1,5 @@
 import DashboardLayout from "@/components/DashboardLayout";
+import { useAuth } from "@/hooks/useAuth";
 import StatCard from "@/components/StatCard";
 import { teachers, students } from "@/lib/mock-data";
 import { BookOpen, Users, ClipboardList } from "lucide-react";
@@ -8,7 +9,7 @@ import ChangePassword from "@/components/ChangePassword";
 import useTeachers from "@/hooks/use-teachers";
 
 const TeacherDashboard = () => {
-  const user = JSON.parse(localStorage.getItem("auth_user") || "{}");
+  const { user } = useAuth();
   const { teachers } = useTeachers();
   const teacher = teachers.find((t) => t.id === user.id);
 

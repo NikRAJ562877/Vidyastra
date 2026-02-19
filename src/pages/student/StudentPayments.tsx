@@ -1,5 +1,6 @@
 import { useMemo } from "react";
 import DashboardLayout from "@/components/DashboardLayout";
+import { useAuth } from "@/hooks/useAuth";
 import { students, payments, enrollments } from "@/lib/mock-data";
 import { studentNavItems } from "@/lib/nav-config";
 import {
@@ -24,7 +25,7 @@ import { Progress } from "@/components/ui/progress";
 import { cn } from "@/lib/utils";
 
 const StudentPayments = () => {
-  const user = JSON.parse(localStorage.getItem("auth_user") || "{}");
+  const { user } = useAuth();
   const student = students.find((s) => s.id === user.id);
 
   const studentPayments = useMemo(

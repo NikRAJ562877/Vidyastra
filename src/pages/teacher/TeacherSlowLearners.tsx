@@ -1,11 +1,12 @@
 import DashboardLayout from "@/components/DashboardLayout";
+import { useAuth } from "@/hooks/useAuth";
 import { teacherNavItems } from "@/lib/nav-config";
 import SlowLearners from "@/components/SlowLearners";
 import { teachers } from "@/lib/mock-data";
 
 const TeacherSlowLearners = () => {
-    const user = JSON.parse(localStorage.getItem("auth_user") || "{}");
-    const teacher = teachers.find((t) => t.id === user.id);
+    const { user } = useAuth();
+    const teacher = teachers.find((t) => t.id === user?.id);
 
     return (
         <DashboardLayout

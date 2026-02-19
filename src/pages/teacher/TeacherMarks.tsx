@@ -1,5 +1,6 @@
 import { useState } from "react";
 import DashboardLayout from "@/components/DashboardLayout";
+import { useAuth } from "@/hooks/useAuth";
 import { BookOpen, ClipboardList, CalendarCheck, Trophy, Upload, Plus, Save, User, } from "lucide-react";
 import {
   Table,
@@ -29,7 +30,7 @@ import { teachers } from "@/lib/mock-data";
 import { teacherNavItems } from '@/lib/nav-config';
 
 const TeacherMarks = () => {
-  const user = JSON.parse(localStorage.getItem("auth_user") || "{}");
+  const { user } = useAuth();
   const teacher = teachers.find((t) => t.id === user.id);
 
   const { tests } = useTests();

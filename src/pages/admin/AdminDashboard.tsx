@@ -1,4 +1,5 @@
 import DashboardLayout from "@/components/DashboardLayout";
+import { useAuth } from "@/hooks/useAuth";
 import StatCard from "@/components/StatCard";
 import { students, teachers, enrollments, payments } from "@/lib/mock-data";
 import {
@@ -26,7 +27,7 @@ import { Button } from "@/components/ui/button";
 import { adminNavItems } from "@/lib/nav-config";
 
 const AdminDashboard = () => {
-  const user = JSON.parse(localStorage.getItem("auth_user") || "{}");
+  const { user } = useAuth();
   const pendingEnrollments = enrollments.filter((e) => e.status === "pending");
   const totalPaid = payments
     .filter((p) => p.status === "paid")

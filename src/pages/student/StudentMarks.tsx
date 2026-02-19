@@ -1,5 +1,6 @@
 import { useMemo, useState } from "react";
 import DashboardLayout from "@/components/DashboardLayout";
+import { useAuth } from "@/hooks/useAuth";
 import {
   Table,
   TableBody,
@@ -33,7 +34,7 @@ const gradeFor = (pct: number) => {
 };
 
 const StudentMarks = () => {
-  const user = JSON.parse(localStorage.getItem("auth_user") || "{}");
+  const { user } = useAuth();
   const student = students.find((s) => s.id === user.id);
   const { marks } = useMarks();
   const { tests } = useTests();

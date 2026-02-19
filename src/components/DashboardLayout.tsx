@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { LogOut, Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import LogoImg from "@/assets/Backgroundless.png";
+import { useAuth } from "@/hooks/useAuth";
 
 interface NavItem {
   label: string;
@@ -48,9 +49,10 @@ const DashboardLayout = ({
   const location = useLocation();
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
+  const { logout } = useAuth();
+
   const handleLogout = () => {
-    localStorage.removeItem("auth_user");
-    navigate("/login");
+    logout();
   };
 
   return (

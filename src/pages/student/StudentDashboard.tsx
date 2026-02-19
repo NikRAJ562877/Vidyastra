@@ -1,4 +1,5 @@
 import DashboardLayout from "@/components/DashboardLayout";
+import { useAuth } from "@/hooks/useAuth";
 import StatCard from "@/components/StatCard";
 import { students, attendance, payments } from "@/lib/mock-data";
 import { studentNavItems } from "@/lib/nav-config";
@@ -26,7 +27,8 @@ import ChangePassword from "@/components/ChangePassword";
 import useStudents from "@/hooks/use-students";
 
 const StudentDashboard = () => {
-  const user = JSON.parse(localStorage.getItem("auth_user") || "{}");
+  const { user } = useAuth();
+  if (!user) return null; // Or redirect logic
   const { marks } = useMarks();
   const { students } = useStudents();
   const student = students.find((s) => s.id === user.id);

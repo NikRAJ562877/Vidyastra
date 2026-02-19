@@ -3,33 +3,47 @@ import { useNavigate, Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { authenticateUser } from "@/lib/mock-data";
 import { toast } from "sonner";
 import { Eye, EyeOff } from "lucide-react";
 import LogoImg from "@/assets/Backgroundless.png";
+import * as authApi from "@/api/auth.api";
+import { useAuth } from "@/hooks/useAuth";
 
 const Login = () => {
   const navigate = useNavigate();
+  const { setToken } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
 
-    setTimeout(() => {
-      const result = authenticateUser(email, password);
+    try {
+      // In a real app, this would be an API call
+      // Currently, it's still using mock data logic but through the API layer
+      // We'll simulate the API call for now to keep existing demo working
+      const result = await authApi.login({ email, password });
+
       if (result) {
-        localStorage.setItem("auth_user", JSON.stringify(result.user));
+        setToken(result.user);
         toast.success(`Welcome, ${result.user.name}!`);
-        navigate(result.redirect);
-      } else {
-        toast.error("Invalid credentials. Please try again.");
+        // Navigate based on role - assuming result.redirect is part of the API response
+        // or we handle redirect logic here
+        const redirectMap: Record<string, string> = {
+          admin: "/admin",
+          teacher: "/teacher",
+          student: "/student",
+        };
+        navigate(redirectMap[result.user.role] || "/");
       }
+    } catch (error) {
+      toast.error("Invalid credentials. Please try again.");
+    } finally {
       setLoading(false);
-    }, 500);
+    }
   };
 
   return (

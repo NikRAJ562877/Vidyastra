@@ -1,5 +1,6 @@
 import { useState } from "react";
 import DashboardLayout from "@/components/DashboardLayout";
+import { useAuth } from "@/hooks/useAuth";
 import { studentNavItems } from "@/lib/nav-config";
 import { FileText, Download, Search, Clock } from "lucide-react";
 import {
@@ -16,7 +17,7 @@ import useNotes from "@/hooks/use-notes";
 import { students } from "@/lib/mock-data";
 
 const StudentNotes = () => {
-  const user = JSON.parse(localStorage.getItem("auth_user") || "{}");
+  const { user } = useAuth();
   const student = students.find((s) => s.id === user.id);
   const { notes } = useNotes();
   const [searchTerm, setSearchTerm] = useState("");

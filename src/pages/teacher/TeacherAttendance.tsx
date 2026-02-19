@@ -1,5 +1,6 @@
 import { useState, useMemo } from "react";
 import DashboardLayout from "@/components/DashboardLayout";
+import { useAuth } from "@/hooks/useAuth";
 import { teacherNavItems } from "@/lib/nav-config";
 import {
   Table,
@@ -47,7 +48,7 @@ import {
 import { toast } from "sonner";
 
 const TeacherAttendance = () => {
-  const user = JSON.parse(localStorage.getItem("auth_user") || "{}");
+  const { user } = useAuth();
   const teacher = teachers.find((t) => t.id === user.id);
 
   const { students } = useStudents();
