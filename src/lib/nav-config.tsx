@@ -146,11 +146,6 @@ export const teacherNavItems: NavItem[] = [
     icon: React.createElement(FileText, { className: "h-4 w-4" }),
   },
   {
-    label: "Attendance",
-    href: "/teacher/attendance",
-    icon: React.createElement(CalendarCheck, { className: "h-4 w-4" }),
-  },
-  {
     label: "Rankings",
     href: "/teacher/rankings",
     icon: React.createElement(Trophy, { className: "h-4 w-4" }),

@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Menu, X, ChevronDown } from "lucide-react";
 import { motion } from "framer-motion";
-import LogoImg from "@/assets/Backgroundless.png";
+import LogoImg from "@/assets/LogoFinal.png";
 
 const Navbar = () => {
   const [mobileOpen, setMobileOpen] = useState(false);

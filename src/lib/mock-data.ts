@@ -7,6 +7,7 @@ export interface Course {
   batch: string;
   duration: string;
   fee: number;
+  minFirstInstallment?: number; // Added for flexible payment plans
   description: string;
   image?: string;
   tag?: string;
@@ -79,11 +80,16 @@ export interface Enrollment {
   class: string;
   batch: string;
   registerNumber: string;
-  mode: 'online' | 'offline';
+  mode?: 'online' | 'offline'; // Deprecated
+  classroomMode?: 'online' | 'offline';
+  paymentMode?: 'online' | 'offline';
   status: 'pending' | 'confirmed';
   date: string;
   paymentType?: 'full' | 'installment';
+  paymentScheme?: 'full' | 'installment'; // Alias for dialog compatibility
   amountPaid?: number;
+  amountToPay?: number; // For initial payment
+  remainingAmount?: number;
   totalFee?: number;
   transactionId?: string;
   paymentStatus?: 'paid' | 'pending' | 'partial';

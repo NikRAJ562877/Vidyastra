@@ -43,6 +43,7 @@ const AdminCourses = () => {
     batch: "",
     duration: "",
     fee: 0,
+    minFirstInstallment: 0,
     description: "",
     showOnLandingPage: false,
   });
@@ -56,6 +57,7 @@ const AdminCourses = () => {
         batch: course.batch,
         duration: course.duration,
         fee: course.fee,
+        minFirstInstallment: course.minFirstInstallment || 0,
         description: course.description,
         showOnLandingPage: course.showOnLandingPage || false,
       });
@@ -67,6 +69,7 @@ const AdminCourses = () => {
         batch: "",
         duration: "",
         fee: 0,
+        minFirstInstallment: 0,
         description: "",
         showOnLandingPage: false,
       });
@@ -248,6 +251,8 @@ const AdminCourses = () => {
                   required
                 />
               </div>
+            </div>
+            <div className="grid grid-cols-2 gap-4">
               <div className="grid gap-2">
                 <Label htmlFor="duration">Duration *</Label>
                 <Input
@@ -258,6 +263,23 @@ const AdminCourses = () => {
                   }
                   placeholder="e.g. 6 Months"
                   required
+                />
+              </div>
+              <div className="grid gap-2">
+                <Label htmlFor="minFirstInstallment">
+                  First Installment (₹)
+                </Label>
+                <Input
+                  id="minFirstInstallment"
+                  type="number"
+                  value={formData.minFirstInstallment || ""}
+                  onChange={(e) =>
+                    setFormData({
+                      ...formData,
+                      minFirstInstallment: Number(e.target.value),
+                    })
+                  }
+                  placeholder="Min. pay for installment"
                 />
               </div>
             </div>

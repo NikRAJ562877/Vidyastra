@@ -71,14 +71,27 @@ export default function usePayments() {
   const stats = useMemo(() => {
     const totalCollected = transactions.reduce((sum, t) => sum + t.amount, 0);
     
-    // Total expected from all students (mock logic)
+    // Calculate pending from students
+    const studentPending = students.reduce((sum, s) => {
+      const paid = s.paymentHistory?.reduce((pSum, p) => pSum + p.amount, 0) || 0;
+      const fee = s.totalFee || 0;
+      return sum + Math.max(0, fee - paid);
+    }, 0);
+
+    // Calculate pending from enrollments
+    const enrollmentPending = enrollments.reduce((sum, e) => {
+       const paid = e.amountPaid || 0;
+       const fee = e.totalFee || 0;
+       return sum + Math.max(0, fee - paid);
+    }, 0);
+    
     const totalExpected = students.reduce((sum, s) => sum + (s.totalFee || 0), 0) + 
                          enrollments.reduce((sum, e) => sum + (e.totalFee || 0), 0);
     
     return {
       totalCollected,
       totalExpected,
-      totalPending: totalExpected - totalCollected,
+      totalPending: studentPending + enrollmentPending,
       transactionCount: transactions.length
     };
   }, [transactions, students, enrollments]);

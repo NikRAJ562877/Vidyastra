@@ -3,7 +3,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Clock, MapPin, Calendar, Globe } from "lucide-react";
 import { motion } from "framer-motion";
-import LogoImg from "@/assets/Backgroundless.png";
+import LogoImg from "@/assets/LogoFinal.png"; // Updated
 
 interface CourseCardProps {
   course: Course;

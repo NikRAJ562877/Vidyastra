@@ -18,7 +18,7 @@ import {
   ChevronLeft,
   ChevronRight,
 } from "lucide-react";
-import heroBg from "@/assets/hero-bg.jpg";
+import heroBg from "@/assets/HEROIMAGE.png";
 import useAchievers from "@/hooks/use-achievers";
 
 import Footer from "@/components/Footer";

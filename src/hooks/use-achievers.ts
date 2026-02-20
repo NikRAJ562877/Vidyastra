@@ -10,14 +10,22 @@ export interface Achiever {
   rank: number;
   imageUrl?: string;
   isCustom?: boolean;
-  category: 'ALL' | 'NEET' | 'JEE' | 'CLASSES 6-10';
+  category: 'NEET' | 'JEE' | 'KCET' | 'CLASS_10' | 'CLASS_12' | 'CLASS_8' | 'CLASS_9';
 }
 
 const STORAGE_KEY = 'vidyastara_achievers_v1';
 
 // Seed initial achievers
 const getInitialAchievers = (): Achiever[] => {
-  const categories: Achiever['category'][] = ['NEET', 'JEE', 'CLASSES 6-10'];
+  const categories: Achiever['category'][] = [
+    'NEET', 
+    'JEE', 
+    'KCET', 
+    'CLASS_10', 
+    'CLASS_12', 
+    'CLASS_8', 
+    'CLASS_9'
+  ];
   
   return students
     .map((s, idx) => {

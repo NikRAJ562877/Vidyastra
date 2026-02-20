@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   Dialog,
   DialogContent,
@@ -40,8 +40,25 @@ const EnrollmentDialog = ({ course, open, onClose }: Props) => {
     class: "",
     batch: "",
     registerNumber: "",
-    mode: "online" as "online" | "offline",
+    classroomMode: "online" as "online" | "offline",
+    paymentMode: "online" as "online" | "offline",
+    paymentScheme: "full" as "full" | "installment",
+    firstInstallmentAmount: course?.minFirstInstallment || 0,
   });
+
+  // Calculate installment logic
+  const totalFee = course?.fee || 0;
+
+  // Sync state with course prop when it changes
+  useEffect(() => {
+    if (course) {
+      setForm((prev) => ({
+        ...prev,
+        batch: course.batch,
+        firstInstallmentAmount: course.minFirstInstallment || 0,
+      }));
+    }
+  }, [course]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -50,7 +67,23 @@ const EnrollmentDialog = ({ course, open, onClose }: Props) => {
       return;
     }
 
-    if (form.mode === "online") {
+    if (
+      form.paymentScheme === "installment" &&
+      (!form.firstInstallmentAmount || form.firstInstallmentAmount <= 0)
+    ) {
+      toast.error("Please enter a valid first installment amount");
+      return;
+    }
+
+    const finalAmount =
+      form.paymentScheme === "installment"
+        ? form.firstInstallmentAmount || 0
+        : totalFee;
+
+    const remainingVal =
+      form.paymentScheme === "installment" ? totalFee - finalAmount : 0;
+
+    if (form.paymentMode === "online") {
       // Pass data to payment page
       navigate("/submit-enrollment", {
         state: {
@@ -58,7 +91,9 @@ const EnrollmentDialog = ({ course, open, onClose }: Props) => {
             ...form,
             class: form.class || course?.class,
             batch: form.batch || course?.batch,
-            totalFee: course?.fee,
+            totalFee: totalFee,
+            amountToPay: finalAmount,
+            remainingAmount: remainingVal,
           },
         },
       });
@@ -71,6 +106,9 @@ const EnrollmentDialog = ({ course, open, onClose }: Props) => {
         batch: form.batch || course?.batch || "",
         status: "pending",
         totalFee: course?.fee || 0,
+        paymentType: "full",
+        remainingAmount: 0,
+        amountToPay: finalAmount,
       });
       setStep("success");
     }
@@ -85,7 +123,10 @@ const EnrollmentDialog = ({ course, open, onClose }: Props) => {
       class: "",
       batch: "",
       registerNumber: "",
-      mode: "online",
+      classroomMode: "online",
+      paymentMode: "online",
+      paymentScheme: "full",
+      firstInstallmentAmount: 0,
     });
     onClose();
   };
@@ -213,23 +254,111 @@ const EnrollmentDialog = ({ course, open, onClose }: Props) => {
                   </SelectContent>
                 </Select>
               </div>
+
+              {/* New: Classroom Mode Selection */}
               <div className="space-y-2">
-                <Label>Mode</Label>
+                <Label>Classroom Mode</Label>
                 <Select
-                  value={form.mode}
+                  value={form.classroomMode}
                   onValueChange={(v) =>
-                    setForm({ ...form, mode: v as "online" | "offline" })
+                    setForm({
+                      ...form,
+                      classroomMode: v as "online" | "offline",
+                    })
                   }
                 >
                   <SelectTrigger>
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="online">Online</SelectItem>
-                    <SelectItem value="offline">Offline</SelectItem>
+                    <SelectItem value="online">Online Class</SelectItem>
+                    <SelectItem value="offline">Offline Class</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
+
+              {/* New: Payment Mode Selection */}
+              <div className="space-y-2">
+                <Label>Payment Mode</Label>
+                <Select
+                  value={form.paymentMode}
+                  onValueChange={(v) =>
+                    setForm({ ...form, paymentMode: v as "online" | "offline" })
+                  }
+                >
+                  <SelectTrigger>
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="online">Online Payment</SelectItem>
+                    <SelectItem value="offline">Offline Payment</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+
+              {/* New: Payment Scheme (Full vs Installment) - Only for Online Payment */}
+              {form.paymentMode === "online" && (
+                <div className="space-y-2">
+                  <Label>Payment Scheme</Label>
+                  <Select
+                    value={form.paymentScheme}
+                    onValueChange={(v) =>
+                      setForm({
+                        ...form,
+                        paymentScheme: v as "full" | "installment",
+                      })
+                    }
+                  >
+                    <SelectTrigger>
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="full">
+                        Full Payment (₹{course.fee.toLocaleString()})
+                      </SelectItem>
+                      <SelectItem value="installment">
+                        Installment Payment
+                      </SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+              )}
+
+              {/* Installment Breakdown - Only if scheme is installment AND mode is online */}
+              {form.paymentMode === "online" &&
+                form.paymentScheme === "installment" && (
+                  <div className="bg-muted/40 p-3 rounded-lg border border-border space-y-3">
+                    <h4 className="font-semibold text-sm flex items-center gap-2">
+                      <IndianRupee className="h-3.5 w-3.5" /> Installment Plan
+                    </h4>
+
+                    <div className="space-y-2">
+                      <Label htmlFor="firstInstallment">
+                        First Installment Amount (Pay Now)
+                      </Label>
+                      <Input
+                        id="firstInstallment"
+                        type="number"
+                        value={form.firstInstallmentAmount || ""}
+                        readOnly
+                        className="bg-muted text-muted-foreground cursor-not-allowed"
+                        placeholder="Fixed Amount"
+                      />
+                    </div>
+
+                    <div className="flex justify-between text-sm pt-2 border-t border-border">
+                      <span>Remaining (Due Later):</span>
+                      <span className="font-bold text-muted-foreground">
+                        ₹
+                        {Math.max(
+                          0,
+                          course.fee - (form.firstInstallmentAmount || 0),
+                        ).toLocaleString()}
+                      </span>
+                    </div>
+                  </div>
+                )}
+
               <div className="flex gap-2">
                 <Button
                   type="button"
@@ -256,8 +385,9 @@ const EnrollmentDialog = ({ course, open, onClose }: Props) => {
               Enrollment Submitted!
             </DialogTitle>
             <p className="text-sm text-muted-foreground">
-              Your enrollment request has been received. You will receive a
-              confirmation once approved by the admin.
+              Your enrollment request has been received. Please visit the
+              tutorial center to complete the payment and finalize your
+              admission.
             </p>
             <p className="text-xs text-muted-foreground">
               Status:{" "}

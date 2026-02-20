@@ -87,14 +87,61 @@ const MarqueeRow = ({
   );
 };
 
+const CATEGORIES = [
+  { id: "ALL", label: "All Stars", subs: [] },
+  {
+    id: "COMPETITIVE",
+    label: "Competitive Exams",
+    subs: [
+      { id: "NEET", label: "NEET" },
+      { id: "JEE", label: "JEE" },
+      { id: "KCET", label: "KCET" },
+    ],
+  },
+  {
+    id: "BOARD",
+    label: "Board Exams",
+    subs: [
+      { id: "CLASS_10", label: "Class 10" },
+      { id: "CLASS_12", label: "Class 12" },
+    ],
+  },
+  {
+    id: "SCHOOL",
+    label: "Foundation",
+    subs: [
+      { id: "CLASS_9", label: "Class 9" },
+      { id: "CLASS_8", label: "Class 8" },
+    ],
+  },
+];
+
 const AchieverShowcase = ({ achievers }: AchieverShowcaseProps) => {
-  const [activeTab, setActiveTab] = useState<string>("ALL");
-  const tabs = ["ALL", "NEET", "JEE", "CLASSES 6-10"];
+  const [activeParent, setActiveParent] = useState<string>("ALL");
+  const [activeSub, setActiveSub] = useState<string | null>(null);
 
   const filteredAchievers = useMemo(() => {
-    if (activeTab === "ALL") return achievers;
-    return achievers.filter((a) => a.category === activeTab);
-  }, [achievers, activeTab]);
+    if (activeParent === "ALL") return achievers;
+
+    const parentCategory = CATEGORIES.find((c) => c.id === activeParent);
+    if (!parentCategory) return achievers;
+
+    // If a specific sub-category is selected, filter by it
+    if (activeSub) {
+      return achievers.filter((a) => a.category === activeSub);
+    }
+
+    // Otherwise, filter by all sub-categories of the parent
+    const subIds = parentCategory.subs.map((s) => s.id);
+    return achievers.filter((a) => subIds.includes(a.category));
+  }, [achievers, activeParent, activeSub]);
+
+  const handleParentChange = (parentId: string) => {
+    setActiveParent(parentId);
+    setActiveSub(null); // Reset sub-category when parent changes
+  };
+
+  const currentSubs = CATEGORIES.find((c) => c.id === activeParent)?.subs || [];
 
   return (
     <section
@@ -113,28 +160,64 @@ const AchieverShowcase = ({ achievers }: AchieverShowcaseProps) => {
             Our Top Performers
           </h2>
 
-          {/* Category Tabs */}
-          <div className="flex flex-wrap justify-center gap-3 mb-12">
-            {tabs.map((tab) => (
+          {/* Parent Category Tabs */}
+          <div className="flex flex-wrap justify-center gap-3 mb-6">
+            {CATEGORIES.map((cat) => (
               <button
-                key={tab}
-                onClick={() => setActiveTab(tab)}
-                className={`px-8 py-3 rounded-xl font-bold transition-all ${
-                  activeTab === tab
+                key={cat.id}
+                onClick={() => handleParentChange(cat.id)}
+                className={`px-6 py-2.5 rounded-xl font-bold transition-all ${
+                  activeParent === cat.id
                     ? "bg-primary text-primary-foreground shadow-lg shadow-primary/20 scale-105"
                     : "bg-background border border-border text-muted-foreground hover:bg-muted"
                 }`}
               >
-                {tab}
+                {cat.label}
               </button>
             ))}
           </div>
+
+          {/* Sub Categories (Animated) */}
+          <AnimatePresence mode="wait">
+            {currentSubs.length > 0 && (
+              <motion.div
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -10 }}
+                className="flex flex-wrap justify-center gap-2 mb-10"
+              >
+                <button
+                  onClick={() => setActiveSub(null)}
+                  className={`px-4 py-1.5 rounded-full text-sm font-medium transition-all ${
+                    activeSub === null
+                      ? "bg-secondary text-secondary-foreground"
+                      : "bg-transparent text-muted-foreground hover:bg-muted"
+                  }`}
+                >
+                  All {CATEGORIES.find((c) => c.id === activeParent)?.label}
+                </button>
+                {currentSubs.map((sub) => (
+                  <button
+                    key={sub.id}
+                    onClick={() => setActiveSub(sub.id)}
+                    className={`px-4 py-1.5 rounded-full text-sm font-medium transition-all ${
+                      activeSub === sub.id
+                        ? "bg-secondary text-secondary-foreground"
+                        : "bg-transparent text-muted-foreground hover:bg-muted"
+                    }`}
+                  >
+                    {sub.label}
+                  </button>
+                ))}
+              </motion.div>
+            )}
+          </AnimatePresence>
         </div>
 
         {/* Auto-scrolling Marquee */}
         <AnimatePresence mode="wait">
           <motion.div
-            key={activeTab}
+            key={`${activeParent}-${activeSub}`}
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.95 }}
@@ -143,10 +226,10 @@ const AchieverShowcase = ({ achievers }: AchieverShowcaseProps) => {
             {filteredAchievers.length > 0 ? (
               <MarqueeRow
                 achievers={filteredAchievers}
-                speed={activeTab === "ALL" ? 40 : 25}
+                speed={activeParent === "ALL" ? 40 : 25}
               />
             ) : (
-              <div className="text-center py-20 bg-card rounded-2xl border border-dashed border-border">
+              <div className="text-center py-20 bg-card rounded-2xl border border-dashed border-border mx-auto max-w-4xl">
                 <p className="text-muted-foreground">
                   Stay tuned! Results for this category will be updated soon.
                 </p>

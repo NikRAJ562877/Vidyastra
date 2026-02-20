@@ -23,6 +23,8 @@ import {
   User,
   ExternalLink,
   Plus,
+  Clock,
+  PlayCircle, // Added for WhatsApp reminder
 } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import usePayments, { Transaction } from "@/hooks/use-payments";
@@ -56,6 +58,7 @@ const AdminPayments = () => {
   const [filterMode, setFilterMode] = useState("all");
 
   const [recordModalOpen, setRecordModalOpen] = useState(false);
+  const [pendingDuesOpen, setPendingDuesOpen] = useState(false);
   const [selectedStudentId, setSelectedStudentId] = useState("");
   const [paymentForm, setPaymentForm] = useState({
     mode: "Cash",
@@ -63,6 +66,17 @@ const AdminPayments = () => {
     amount: "",
     date: new Date().toISOString().split("T")[0],
   });
+
+  const [settingsOpen, setSettingsOpen] = useState(false);
+  const [installmentPercent, setInstallmentPercent] = useState(() => {
+    return localStorage.getItem("installmentMetrics") || "50";
+  });
+
+  const handleSaveSettings = () => {
+    localStorage.setItem("installmentMetrics", installmentPercent);
+    toast.success("Payment settings saved");
+    setSettingsOpen(false);
+  };
 
   const filteredTransactions = transactions.filter((t) => {
     const matchesSearch =
@@ -120,215 +134,211 @@ const AdminPayments = () => {
       userName="Admin"
       userRole="admin"
     >
-      {/* Stats Overview */}
-      <div className="grid md:grid-cols-4 gap-4 mb-8">
-        <Card className="bg-primary text-primary-foreground border-none shadow-lg">
-          <CardHeader className="pb-2">
-            <CardTitle className="text-xs font-medium uppercase opacity-80 flex justify-between">
-              Total Collected
-              <IndianRupee className="h-4 w-4" />
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">
-              ₹{stats.totalCollected.toLocaleString()}
-            </div>
-            <p className="text-[10px] opacity-70 mt-1">
-              From {stats.transactionCount} transactions
+      <div className="flex flex-col gap-5">
+        <div className="flex justify-between items-center">
+          <div>
+            <h2 className="text-3xl font-bold tracking-tight">Payments</h2>
+            <p className="text-muted-foreground">
+              Manage student fee payments and transactions.
             </p>
-          </CardContent>
-        </Card>
+          </div>
+          <div className="flex gap-2">
+            <Button variant="outline">
+              <Download className="h-4 w-4 mr-2" /> Export JSON
+            </Button>
+            <Button onClick={() => setRecordModalOpen(true)}>
+              <Plus className="h-4 w-4 mr-2" /> Record Payment
+            </Button>
+            <Button
+              variant="destructive"
+              onClick={() => setPendingDuesOpen(true)}
+            >
+              <Clock className="h-4 w-4 mr-2" /> Pending Dues
+            </Button>
+          </div>
+        </div>
 
-        <Card className="bg-success text-white border-none shadow-lg">
-          <CardHeader className="pb-2">
-            <CardTitle className="text-xs font-medium uppercase opacity-80 flex justify-between">
-              Expected Revenue
-              <ArrowUpRight className="h-4 w-4" />
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">
-              ₹{stats.totalExpected.toLocaleString()}
-            </div>
-            <div className="w-full bg-white/20 h-1 rounded-full mt-2 overflow-hidden">
-              <div
-                className="bg-white h-full"
-                style={{
-                  width: `${(stats.totalCollected / stats.totalExpected) * 100}%`,
-                }}
-              ></div>
-            </div>
-          </CardContent>
-        </Card>
+        <div className="grid gap-4 md:grid-cols-3">
+          {/* ... existing cards ... */}
+          <Card>
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <CardTitle className="text-sm font-medium">
+                Total Revenue
+              </CardTitle>
+              <IndianRupee className="h-4 w-4 text-muted-foreground" />
+            </CardHeader>
+            <CardContent>
+              <div className="text-2xl font-bold">
+                ₹{stats.totalCollected.toLocaleString()}
+              </div>
+              <p className="text-xs text-muted-foreground">
+                Total collected fees
+              </p>
+            </CardContent>
+          </Card>
+          <Card>
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <CardTitle className="text-sm font-medium">
+                Pending Payments
+              </CardTitle>
+              <Clock className="h-4 w-4 text-muted-foreground" />
+            </CardHeader>
+            <CardContent>
+              <div className="text-2xl font-bold">
+                ₹{stats.totalPending.toLocaleString()}
+              </div>
+              <p className="text-xs text-muted-foreground">
+                {
+                  students.filter(
+                    (s) =>
+                      s.paymentStatus === "pending" ||
+                      s.paymentStatus === "partial",
+                  ).length
+                }{" "}
+                students with pending dues
+              </p>
+            </CardContent>
+          </Card>
+          <Card>
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <CardTitle className="text-sm font-medium">
+                Transactions
+              </CardTitle>
+              <ArrowUpRight className="h-4 w-4 text-muted-foreground" />
+            </CardHeader>
+            <CardContent>
+              <div className="text-2xl font-bold">{stats.transactionCount}</div>
+              <p className="text-xs text-muted-foreground">
+                Total transactions recorded
+              </p>
+            </CardContent>
+          </Card>
+        </div>
 
-        <Card className="bg-amber-500 text-white border-none shadow-lg">
-          <CardHeader className="pb-2">
-            <CardTitle className="text-xs font-medium uppercase opacity-80 flex justify-between">
-              Pending Dues
-              <ArrowDownLeft className="h-4 w-4" />
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">
-              ₹{stats.totalPending.toLocaleString()}
-            </div>
-            <p className="text-[10px] opacity-90 mt-1">Active payment plans</p>
-          </CardContent>
-        </Card>
-
-        <Card className="bg-slate-800 text-white border-none shadow-lg">
-          <CardHeader className="pb-2">
-            <CardTitle className="text-xs font-medium uppercase opacity-80 flex justify-between">
-              Transactions
-              <Calendar className="h-4 w-4" />
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">{stats.transactionCount}</div>
-            <p className="text-[10px] opacity-70 mt-1">This academic year</p>
-          </CardContent>
-        </Card>
-      </div>
-
-      <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-6">
-        <div className="flex gap-2 w-full md:w-auto">
-          <div className="relative flex-1 md:w-80">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+        {/* ... Search and Filter ... */}
+        <div className="flex items-center gap-2">
+          <div className="relative flex-1">
+            <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
             <Input
-              placeholder="Search by student, course or receipt..."
-              className="pl-10"
+              placeholder="Search transactions..."
+              className="pl-8"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
             />
           </div>
-          <Button
-            variant="outline"
-            size="icon"
-            onClick={() =>
-              setFilterMode(
-                filterMode === "online"
-                  ? "offline"
-                  : filterMode === "offline"
-                    ? "all"
-                    : "online",
-              )
-            }
-          >
-            <Filter
-              className={cn("h-4 w-4", filterMode !== "all" && "text-primary")}
-            />
-          </Button>
+          <Select value={filterMode} onValueChange={setFilterMode}>
+            <SelectTrigger className="w-[180px]">
+              <SelectValue placeholder="Payment Mode" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="all">All Modes</SelectItem>
+              <SelectItem value="online">Online</SelectItem>
+              <SelectItem value="cash">Cash</SelectItem>
+              <SelectItem value="upi">UPI</SelectItem>
+            </SelectContent>
+          </Select>
         </div>
 
-        <div className="flex gap-2 w-full md:w-auto">
-          <Button variant="outline">
-            <Download className="h-4 w-4 mr-2" /> Export JSON
-          </Button>
-          <Button onClick={() => setRecordModalOpen(true)}>
-            <Plus className="h-4 w-4 mr-2" /> Record Payment
-          </Button>
-        </div>
-      </div>
-
-      <div className="bg-card rounded-xl border border-border overflow-hidden">
-        <Table>
-          <TableHeader>
-            <TableRow>
-              <TableHead>Date</TableHead>
-              <TableHead>Student</TableHead>
-              <TableHead>Course/Class</TableHead>
-              <TableHead>Details</TableHead>
-              <TableHead>Amount</TableHead>
-              <TableHead>Status</TableHead>
-              <TableHead className="text-right">Action</TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {filteredTransactions.length === 0 ? (
-              <TableRow>
-                <TableCell
-                  colSpan={7}
-                  className="text-center py-12 text-muted-foreground"
-                >
-                  No payment records found matching your filters.
-                </TableCell>
-              </TableRow>
-            ) : (
-              filteredTransactions.map((t) => (
-                <TableRow key={t.id}>
-                  <TableCell className="text-xs">
-                    {new Date(t.date).toLocaleDateString("en-IN", {
-                      day: "2-digit",
-                      month: "short",
-                      year: "numeric",
-                    })}
-                  </TableCell>
-                  <TableCell>
-                    <div className="flex items-center gap-2">
-                      <div className="w-8 h-8 rounded-full bg-muted flex items-center justify-center">
-                        <User className="h-4 w-4 text-muted-foreground" />
-                      </div>
-                      <span className="font-medium">{t.studentName}</span>
-                    </div>
-                  </TableCell>
-                  <TableCell className="text-xs">{t.courseName}</TableCell>
-                  <TableCell>
-                    <div className="flex flex-col gap-0.5">
-                      <span className="text-[10px] font-bold uppercase text-muted-foreground">
-                        {t.mode}
-                      </span>
-                      <span className="text-[10px] text-muted-foreground">
-                        {t.type === "full" ? "Full Payment" : "Installment"}
-                      </span>
-                    </div>
-                  </TableCell>
-                  <TableCell className="font-bold">
-                    ₹{t.amount.toLocaleString()}
-                  </TableCell>
-                  <TableCell>
-                    <span
-                      className={cn(
-                        "inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-medium",
-                        t.status === "paid"
-                          ? "bg-green-100 text-green-700"
-                          : t.status === "partial"
-                            ? "bg-blue-100 text-blue-700"
-                            : "bg-amber-100 text-amber-700",
-                      )}
-                    >
-                      {t.status.toUpperCase()}
-                    </span>
-                  </TableCell>
-                  <TableCell className="text-right">
-                    <Button
-                      size="sm"
-                      variant="ghost"
-                      onClick={() =>
-                        navigate(`/receipt/${t.id}`, {
-                          state: {
-                            enrollment: {
-                              name: t.studentName,
-                              class: t.courseName,
-                              amountPaid: t.amount,
-                              date: t.date,
-                              transactionId: t.receiptId,
-                              paymentType: t.type,
-                            },
-                          },
-                        })
-                      }
-                    >
-                      <ExternalLink className="h-4 w-4 mr-2" /> Receipt
-                    </Button>
-                  </TableCell>
+        <Card>
+          <CardHeader>
+            <CardTitle>Transactions</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead>Receipt ID</TableHead>
+                  <TableHead>Student</TableHead>
+                  <TableHead>Amount</TableHead>
+                  <TableHead>Date</TableHead>
+                  <TableHead>Mode</TableHead>
+                  <TableHead>Status</TableHead>
                 </TableRow>
-              ))
-            )}
-          </TableBody>
-        </Table>
+              </TableHeader>
+              <TableBody>
+                {filteredTransactions.map((transaction) => (
+                  <TableRow key={transaction.id}>
+                    <TableCell className="font-medium">
+                      {transaction.receiptId}
+                    </TableCell>
+                    <TableCell>
+                      <div>
+                        <div className="font-medium">
+                          {transaction.studentName}
+                        </div>
+                        <div className="text-sm text-muted-foreground">
+                          {transaction.courseName}
+                        </div>
+                      </div>
+                    </TableCell>
+                    <TableCell>
+                      ₹{transaction.amount.toLocaleString()}
+                      {transaction.type === "installment" && (
+                        <span className="text-xs text-muted-foreground block">
+                          (Installment)
+                        </span>
+                      )}
+                    </TableCell>
+                    <TableCell>{transaction.date}</TableCell>
+                    <TableCell>
+                      <div className="flex items-center gap-2">
+                        {transaction.mode}
+                      </div>
+                    </TableCell>
+                    <TableCell>
+                      <span
+                        className={badgeVariants({
+                          variant:
+                            transaction.status === "paid"
+                              ? "default"
+                              : "secondary",
+                        })}
+                      >
+                        {transaction.status}
+                      </span>
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </CardContent>
+        </Card>
       </div>
 
-      {/* Record Payment Modal */}
+      {/* Settings Dialog */}
+      <Dialog open={settingsOpen} onOpenChange={setSettingsOpen}>
+        <DialogContent className="sm:max-w-[400px]">
+          <DialogHeader>
+            <DialogTitle>Payment Settings</DialogTitle>
+            <DialogDescription>
+              Configure installment payment rules.
+            </DialogDescription>
+          </DialogHeader>
+          <div className="py-4">
+            <Label>First Installment Percentage (%)</Label>
+            <Input
+              type="number"
+              min="10"
+              max="100"
+              value={installmentPercent}
+              onChange={(e) => setInstallmentPercent(e.target.value)}
+              className="mt-2"
+            />
+            <p className="text-xs text-muted-foreground mt-2">
+              The remaining {100 - Number(installmentPercent)}% will be
+              collected in the second installment.
+            </p>
+          </div>
+          <DialogFooter>
+            <Button variant="outline" onClick={() => setSettingsOpen(false)}>
+              Cancel
+            </Button>
+            <Button onClick={handleSaveSettings}>Save Settings</Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
+      {/* Record Payment Dialog */}
       <Dialog open={recordModalOpen} onOpenChange={setRecordModalOpen}>
         <DialogContent className="sm:max-w-[500px]">
           <DialogHeader>
@@ -427,6 +437,99 @@ const AdminPayments = () => {
               Cancel
             </Button>
             <Button onClick={handleRecordPayment}>Record Payment</Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
+      {/* Pending Dues Dialog */}
+      <Dialog open={pendingDuesOpen} onOpenChange={setPendingDuesOpen}>
+        <DialogContent className="sm:max-w-[700px]">
+          <DialogHeader>
+            <DialogTitle>Pending Dues</DialogTitle>
+            <DialogDescription>
+              Students with outstanding fee payments.
+            </DialogDescription>
+          </DialogHeader>
+          <div className="py-4">
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead>Student Name</TableHead>
+                  <TableHead>Class</TableHead>
+                  <TableHead>Total Fee</TableHead>
+                  <TableHead>Status</TableHead>
+                  <TableHead>Action</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {students.filter(
+                  (s) =>
+                    s.paymentStatus === "pending" ||
+                    s.paymentStatus === "partial",
+                ).length > 0 ? (
+                  students
+                    .filter(
+                      (s) =>
+                        s.paymentStatus === "pending" ||
+                        s.paymentStatus === "partial",
+                    )
+                    .map((student) => (
+                      <TableRow key={student.id}>
+                        <TableCell className="font-medium">
+                          {student.name}
+                        </TableCell>
+                        <TableCell>{student.class}</TableCell>
+                        <TableCell>
+                          ₹{student.totalFee?.toLocaleString()}
+                        </TableCell>
+                        <TableCell>
+                          <span
+                            className={badgeVariants({
+                              variant:
+                                student.paymentStatus === "pending"
+                                  ? "destructive"
+                                  : "warning",
+                            })}
+                          >
+                            {student.paymentStatus}
+                          </span>
+                        </TableCell>
+                        <TableCell>
+                          <Button
+                            size="sm"
+                            variant="outline"
+                            className="text-green-600 border-green-200 hover:bg-green-50"
+                            onClick={() =>
+                              toast.success(
+                                `WhatsApp reminder sent into ${student.name}'s registered number`,
+                              )
+                            }
+                          >
+                            <PlayCircle className="h-4 w-4 mr-2" /> Remind
+                          </Button>
+                        </TableCell>
+                      </TableRow>
+                    ))
+                ) : (
+                  <TableRow>
+                    <TableCell
+                      colSpan={5}
+                      className="text-center py-4 text-muted-foreground"
+                    >
+                      No pending dues found.
+                    </TableCell>
+                  </TableRow>
+                )}
+              </TableBody>
+            </Table>
+          </div>
+          <DialogFooter>
+            <Button
+              variant="secondary"
+              onClick={() => setPendingDuesOpen(false)}
+            >
+              Close
+            </Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>

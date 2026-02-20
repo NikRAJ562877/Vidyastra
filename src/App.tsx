@@ -43,6 +43,8 @@ import SubmitEnrollment from "./pages/SubmitEnrollment";
 import ReceiptPage from "./pages/ReceiptPage";
 import NotFound from "./pages/NotFound";
 
+import LeadPopup from "@/components/LeadPopup";
+
 const queryClient = new QueryClient();
 
 const App = () => (
@@ -50,6 +52,7 @@ const App = () => (
     <TooltipProvider>
       <Toaster />
       <Sonner />
+      <LeadPopup />
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Index />} />
@@ -58,7 +61,6 @@ const App = () => (
           <Route path="/results" element={<Results />} />
           <Route path="/enroll" element={<Enroll />} />
           <Route path="/enroll/:classId" element={<Enroll />} />
-
           // Admin routes
           <Route path="/admin" element={<AdminDashboard />} />
           <Route path="/admin/courses" element={<AdminCourses />} />
@@ -73,18 +75,18 @@ const App = () => (
           <Route path="/admin/rankings" element={<AdminRankings />} />
           <Route path="/admin/notes" element={<AdminNotes />} />
           <Route path="/admin/slow-learners" element={<AdminSlowLearners />} />
-
           <Route path="/submit-enrollment" element={<SubmitEnrollment />} />
           <Route path="/receipt/:id" element={<ReceiptPage />} />
-
           //teacher routes
           <Route path="/teacher" element={<TeacherDashboard />} />
           <Route path="/teacher/marks" element={<TeacherMarks />} />
           <Route path="/teacher/notes" element={<TeacherNotes />} />
           <Route path="/teacher/attendance" element={<TeacherAttendance />} />
           <Route path="/teacher/rankings" element={<TeacherRankings />} />
-          <Route path="/teacher/slow-learners" element={<TeacherSlowLearners />} />
-
+          <Route
+            path="/teacher/slow-learners"
+            element={<TeacherSlowLearners />}
+          />
           //student routes
           <Route path="/student" element={<StudentDashboard />} />
           <Route path="/student/marks" element={<StudentMarks />} />
