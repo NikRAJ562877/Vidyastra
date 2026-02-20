@@ -70,7 +70,7 @@ const DashboardLayout = ({
             alt="Vidyastara logo"
             className="h-10 w-10 object-cover"
           />
-          <span className="font-heading text-lg font-bold text-white">
+          <span className="font-heading text-xl font-bold text-slate-900">
             Vidyastara
           </span>
         </div>
