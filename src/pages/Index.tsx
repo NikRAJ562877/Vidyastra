@@ -27,6 +27,7 @@ import useCourses from "@/hooks/use-courses";
 import InfiniteScrollingScanner from "@/components/InfiniteScrollingScanner";
 import ContactForm from "@/components/ContactForm";
 import AchieverShowcase from "@/components/AchieverShowcase";
+import BackgroundDecorator from "@/components/BackgroundDecorator";
 
 const Index = () => {
   const navigate = useNavigate();
@@ -37,18 +38,19 @@ const Index = () => {
   const [enrollOpen, setEnrollOpen] = useState(false);
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background relative selection:bg-primary/20">
       <Navbar />
+      <BackgroundDecorator />
 
       {/* Hero */}
-      <section className="relative min-h-[85vh] flex items-center overflow-hidden bg-background border-0">
-        <div className="absolute inset-0">
+      <section className="relative min-h-[90vh] flex items-center overflow-hidden pt-20 bg-[hsl(226,100%,97%)]">
+        <div className="absolute inset-0 z-0">
           <img
             src={heroBg}
             alt="Students studying"
-            className="w-full h-full object-cover"
+            className="w-full h-full object-cover opacity-60 mix-blend-overlay"
           />
-          <div className="absolute inset-0 bg-background/40" />
+          <div className="absolute inset-0 bg-gradient-to-br from-indigo-50/80 via-white/40 to-amber-50/60" />
         </div>
         <div className="container mx-auto px-4 relative z-10 pt-16">
           <motion.div
@@ -57,36 +59,36 @@ const Index = () => {
             transition={{ duration: 0.8 }}
             className="max-w-2xl"
           >
-            <Badge className="mb-4 bg-white/20 text-white border-0 px-4 py-1.5 text-sm backdrop-blur-sm">
+            <Badge className="mb-6 bg-primary/10 text-primary border-primary/20 px-4 py-1.5 text-sm font-semibold rounded-full animate-fade-in">
               Admissions Open 2026-27
             </Badge>
-            <h1 className="text-4xl md:text-6xl font-heading font-bold text-white leading-tight">
+            <h1 className="text-5xl md:text-7xl font-heading font-extrabold text-slate-900 leading-[1.1] tracking-tight">
               Shape Your Future with{" "}
-              <span className="text-yellow-300">Vidyastara</span>
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent">Vidyastara</span>
             </h1>
-            <p className="mt-4 text-lg text-teal-50 max-w-lg">
+            <p className="mt-6 text-xl text-slate-600 max-w-lg leading-relaxed">
               Join our premier coaching institute for personalized learning,
               expert faculty, and proven results.
             </p>
-            <div className="mt-8 flex flex-wrap gap-3">
+            <div className="mt-10 flex flex-wrap gap-4">
               <Button
                 size="lg"
-                className="bg-white text-teal-700 hover:bg-teal-50"
+                className="bg-primary hover:bg-primary/90 text-white shadow-xl shadow-primary/25 px-10 h-14 rounded-full text-lg font-semibold transition-all duration-300 hover:scale-105"
                 onClick={() => navigate("/enroll")}
               >
-                Explore Courses <ArrowRight className="ml-2 h-4 w-4" />
+                Explore Courses <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
               <Button
                 size="lg"
                 variant="outline"
-                className="bg-transparent border-white text-white hover:bg-white/10"
+                className="bg-white/80 backdrop-blur-sm border-slate-200 text-slate-700 hover:bg-white shadow-lg px-8 h-14 rounded-full text-lg font-semibold transition-all duration-300 hover:scale-105"
                 onClick={() =>
                   document
                     .getElementById("achievers")
                     ?.scrollIntoView({ behavior: "smooth" })
                 }
               >
-                <Trophy className="mr-2 h-4 w-4" /> View Achievers
+                <Trophy className="mr-2 h-5 w-5 text-amber-500" /> View Achievers
               </Button>
             </div>
           </motion.div>
@@ -94,38 +96,49 @@ const Index = () => {
       </section>
 
       {/* Stats Strip */}
-      <section className="bg-muted/50 py-9 border-t border-b border-border">
-        <div className="container mx-auto px-4 grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+      <section className="bg-[hsl(38,100%,96%)] py-16 relative z-10 border-y border-amber-100/50">
+        <div className="container mx-auto px-4 grid grid-cols-2 md:grid-cols-4 gap-8">
           {[
-            { label: "Students Enrolled", value: "500+" },
-            { label: "Expert Teachers", value: "25+" },
-            { label: "Courses", value: "30+" },
-            { label: "Success Rate", value: "95%" },
-          ].map((stat) => (
-            <div key={stat.label}>
-              <p className="text-2xl font-heading font-bold text-primary-foreground">
+            { label: "Students Enrolled", value: "500+", color: "text-primary" },
+            { label: "Expert Teachers", value: "25+", color: "text-secondary" },
+            { label: "Courses", value: "30+", color: "text-accent" },
+            { label: "Success Rate", value: "95%", color: "text-green-500" },
+          ].map((stat, i) => (
+            <motion.div
+              key={stat.label}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: i * 0.1 }}
+              className="text-center p-8 rounded-[2.5rem] bg-slate-50/50 border border-slate-100/50 hover:shadow-2xl hover:bg-white transition-all duration-500 hover:-translate-y-2 group"
+            >
+              <p className={`text-4xl md:text-5xl font-heading font-extrabold ${stat.color} mb-2 group-hover:scale-110 transition-transform duration-300`}>
                 {stat.value}
               </p>
-              <p className="text-sm text-primary-foreground/70">{stat.label}</p>
-            </div>
+              <p className="text-sm font-bold text-slate-500 uppercase tracking-widest">{stat.label}</p>
+            </motion.div>
           ))}
         </div>
       </section>
 
       {/* Popular Courses Showcase */}
-      <CourseShowcase
-        courses={allCourses}
-        onEnroll={(course) => {
-          setSelectedCourse(course);
-          setEnrollOpen(true);
-        }}
-      />
+      <section className="bg-[hsl(226,100%,97%)] py-16 relative z-10">
+        <CourseShowcase
+          courses={allCourses}
+          onEnroll={(course) => {
+            setSelectedCourse(course);
+            setEnrollOpen(true);
+          }}
+        />
+      </section>
 
       {/* Achievers Showcase */}
-      <AchieverShowcase achievers={achievers} />
+      <section className="bg-[hsl(38,100%,96%)] py-24 relative z-10 border-y border-amber-100/50">
+        <AchieverShowcase achievers={achievers} />
+      </section>
 
       {/* Announcements */}
-      <section id="announcements" className="py-20 bg-background">
+      <section id="announcements" className="py-24 bg-[hsl(226,100%,97%)] relative z-10">
         <div className="container mx-auto px-4 API">
           <div className="text-center mb-16">
             <Badge

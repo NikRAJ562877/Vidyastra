@@ -23,7 +23,7 @@ const CourseShowcase = ({ courses, onEnroll }: CourseShowcaseProps) => {
   );
 
   return (
-    <section className="py-24 bg-background relative overflow-hidden border-0">
+    <section className="py-24 bg-white relative overflow-hidden">
       {/* Decorative background elements */}
       <div className="absolute top-0 right-0 w-96 h-96 bg-primary/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
       <div className="absolute bottom-0 left-0 w-96 h-96 bg-secondary/5 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2" />
@@ -31,22 +31,23 @@ const CourseShowcase = ({ courses, onEnroll }: CourseShowcaseProps) => {
       <div className="container mx-auto px-4 relative z-10">
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
           <div className="max-w-2xl">
-            <h2 className="text-3xl md:text-5xl font-heading font-bold mb-4">
+            <h2 className="text-4xl md:text-6xl font-heading font-extrabold mb-6 text-slate-900 leading-tight">
               Courses chosen by{" "}
-              <span className="text-primary italic">our champions</span>
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent">our champions</span>
             </h2>
-            <p className="text-muted-foreground text-lg">
+            <p className="text-slate-500 text-xl leading-relaxed">
               Explore our most popular programs designed to help you ace
               competitive exams with expert guidance.
             </p>
           </div>
           <Button
+            size="lg"
             variant="outline"
-            className="rounded-full px-8 py-6 border-primary text-primary hover:bg-primary hover:text-white transition-all group"
+            className="rounded-full px-10 h-14 border-slate-200 text-slate-700 hover:bg-slate-50 hover:text-primary transition-all duration-300 shadow-md group font-bold"
             onClick={() => navigate("/enroll")}
           >
             View all Courses{" "}
-            <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+            <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
           </Button>
         </div>
 
@@ -55,12 +56,12 @@ const CourseShowcase = ({ courses, onEnroll }: CourseShowcaseProps) => {
           className="w-full"
           onValueChange={setActiveTab}
         >
-          <TabsList className="bg-muted/50 p-1.5 rounded-2xl mb-12 h-auto flex-wrap justify-start inline-flex">
+          <TabsList className="bg-slate-100/50 p-2 rounded-[2rem] mb-12 h-auto flex-wrap justify-start inline-flex border border-slate-200/50 backdrop-blur-sm">
             {categories.map((cat) => (
               <TabsTrigger
                 key={cat}
                 value={cat}
-                className="rounded-xl px-8 py-3 text-base font-bold data-[state=active]:bg-background data-[state=active]:text-primary data-[state=active]:shadow-lg transition-all"
+                className="rounded-[1.5rem] px-10 py-4 text-lg font-bold data-[state=active]:bg-white data-[state=active]:text-primary data-[state=active]:shadow-xl transition-all duration-300"
               >
                 {cat}
               </TabsTrigger>

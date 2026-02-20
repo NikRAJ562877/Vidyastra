@@ -23,16 +23,16 @@ const ContactForm = () => {
   };
 
   return (
-    <section className="py-24 bg-background relative overflow-hidden">
+    <section className="py-32 bg-slate-50/50 relative overflow-hidden">
       <div className="container mx-auto px-4 relative z-10">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="max-w-4xl mx-auto bg-card border border-border rounded-[2rem] shadow-2xl overflow-hidden flex flex-col md:flex-row min-h-[500px]"
+          className="max-w-4xl mx-auto bg-white border border-slate-100 rounded-[3rem] shadow-[0_32px_64px_-16px_rgba(0,0,0,0.1)] overflow-hidden flex flex-col md:flex-row min-h-[550px]"
         >
           {/* Left Side - Info */}
-          <div className="md:w-2/5 p-10 md:p-12 relative flex flex-col justify-center bg-muted/20 border-r border-border/50 overflow-hidden">
+          <div className="md:w-2/5 p-12 relative flex flex-col justify-center bg-slate-50 border-r border-slate-100 overflow-hidden">
             {/* Grid Pattern Background */}
             <div
               className="absolute inset-0 opacity-[0.03] pointer-events-none"
@@ -47,7 +47,7 @@ const ContactForm = () => {
               <div className="w-16 h-16 bg-primary/10 rounded-2xl flex items-center justify-center mb-6">
                 <Rocket className="h-8 w-8 text-primary animate-float" />
               </div>
-              <h2 className="text-3xl font-heading font-bold mb-4">
+              <h2 className="text-4xl font-heading font-extrabold mb-4 text-slate-900 leading-tight">
                 Request a callback
               </h2>
               <p className="text-muted-foreground mb-8 text-lg">
@@ -111,12 +111,12 @@ const ContactForm = () => {
               <Button
                 type="submit"
                 disabled={loading}
-                className="w-full h-16 rounded-xl text-lg font-bold gradient-primary shadow-xl shadow-primary/20 hover:scale-[1.01] active:scale-[0.99] transition-all"
+                className="w-full h-16 rounded-2xl text-lg font-bold bg-primary hover:bg-primary/90 text-white shadow-xl shadow-primary/25 hover:scale-[1.01] active:scale-[0.99] transition-all duration-300"
               >
                 {loading ? (
                   "Sending..."
                 ) : (
-                  <span className="flex items-center gap-2">
+                  <span className="flex items-center gap-3">
                     Let's get started <Send className="h-5 w-5" />
                   </span>
                 )}

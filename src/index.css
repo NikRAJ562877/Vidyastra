@@ -6,36 +6,94 @@
 
 @layer base {
   :root {
-    --background: 224 71% 4%;
-    --foreground: 210 40% 98%;
+    --background: 226 100% 97%;
+    /* Very light indigo tint */
+    --foreground: 222 47% 11%;
 
-    --card: 222 47% 11%;
-    --card-foreground: 210 40% 98%;
+    --card: 0 0% 100%;
+    --card-foreground: 222 47% 11%;
 
-    --popover: 222 47% 11%;
-    --popover-foreground: 210 40% 98%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222 47% 11%;
 
-    --primary: 263 70% 50%; /* Violet */
+    --primary: 243 75% 59%;
+    /* Indigo - Professional */
     --primary-foreground: 210 40% 98%;
 
-    --secondary: 217 19% 27%;
+    --secondary: 38 92% 50%;
+    /* Amber - Excellence */
     --secondary-foreground: 210 40% 98%;
 
-    --muted: 217 19% 27%;
-    --muted-foreground: 215 20% 65%;
+    --muted: 210 40% 96%;
+    --muted-foreground: 215 16% 47%;
 
-    --accent: 217 19% 27%;
+    --accent: 217 91% 60%;
+    /* Bright Blue */
     --accent-foreground: 210 40% 98%;
 
-    --destructive: 0 62% 30%;
+    --destructive: 0 84% 60%;
     --destructive-foreground: 210 40% 98%;
 
+    --border: 214 32% 91%;
+    --input: 214 32% 91%;
+    --ring: 243 75% 59%;
+
+    --radius: 1rem;
+
+    --sidebar-background: 210 40% 98%;
+    --sidebar-foreground: 222 47% 11%;
+    --sidebar-primary: 243 75% 59%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 210 40% 96%;
+    --sidebar-accent-foreground: 243 75% 59%;
+    --sidebar-border: 214 32% 91%;
+    --sidebar-ring: 243 75% 59%;
+
+    --gradient-primary: linear-gradient(135deg,
+        hsl(243 75% 59%),
+        hsl(263 70% 50%));
+    --gradient-hero: linear-gradient(180deg,
+        hsl(210 40% 98%),
+        hsl(220 30% 94%));
+    --gradient-card: linear-gradient(145deg, hsl(0 0% 100%), hsl(210 40% 98%));
+    --gradient-accent: linear-gradient(135deg,
+        hsl(38 92% 50%),
+        hsl(45 93% 47%));
+    --shadow-primary: 0 8px 32px -8px hsl(243 75% 59% / 0.3);
+    --shadow-card: 0 10px 30px -5px hsl(222 47% 11% / 0.05);
+    --shadow-elevated: 0 20px 50px -12px hsl(222 47% 11% / 0.1);
+
+    --font-heading: "Space Grotesk", sans-serif;
+    --font-body: "Plus Jakarta Sans", sans-serif;
+
+    --success: 142 76% 36%;
+    --success-foreground: 0 0% 100%;
+    --warning: 38 92% 50%;
+    --warning-foreground: 0 0% 100%;
+    --info: 214 95% 53%;
+    --info-foreground: 0 0% 100%;
+  }
+
+  .dark {
+    --background: 224 71% 4%;
+    --foreground: 210 40% 98%;
+    --card: 222 47% 11%;
+    --card-foreground: 210 40% 98%;
+    --popover: 222 47% 11%;
+    --popover-foreground: 210 40% 98%;
+    --primary: 263 70% 50%;
+    --primary-foreground: 210 40% 98%;
+    --secondary: 217 19% 27%;
+    --secondary-foreground: 210 40% 98%;
+    --muted: 217 19% 27%;
+    --muted-foreground: 215 20% 65%;
+    --accent: 217 19% 27%;
+    --accent-foreground: 210 40% 98%;
+    --destructive: 0 62% 30%;
+    --destructive-foreground: 210 40% 98%;
     --border: 217 19% 27%;
     --input: 217 19% 27%;
     --ring: 263 70% 50%;
-
-    --radius: 0.75rem;
-
     --sidebar-background: 222 47% 11%;
     --sidebar-foreground: 210 40% 98%;
     --sidebar-primary: 263 70% 50%;
@@ -44,66 +102,6 @@
     --sidebar-accent-foreground: 210 40% 98%;
     --sidebar-border: 217 19% 27%;
     --sidebar-ring: 263 70% 50%;
-
-    --gradient-primary: linear-gradient(
-      135deg,
-      hsl(263 70% 50%),
-      hsl(280 65% 60%)
-    );
-    --gradient-hero: linear-gradient(
-      180deg,
-      hsl(224 71% 4%),
-      hsl(263 70% 20%)
-    );
-    --gradient-card: linear-gradient(145deg, hsl(222 47% 11%), hsl(222 47% 15%));
-    --gradient-accent: linear-gradient(
-      135deg,
-      hsl(263 70% 50%),
-      hsl(320 70% 60%)
-    );
-    --shadow-primary: 0 8px 32px -8px hsl(263 70% 50% / 0.5);
-    --shadow-card: 0 4px 24px -4px hsl(0 0% 0% / 0.3);
-    --shadow-elevated: 0 16px 48px -12px hsl(0 0% 0% / 0.5);
-
-    --font-heading: "Space Grotesk", sans-serif;
-    --font-body: "Plus Jakarta Sans", sans-serif;
-
-    --success: 152 60% 42%;
-    --success-foreground: 0 0% 100%;
-    --warning: 38 92% 50%;
-    --warning-foreground: 0 0% 100%;
-    --info: 220 70% 55%;
-    --info-foreground: 0 0% 100%;
-  }
-
-  .dark {
-    --background: 240 20% 6%;
-    --foreground: 240 10% 95%;
-    --card: 240 20% 9%;
-    --card-foreground: 240 10% 95%;
-    --popover: 240 20% 9%;
-    --popover-foreground: 240 10% 95%;
-    --primary: 222 70% 65%;
-    --primary-foreground: 0 0% 100%;
-    --secondary: 220 70% 60%;
-    --secondary-foreground: 0 0% 100%;
-    --muted: 240 15% 15%;
-    --muted-foreground: 240 10% 60%;
-    --accent: 222 30% 18%;
-    --accent-foreground: 222 60% 80%;
-    --destructive: 0 62% 30%;
-    --destructive-foreground: 0 0% 100%;
-    --border: 240 15% 18%;
-    --input: 240 15% 18%;
-    --ring: 222 70% 65%;
-    --sidebar-background: 240 20% 6%;
-    --sidebar-foreground: 240 10% 90%;
-    --sidebar-primary: 222 70% 65%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 15% 12%;
-    --sidebar-accent-foreground: 240 10% 90%;
-    --sidebar-border: 240 15% 15%;
-    --sidebar-ring: 222 70% 65%;
   }
 }
 
@@ -111,10 +109,12 @@
   * {
     @apply border-border;
   }
+
   body {
     @apply bg-background text-foreground;
     font-family: var(--font-body);
   }
+
   h1,
   h2,
   h3,
@@ -129,24 +129,31 @@
   .gradient-primary {
     background: var(--gradient-primary);
   }
+
   .gradient-hero {
     background: var(--gradient-hero);
   }
+
   .gradient-card {
     background: var(--gradient-card);
   }
+
   .gradient-accent {
     background: var(--gradient-accent);
   }
+
   .shadow-primary {
     box-shadow: var(--shadow-primary);
   }
+
   .shadow-card {
     box-shadow: var(--shadow-card);
   }
+
   .shadow-elevated {
     box-shadow: var(--shadow-elevated);
   }
+
   .text-gradient {
     background: var(--gradient-primary);
     -webkit-background-clip: text;
@@ -161,7 +168,9 @@
 
   /* Hide scrollbar for IE, Edge and Firefox */
   * {
-    -ms-overflow-style: none; /* IE and Edge */
-    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none;
+    /* IE and Edge */
+    scrollbar-width: none;
+    /* Firefox */
   }
 }

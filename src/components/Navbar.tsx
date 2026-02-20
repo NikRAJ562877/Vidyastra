@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Menu, X, ChevronDown } from "lucide-react";
@@ -9,9 +9,24 @@ const Navbar = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
   const navigate = useNavigate();
   const [isClassroomDropdownOpen, setIsClassroomDropdownOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 10);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-xl border-b border-border text-foreground transition-all duration-300 shadow-sm">
+    <nav
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 border-b ${isScrolled
+        ? "bg-white/95 backdrop-blur-md border-slate-200 py-0 shadow-md"
+        : "bg-background/50 backdrop-blur-sm border-transparent py-2"
+        }`}
+    >
       <div className="container mx-auto flex items-center justify-between h-16 px-4">
         <Link to="/" className="flex items-center gap-2">
           <img
@@ -20,7 +35,7 @@ const Navbar = () => {
             className="h-14 w-14 object-cover"
             loading="lazy"
           />
-          <span className="font-heading text-lg font-bold text-white">
+          <span className="font-heading text-xl font-bold text-slate-900">
             Vidyastara
           </span>
         </Link>
@@ -32,7 +47,7 @@ const Navbar = () => {
               onClick={() =>
                 setIsClassroomDropdownOpen(!isClassroomDropdownOpen)
               }
-              className="flex items-center gap-1 text-white hover:text-gray-200 transition-colors"
+              className="flex items-center gap-1 font-semibold transition-colors text-slate-700 hover:text-primary"
             >
               Classroom Courses
               <ChevronDown
@@ -73,19 +88,19 @@ const Navbar = () => {
           </div>
           <a
             href="#announcements"
-            className="text-sm font-medium text-white hover:text-gray-200 transition-colors"
+            className="text-sm font-semibold transition-colors text-slate-700 hover:text-primary"
           >
             Announcements
           </a>
           <a
             href="#achievers"
-            className="text-sm font-medium text-white hover:text-gray-200 transition-colors"
+            className="text-sm font-semibold transition-colors text-slate-700 hover:text-primary"
           >
             Achievers
           </a>
           <Link
             to="/results"
-            className="text-sm font-medium text-white hover:text-gray-200 transition-colors"
+            className="text-sm font-semibold transition-colors text-slate-700 hover:text-primary"
           >
             Results
           </Link>
@@ -96,7 +111,7 @@ const Navbar = () => {
 
         {/* Mobile toggle */}
         <button
-          className="md:hidden text-white"
+          className="text-slate-900"
           onClick={() => setMobileOpen(!mobileOpen)}
         >
           {mobileOpen ? (
