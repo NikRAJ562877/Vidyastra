@@ -41,14 +41,14 @@ const Index = () => {
       <Navbar />
 
       {/* Hero */}
-      <section className="relative min-h-[85vh] flex items-center overflow-hidden bg-[#2563eb] border-0">
+      <section className="relative min-h-[85vh] flex items-center overflow-hidden bg-[#0d9488] border-0">
         <div className="absolute inset-0">
           <img
             src={heroBg}
             alt="Students studying"
             className="w-full h-full object-cover"
           />
-          <div className="absolute inset-0 bg-[#2563eb]/20" />
+          <div className="absolute inset-0 bg-[#0d9488]/20" />
         </div>
         <div className="container mx-auto px-4 relative z-10 pt-16">
           <motion.div
@@ -64,14 +64,14 @@ const Index = () => {
               Shape Your Future with{" "}
               <span className="text-yellow-300">Vidyastara</span>
             </h1>
-            <p className="mt-4 text-lg text-blue-50 max-w-lg">
+            <p className="mt-4 text-lg text-teal-50 max-w-lg">
               Join our premier coaching institute for personalized learning,
               expert faculty, and proven results.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <Button
                 size="lg"
-                className="bg-white text-blue-600 hover:bg-blue-50"
+                className="bg-white text-teal-700 hover:bg-teal-50"
                 onClick={() => navigate("/enroll")}
               >
                 Explore Courses <ArrowRight className="ml-2 h-4 w-4" />
@@ -94,7 +94,7 @@ const Index = () => {
       </section>
 
       {/* Stats Strip */}
-      <section className="bg-[#2563eb] py-9 border-0">
+      <section className="bg-[#0d9488] py-9 border-0">
         <div className="container mx-auto px-4 grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
           {[
             { label: "Students Enrolled", value: "500+" },
