@@ -125,33 +125,55 @@ const Index = () => {
       <AchieverShowcase achievers={achievers} />
 
       {/* Announcements */}
-      <section id="announcements" className="py-20 bg-muted/50">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-12">
-            <Badge variant="outline" className="mb-3">
-              <Megaphone className="h-3 w-3 mr-1" /> Announcements
+      <section
+        id="announcements"
+        className="py-20 bg-gradient-to-b from-slate-50 to-white"
+      >
+        <div className="container mx-auto px-4 API">
+          <div className="text-center mb-16">
+            <Badge
+              variant="outline"
+              className="mb-3 px-4 py-1 border-primary/20 bg-primary/5 text-primary"
+            >
+              <Megaphone className="h-3 w-3 mr-2" /> Latest Updates
             </Badge>
-            <h2 className="text-3xl md:text-4xl font-heading font-bold">
-              Latest Updates
+            <h2 className="text-3xl md:text-5xl font-heading font-bold text-slate-900">
+              Campus <span className="text-primary italic">Buzz</span>
             </h2>
+            <p className="mt-4 text-muted-foreground max-w-2xl mx-auto">
+              Stay updated with everything happening at Vidyastara. From exam
+              schedules to cultural events, don't miss a beat.
+            </p>
           </div>
-          <div className="max-w-2xl mx-auto space-y-4">
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
             {announcements.map((a, i) => (
               <motion.div
                 key={a.id}
-                initial={{ opacity: 0, x: -20 }}
-                whileInView={{ opacity: 1, x: 0 }}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.1 }}
-                className="bg-card rounded-xl border border-border p-5 shadow-card"
+                className="group bg-white rounded-2xl border border-slate-100 p-6 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 relative overflow-hidden"
               >
-                <div className="flex items-start justify-between">
-                  <h3 className="font-heading font-semibold">{a.title}</h3>
-                  <span className="text-xs text-muted-foreground whitespace-nowrap ml-4">
+                <div className="absolute top-0 left-0 w-1 h-full bg-gradient-to-b from-primary to-secondary opacity-0 group-hover:opacity-100 transition-opacity" />
+
+                <div className="flex items-start justify-between mb-4">
+                  <div className="p-3 rounded-xl bg-primary/10 text-primary group-hover:bg-primary group-hover:text-white transition-colors">
+                    <Megaphone className="h-5 w-5" />
+                  </div>
+                  <Badge
+                    variant="secondary"
+                    className="font-medium text-[10px] uppercase tracking-wider"
+                  >
                     {a.date}
-                  </span>
+                  </Badge>
                 </div>
-                <p className="text-sm text-muted-foreground mt-1">
+
+                <h3 className="font-heading font-bold text-lg mb-2 text-slate-900 group-hover:text-primary transition-colors line-clamp-2">
+                  {a.title}
+                </h3>
+                <p className="text-sm text-slate-500 line-clamp-3 leading-relaxed">
                   {a.description}
                 </p>
               </motion.div>

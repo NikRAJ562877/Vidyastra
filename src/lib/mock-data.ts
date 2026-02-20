@@ -414,6 +414,9 @@ export const defaultAnnouncements: Announcement[] = [
   { id: 1, title: 'Admissions Open for 2025-26', description: 'Enroll now for the upcoming academic year. Early bird discounts available!', date: 'Feb 10, 2025' },
   { id: 2, title: 'Annual Day Celebration', description: 'Join us for our annual day celebrations on March 15, 2025.', date: 'Feb 8, 2025' },
   { id: 3, title: 'Board Exam Preparation Crash Course', description: 'Special crash course starting Feb 20 for board exam students.', date: 'Feb 5, 2025' },
+  { id: 4, title: 'Science Exhibition', description: 'Showcase your innovative projects on Feb 28, National Science Day.', date: 'Jan 30, 2025' },
+  { id: 5, title: 'Parent-Teacher Meeting', description: 'Scheduled for Class 10 and 12 on March 5th to discuss pre-board results.', date: 'Jan 25, 2025' },
+  { id: 6, title: 'Scholarship Test Results', description: 'Results for the Vidya-Scholarship test announced. Check your email.', date: 'Jan 20, 2025' },
 ];
 
 // Auth mock
