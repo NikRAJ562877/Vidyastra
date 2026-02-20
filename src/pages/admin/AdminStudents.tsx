@@ -551,7 +551,7 @@ const AdminStudents = () => {
                       }
                     />
                   </div>
-                  <div className="space-y-2">
+                  {/* <div className="space-y-2">
                     <Label>Category</Label>
                     <Select
                       value={editingStudent.category}
@@ -569,7 +569,7 @@ const AdminStudents = () => {
                         </SelectItem>
                       </SelectContent>
                     </Select>
-                  </div>
+                  </div> */}
                   <div className="space-y-2">
                     <Label>Total Fee (₹)</Label>
                     <Input
