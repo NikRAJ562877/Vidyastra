@@ -41,14 +41,14 @@ const Index = () => {
       <Navbar />
 
       {/* Hero */}
-      <section className="relative min-h-[85vh] flex items-center overflow-hidden bg-[#3b2545] border-0">
+      <section className="relative min-h-[85vh] flex items-center overflow-hidden bg-[#1e293b] border-0">
         <div className="absolute inset-0">
           <img
             src={heroBg}
             alt="Students studying"
             className="w-full h-full object-cover"
           />
-          <div className="absolute inset-0 bg-[#3b2545]/50" />
+          <div className="absolute inset-0 bg-[#1e293b]/70" />
         </div>
         <div className="container mx-auto px-4 relative z-10 pt-16">
           <motion.div
@@ -57,7 +57,7 @@ const Index = () => {
             transition={{ duration: 0.8 }}
             className="max-w-2xl"
           >
-            <Badge className="mb-4 bg-[#5a3668] text-primary-foreground border-0 px-4 py-1.5 text-sm">
+            <Badge className="mb-4 bg-[#334155] text-primary-foreground border-0 px-4 py-1.5 text-sm">
               Admissions Open 2026-27
             </Badge>
             <h1 className="text-4xl md:text-6xl font-heading font-bold text-primary-foreground leading-tight">
@@ -94,7 +94,7 @@ const Index = () => {
       </section>
 
       {/* Stats Strip */}
-      <section className="bg-[#3b2545] py-9 border-0">
+      <section className="bg-[#1e293b] py-9 border-0">
         <div className="container mx-auto px-4 grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
           {[
             { label: "Students Enrolled", value: "500+" },

@@ -11,7 +11,7 @@ const Navbar = () => {
   const [isClassroomDropdownOpen, setIsClassroomDropdownOpen] = useState(false);
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-[#3b2545] text-white backdrop-blur-xl">
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-[#1e293b] text-white backdrop-blur-xl">
       <div className="container mx-auto flex items-center justify-between h-16 px-4">
         <Link to="/" className="flex items-center gap-2">
           <img
@@ -108,7 +108,7 @@ const Navbar = () => {
       </div>
 
       {mobileOpen && (
-        <div className="md:hidden bg-[#3b2545] px-4 pb-4 space-y-3">
+        <div className="md:hidden bg-[#1e293b] px-4 pb-4 space-y-3">
           <a
             href="#courses"
             className="block text-sm font-medium text-white"
