@@ -41,14 +41,14 @@ const Index = () => {
       <Navbar />
 
       {/* Hero */}
-      <section className="relative min-h-[85vh] flex items-center overflow-hidden bg-[#1e293b] border-0">
+      <section className="relative min-h-[85vh] flex items-center overflow-hidden bg-[#2563eb] border-0">
         <div className="absolute inset-0">
           <img
             src={heroBg}
             alt="Students studying"
             className="w-full h-full object-cover"
           />
-          <div className="absolute inset-0 bg-[#1e293b]/70" />
+          <div className="absolute inset-0 bg-[#2563eb]/20" />
         </div>
         <div className="container mx-auto px-4 relative z-10 pt-16">
           <motion.div
@@ -57,21 +57,21 @@ const Index = () => {
             transition={{ duration: 0.8 }}
             className="max-w-2xl"
           >
-            <Badge className="mb-4 bg-[#334155] text-primary-foreground border-0 px-4 py-1.5 text-sm">
+            <Badge className="mb-4 bg-white/20 text-white border-0 px-4 py-1.5 text-sm backdrop-blur-sm">
               Admissions Open 2026-27
             </Badge>
-            <h1 className="text-4xl md:text-6xl font-heading font-bold text-primary-foreground leading-tight">
+            <h1 className="text-4xl md:text-6xl font-heading font-bold text-white leading-tight">
               Shape Your Future with{" "}
-              <span className="text-secondary">Vidyastara</span>
+              <span className="text-yellow-300">Vidyastara</span>
             </h1>
-            <p className="mt-4 text-lg text-primary-foreground/80 max-w-lg">
+            <p className="mt-4 text-lg text-blue-50 max-w-lg">
               Join our premier coaching institute for personalized learning,
               expert faculty, and proven results.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <Button
                 size="lg"
-                variant="secondary"
+                className="bg-white text-blue-600 hover:bg-blue-50"
                 onClick={() => navigate("/enroll")}
               >
                 Explore Courses <ArrowRight className="ml-2 h-4 w-4" />
@@ -79,7 +79,7 @@ const Index = () => {
               <Button
                 size="lg"
                 variant="outline"
-                className="bg-white text-secondary hover:bg-secondary hover:text-white border-none shadow-sm"
+                className="bg-transparent border-white text-white hover:bg-white/10"
                 onClick={() =>
                   document
                     .getElementById("achievers")
@@ -94,7 +94,7 @@ const Index = () => {
       </section>
 
       {/* Stats Strip */}
-      <section className="bg-[#1e293b] py-9 border-0">
+      <section className="bg-[#2563eb] py-9 border-0">
         <div className="container mx-auto px-4 grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
           {[
             { label: "Students Enrolled", value: "500+" },

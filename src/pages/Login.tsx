@@ -133,7 +133,7 @@ const Login = () => {
       </div>
 
       {/* Right - Decorative */}
-      <div className="hidden lg:flex flex-1 bg-[#1e293b] items-center justify-center p-12">
+      <div className="hidden lg:flex flex-1 bg-[#2563eb] items-center justify-center p-12">
         <div className="text-center text-primary-foreground max-w-md">
           <img
             src={LogoImg}

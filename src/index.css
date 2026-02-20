@@ -15,53 +15,49 @@
     --popover: 0 0% 100%;
     --popover-foreground: 240 20% 10%;
 
-    --primary: 222 47% 20%;
+    --primary: 217 91% 60%;
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 215 60% 50%;
+    --secondary: 199 89% 48%;
     --secondary-foreground: 0 0% 100%;
 
     --muted: 240 10% 96%;
     --muted-foreground: 240 10% 45%;
 
-    --accent: 222 30% 96%;
-    --accent-foreground: 222 47% 20%;
+    --accent: 217 91% 97%;
+    --accent-foreground: 217 91% 60%;
 
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 100%;
 
     --border: 240 10% 90%;
     --input: 240 10% 90%;
-    --ring: 222 47% 20%;
+    --ring: 217 91% 60%;
 
     --radius: 0.75rem;
 
-    --sidebar-background: 222 47% 15%;
-    --sidebar-foreground: 0 0% 98%;
-    --sidebar-primary: 222 47% 30%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 222 25% 20%;
+    --sidebar-background: 217 91% 55%; 
+    --sidebar-foreground: 0 0% 100%;
+    --sidebar-primary: 0 0% 100%;
+    --sidebar-primary-foreground: 217 91% 55%;
+    --sidebar-accent: 217 91% 45%;
     --sidebar-accent-foreground: 0 0% 100%;
-    --sidebar-border: 222 20% 20%;
-    --sidebar-ring: 222 47% 20%;
+    --sidebar-border: 217 91% 45%;
+    --sidebar-ring: 217 91% 70%;
 
     --gradient-primary: linear-gradient(
       135deg,
-      hsl(222 47% 20%),
-      hsl(222 47% 30%)
+      hsl(217 91% 60%),
+      hsl(217 91% 50%)
     );
-    --gradient-hero: linear-gradient(
-      135deg,
-      hsl(222 47% 15%),
-      hsl(222 25% 25%)
-    );
-    --gradient-card: linear-gradient(145deg, hsl(0 0% 100%), hsl(222 40% 99%));
+    --gradient-hero: linear-gradient(135deg, hsl(222 47% 15%), hsl(222 25% 25%));
+    --gradient-card: linear-gradient(145deg, hsl(0 0% 100%), hsl(217 91% 98%));
     --gradient-accent: linear-gradient(
       135deg,
-      hsl(222 60% 97%),
-      hsl(215 60% 97%)
+      hsl(217 91% 95%),
+      hsl(199 89% 95%)
     );
-    --shadow-primary: 0 8px 32px -8px hsl(222 70% 55% / 0.3);
+    --shadow-primary: 0 8px 32px -8px hsl(217 91% 60% / 0.4);
     --shadow-card: 0 4px 24px -4px hsl(240 20% 10% / 0.08);
     --shadow-elevated: 0 16px 48px -12px hsl(240 20% 10% / 0.15);
 
