@@ -41,14 +41,14 @@ const Index = () => {
       <Navbar />
 
       {/* Hero */}
-      <section className="relative min-h-[85vh] flex items-center overflow-hidden bg-[#0d9488] border-0">
+      <section className="relative min-h-[85vh] flex items-center overflow-hidden bg-background border-0">
         <div className="absolute inset-0">
           <img
             src={heroBg}
             alt="Students studying"
             className="w-full h-full object-cover"
           />
-          <div className="absolute inset-0 bg-[#0d9488]/20" />
+          <div className="absolute inset-0 bg-background/40" />
         </div>
         <div className="container mx-auto px-4 relative z-10 pt-16">
           <motion.div
@@ -94,7 +94,7 @@ const Index = () => {
       </section>
 
       {/* Stats Strip */}
-      <section className="bg-[#0d9488] py-9 border-0">
+      <section className="bg-muted/50 py-9 border-t border-b border-border">
         <div className="container mx-auto px-4 grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
           {[
             { label: "Students Enrolled", value: "500+" },
@@ -125,10 +125,7 @@ const Index = () => {
       <AchieverShowcase achievers={achievers} />
 
       {/* Announcements */}
-      <section
-        id="announcements"
-        className="py-20 bg-gradient-to-b from-slate-50 to-white"
-      >
+      <section id="announcements" className="py-20 bg-background">
         <div className="container mx-auto px-4 API">
           <div className="text-center mb-16">
             <Badge

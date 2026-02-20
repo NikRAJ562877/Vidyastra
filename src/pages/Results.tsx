@@ -212,8 +212,8 @@ const Results = () => {
               <ArrowLeft className="h-4 w-4 mr-2" /> Back to Test List
             </Button>
 
-            <div className="bg-white rounded-3xl border border-border shadow-xl overflow-hidden">
-              <div className="bg-[#0d9488] p-8 text-white">
+            <div className="bg-card rounded-3xl border border-border shadow-xl overflow-hidden">
+              <div className="bg-primary p-8 text-primary-foreground">
                 <div className="flex justify-between items-start">
                   <div>
                     <span className="bg-white/20 px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider mb-2 inline-block">
