@@ -106,8 +106,10 @@ const EnrollmentDialog = ({ course, open, onClose }: Props) => {
         batch: form.batch || course?.batch || "",
         status: "pending",
         totalFee: course?.fee || 0,
-        paymentType: "full",
-        remainingAmount: 0,
+        paymentType: form.paymentScheme,
+        paymentStatus: 'pending',
+        amountPaid: 0,
+        remainingAmount: course?.fee || 0,
         amountToPay: finalAmount,
       });
       setStep("success");

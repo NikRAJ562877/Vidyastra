@@ -28,10 +28,10 @@ import {
 } from "@/components/ui/dialog";
 import { Trash2, Edit2, Plus, BookOpen } from "lucide-react";
 import useCourses from "@/hooks/use-courses";
-import { classes, batches, Course } from "@/lib/mock-data";
 import { adminNavItems } from "@/lib/nav-config";
 import { toast } from "sonner";
 import { Checkbox } from "@/components/ui/checkbox";
+import { classes, batches, subjects, Course } from "@/lib/mock-data";
 
 const AdminCourses = () => {
   const { courses, add, update, remove } = useCourses();
@@ -41,6 +41,7 @@ const AdminCourses = () => {
     name: "",
     class: "",
     batch: "",
+    subject: [],
     duration: "",
     fee: 0,
     minFirstInstallment: 0,
@@ -55,6 +56,7 @@ const AdminCourses = () => {
         name: course.name,
         class: course.class,
         batch: course.batch,
+        subject: course.subject,
         duration: course.duration,
         fee: course.fee,
         minFirstInstallment: course.minFirstInstallment || 0,
@@ -67,6 +69,7 @@ const AdminCourses = () => {
         name: "",
         class: "",
         batch: "",
+        subject: [],
         duration: "",
         fee: 0,
         minFirstInstallment: 0,
@@ -79,7 +82,7 @@ const AdminCourses = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!formData.name || !formData.class || !formData.batch) {
+    if (!formData.name || !formData.class || !formData.batch || formData.subject.length === 0) {
       toast.error("Please fill all required fields");
       return;
     }
@@ -127,6 +130,7 @@ const AdminCourses = () => {
               <TableHead>Course Name</TableHead>
               <TableHead>Class</TableHead>
               <TableHead>Batch</TableHead>
+              <TableHead>Subject</TableHead>
               <TableHead>Fee</TableHead>
               <TableHead>Duration</TableHead>
               <TableHead className="text-right">Actions</TableHead>
@@ -142,6 +146,15 @@ const AdminCourses = () => {
                   </TableCell>
                   <TableCell>
                     <Badge variant="secondary">{course.batch}</Badge>
+                  </TableCell>
+                  <TableCell>
+                    <div className="flex flex-wrap gap-1">
+                      {Array.isArray(course.subject) && course.subject.map((s) => (
+                        <Badge key={s} variant="outline" className="bg-primary/5 text-[10px]">
+                          {s}
+                        </Badge>
+                      ))}
+                    </div>
                   </TableCell>
                   <TableCell>₹{course.fee.toLocaleString()}</TableCell>
                   <TableCell>{course.duration}</TableCell>
@@ -200,7 +213,7 @@ const AdminCourses = () => {
                 required
               />
             </div>
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-3 gap-4">
               <div className="grid gap-2">
                 <Label htmlFor="class">Class *</Label>
                 <Select
@@ -236,6 +249,31 @@ const AdminCourses = () => {
                     ))}
                   </SelectContent>
                 </Select>
+              </div>
+            </div>
+            <div className="grid gap-2">
+              <Label>Subjects *</Label>
+              <div className="grid grid-cols-3 gap-2 border rounded-md p-3 max-h-[150px] overflow-y-auto">
+                {subjects.map((s) => (
+                  <div key={s} className="flex items-center space-x-2">
+                    <Checkbox
+                      id={`subject-${s}`}
+                      checked={formData.subject.includes(s)}
+                      onCheckedChange={(checked) => {
+                        const newSubjects = checked === true
+                          ? [...formData.subject, s]
+                          : formData.subject.filter((sub) => sub !== s);
+                        setFormData({ ...formData, subject: newSubjects });
+                      }}
+                    />
+                    <Label
+                      htmlFor={`subject-${s}`}
+                      className="text-xs font-normal cursor-pointer"
+                    >
+                      {s}
+                    </Label>
+                  </div>
+                ))}
               </div>
             </div>
             <div className="grid grid-cols-2 gap-4">

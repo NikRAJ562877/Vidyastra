@@ -29,7 +29,7 @@ import {
   DialogDescription,
 } from "@/components/ui/dialog";
 import useStudents from "@/hooks/use-students";
-import { classes as mockClasses, Student } from "@/lib/mock-data";
+import { classes as mockClasses, Student, getPaymentStatus } from "@/lib/mock-data";
 import {
   UserPlus,
   Search,
@@ -59,6 +59,7 @@ const AdminStudents = () => {
     amount: "",
     date: new Date().toISOString().split("T")[0],
   });
+  const [viewPaymentOpen, setViewPaymentOpen] = useState(false);
 
   // Form state
   const [formData, setFormData] = useState({
@@ -66,7 +67,7 @@ const AdminStudents = () => {
     email: "",
     phone: "",
     class: "",
-    batch: "Batch A - Morning",
+    batch: "batch 1 evening",
     registerNumber: "",
     rollNumber: "",
   });
@@ -99,7 +100,7 @@ const AdminStudents = () => {
       email: "",
       phone: "",
       class: "",
-      batch: "Batch A - Morning",
+      batch: "batch 1 evening",
       registerNumber: "",
       rollNumber: "",
     });
@@ -113,6 +114,11 @@ const AdminStudents = () => {
       amount: student.totalFee ? (student.totalFee / 2).toString() : "15000",
     });
     setOfflinePaymentOpen(true);
+  };
+
+  const handleViewPayment = (student: Student) => {
+    setSelectedStudent(student);
+    setViewPaymentOpen(true);
   };
 
   const saveOfflinePayment = () => {
@@ -130,8 +136,8 @@ const AdminStudents = () => {
 
     const history = [...(selectedStudent.paymentHistory || []), newRecord];
     const totalPaid = history.reduce((sum, r) => sum + r.amount, 0);
-    const status =
-      totalPaid >= (selectedStudent.totalFee || 0) ? "paid" : "partial";
+    const totalFee = selectedStudent.totalFee || 0;
+    const status = getPaymentStatus(totalPaid, totalFee);
 
     update(selectedStudent.id, {
       paymentHistory: history,
@@ -229,14 +235,25 @@ const AdminStudents = () => {
                   <TableCell>{s.class}</TableCell>
                   <TableCell className="text-xs">{s.batch}</TableCell>
                   <TableCell>
-                    <Badge
-                      variant={
-                        s.paymentStatus === "paid" ? "default" : "secondary"
-                      }
-                      className="text-[10px] uppercase"
-                    >
-                      {s.paymentStatus}
-                    </Badge>
+                    {(() => {
+                      const totalPaid = s.paymentHistory?.reduce((sum, r) => sum + r.amount, 0) || 0;
+                      const totalFee = s.totalFee || 0;
+                      const status = getPaymentStatus(totalPaid, totalFee);
+                      return (
+                        <Badge
+                          variant={status === "paid" ? "default" : "secondary"}
+                          className={`text-[10px] uppercase cursor-pointer ${status === "paid"
+                              ? "bg-success"
+                              : status === "partial"
+                                ? "bg-warning"
+                                : ""
+                            }`}
+                          onClick={() => handleViewPayment(s)}
+                        >
+                          {status}
+                        </Badge>
+                      );
+                    })()}
                   </TableCell>
                   <TableCell className="text-right">
                     <div className="flex justify-end gap-1">
@@ -596,6 +613,79 @@ const AdminStudents = () => {
               Cancel
             </Button>
             <Button onClick={saveStudentEdit}>Save Changes</Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+      {/* View Payment Summary Modal */}
+      <Dialog open={viewPaymentOpen} onOpenChange={setViewPaymentOpen}>
+        <DialogContent className="sm:max-w-[400px]">
+          <DialogHeader>
+            <DialogTitle>Payment Summary</DialogTitle>
+            <DialogDescription>
+              Payment details for {selectedStudent?.name}
+            </DialogDescription>
+          </DialogHeader>
+          <div className="space-y-4 py-4">
+            <div className="grid grid-cols-2 gap-4 text-sm">
+              <div className="space-y-1">
+                <p className="text-muted-foreground">Total Fee</p>
+                <p className="font-bold border-b pb-1">
+                  ₹{selectedStudent?.totalFee?.toLocaleString() || 0}
+                </p>
+              </div>
+              <div className="space-y-1">
+                <p className="text-muted-foreground">Amount Paid</p>
+                <p className="font-bold border-b pb-1 text-success">
+                  ₹{(selectedStudent?.paymentHistory?.reduce((sum, r) => sum + r.amount, 0) || 0).toLocaleString()}
+                </p>
+              </div>
+              <div className="space-y-1">
+                <p className="text-muted-foreground">Remaining</p>
+                <p className="font-bold border-b pb-1 text-destructive">
+                  ₹{(Math.max(0, (selectedStudent?.totalFee || 0) - (selectedStudent?.paymentHistory?.reduce((sum, r) => sum + r.amount, 0) || 0))).toLocaleString()}
+                </p>
+              </div>
+              <div className="space-y-1">
+                <p className="text-muted-foreground">Status</p>
+                <p className="font-bold border-b pb-1 capitalize">
+                  {getPaymentStatus(
+                    selectedStudent?.paymentHistory?.reduce((sum, r) => sum + r.amount, 0) || 0,
+                    selectedStudent?.totalFee || 0
+                  )}
+                </p>
+              </div>
+            </div>
+
+            {selectedStudent?.paymentHistory && selectedStudent.paymentHistory.length > 0 && (
+              <div className="space-y-2">
+                <p className="text-xs font-bold uppercase tracking-wider text-muted-foreground">Payment History</p>
+                <div className="max-h-[150px] overflow-y-auto space-y-2">
+                  {selectedStudent.paymentHistory.map((record) => (
+                    <div key={record.id} className="text-xs p-2 bg-muted rounded border border-border flex justify-between items-center">
+                      <div>
+                        <p className="font-semibold">{record.date}</p>
+                        <p className="text-muted-foreground">{record.mode} - {record.type}</p>
+                      </div>
+                      <p className="font-bold">₹{record.amount.toLocaleString()}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
+          <DialogFooter>
+            <Button
+              variant="outline"
+              onClick={() => setViewPaymentOpen(false)}
+            >
+              Close
+            </Button>
+            <Button onClick={() => {
+              setViewPaymentOpen(false);
+              handleRecordPayment(selectedStudent!);
+            }}>
+              Record New Payment
+            </Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>

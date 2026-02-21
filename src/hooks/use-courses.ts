@@ -9,7 +9,11 @@ export default function useCourses() {
             const raw = localStorage.getItem(STORAGE_KEY);
             if (!raw) return defaultCourses;
             const parsed = JSON.parse(raw) as Course[];
-            return Array.isArray(parsed) && parsed.length ? parsed : defaultCourses;
+            const sanitized = Array.isArray(parsed) ? parsed.map(c => ({
+                ...c,
+                subject: Array.isArray(c.subject) ? c.subject : (typeof c.subject === 'string' ? [c.subject] : [])
+            })) : defaultCourses;
+            return sanitized.length ? sanitized : defaultCourses;
         } catch (err) {
             console.error('Failed to read courses from localStorage', err);
             return defaultCourses;

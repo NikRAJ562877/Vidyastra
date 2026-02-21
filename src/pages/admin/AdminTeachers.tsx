@@ -49,7 +49,7 @@ const AdminTeachers = () => {
 
     add({
       ...formData,
-      assignedBatches: ["Batch A - Morning"], // Default
+      assignedBatches: ["batch 1 evening"], // Default
     });
 
     setIsAddDialogOpen(false);

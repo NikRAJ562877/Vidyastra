@@ -24,7 +24,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import useEnrollments from "@/hooks/use-enrollments";
 import useStudents from "@/hooks/use-students";
-import { Student, Enrollment } from "@/lib/mock-data";
+import { Student, Enrollment, getPaymentStatus } from "@/lib/mock-data";
 import { toast } from "sonner";
 import {
   UserPlus,
@@ -71,8 +71,18 @@ const AdminEnrollments = () => {
       class: selectedEnrollment.class,
       batch: selectedEnrollment.batch,
       category: "normal",
-      paymentStatus: "pending",
+      paymentStatus: getPaymentStatus(selectedEnrollment.amountPaid || 0, selectedEnrollment.totalFee || 0),
       password: "student123", // Default password
+      totalFee: selectedEnrollment.totalFee || 0,
+      paymentHistory: selectedEnrollment.amountPaid ? [{
+        id: Date.now().toString(),
+        date: selectedEnrollment.date,
+        amount: selectedEnrollment.amountPaid,
+        mode: selectedEnrollment.paymentMode || 'online',
+        type: selectedEnrollment.paymentType || 'full',
+        receiptId: `REC-${Math.floor(Math.random() * 1000000)}`,
+        transactionId: selectedEnrollment.transactionId
+      }] : []
     });
 
     // Remove from enrollments
@@ -130,28 +140,33 @@ const AdminEnrollments = () => {
                   </TableCell>
                   <TableCell className="capitalize">{enr.mode}</TableCell>
                   <TableCell>
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      className="h-8 gap-1 text-xs"
-                      onClick={() => handleViewPayment(enr)}
-                    >
-                      <CreditCard className="h-3 w-3" />
-                      {enr.paymentType === "installment"
-                        ? "Installment"
-                        : "Full"}
-                    </Button>
+                    <div className="flex flex-col gap-1">
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        className="h-8 justify-start gap-1 p-0 text-xs hover:bg-transparent"
+                        onClick={() => handleViewPayment(enr)}
+                      >
+                        <CreditCard className="h-3 w-3" />
+                        {enr.paymentType === "installment" ? "Installment" : "Full"}
+                      </Button>
+                      <span className="text-[10px] text-muted-foreground">
+                        Paid: ₹{enr.amountPaid?.toLocaleString() || 0}
+                      </span>
+                    </div>
                   </TableCell>
                   <TableCell>
                     <Badge
                       variant="outline"
-                      className={
-                        enr.status === "confirmed"
-                          ? "text-success border-success"
-                          : "text-warning border-warning"
-                      }
+                      className={`cursor-pointer capitalize ${getPaymentStatus(enr.amountPaid || 0, enr.totalFee || 0) === "paid"
+                          ? "text-success border-success bg-success/10"
+                          : getPaymentStatus(enr.amountPaid || 0, enr.totalFee || 0) === "partial"
+                            ? "text-warning border-warning bg-warning/10"
+                            : "text-muted-foreground border-border"
+                        }`}
+                      onClick={() => handleViewPayment(enr)}
                     >
-                      {enr.status}
+                      {getPaymentStatus(enr.amountPaid || 0, enr.totalFee || 0)}
                     </Badge>
                   </TableCell>
                   <TableCell className="text-right">

@@ -69,11 +69,8 @@ const Navbar = () => {
                   {[
                     "JEE",
                     "NEET",
-                    "CET",
-                    "Class 1-4",
-                    "Class 5-6",
-                    "Class 7-8",
-                    "Class 9-10",
+                    "KCET",
+                    "Class 8-10",
                   ].map((item) => (
                     <button
                       key={item}

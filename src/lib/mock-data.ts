@@ -5,6 +5,7 @@ export interface Course {
   name: string;
   class: string;
   batch: string;
+  subject: string[];
   duration: string;
   fee: number;
   minFirstInstallment?: number; // Added for flexible payment plans
@@ -143,8 +144,9 @@ export const courses: Course[] = [
   {
     id: '1',
     name: 'Mathematics Foundation',
-    class: 'Class 10',
-    batch: 'Batch A - Morning',
+    class: 'class 10',
+    batch: 'batch 1 evening',
+    subject: ['Maths'],
     duration: '6 Months',
     fee: 15000,
     description: 'Comprehensive mathematics course covering algebra, geometry, trigonometry and statistics for Class 10 students.',
@@ -152,8 +154,9 @@ export const courses: Course[] = [
   {
     id: '2',
     name: 'Science Excellence',
-    class: 'Class 10',
-    batch: 'Batch B - Evening',
+    class: 'class 10',
+    batch: 'batch 2 evening',
+    subject: ['Biology'],
     duration: '6 Months',
     fee: 18000,
     description: 'In-depth science program covering Physics, Chemistry & Biology with lab practicals and weekly tests.',
@@ -161,8 +164,9 @@ export const courses: Course[] = [
   {
     id: '3',
     name: 'English Mastery',
-    class: 'Class 12',
-    batch: 'Batch A - Morning',
+    class: 'class 9',
+    batch: 'batch 1 evening',
+    subject: ['English'],
     duration: '4 Months',
     fee: 12000,
     description: 'Advanced English course focusing on literature, grammar, and communication skills for competitive exams.',
@@ -170,8 +174,9 @@ export const courses: Course[] = [
   {
     id: '4',
     name: 'Physics Advanced',
-    class: 'Class 12',
-    batch: 'Batch B - Evening',
+    class: 'class 8',
+    batch: 'batch 2 evening',
+    subject: ['Physics'],
     duration: '8 Months',
     fee: 22000,
     description: 'Advanced physics concepts including mechanics, thermodynamics, optics and modern physics with problem solving.',
@@ -179,8 +184,9 @@ export const courses: Course[] = [
   {
     id: '5',
     name: 'Computer Science',
-    class: 'Class 11',
-    batch: 'Batch A - Morning',
+    class: 'class 8',
+    batch: 'batch 1 evening',
+    subject: ['Others'],
     duration: '12 Months',
     fee: 25000,
     description: 'Full computer science curriculum covering programming, data structures, and web development fundamentals.',
@@ -188,8 +194,9 @@ export const courses: Course[] = [
   {
     id: '6',
     name: 'Chemistry Crash Course',
-    class: 'Class 11',
-    batch: 'Batch C - Weekend',
+    class: 'class 9',
+    batch: 'batch 2 evening',
+    subject: ['Chemistry'],
     duration: '3 Months',
     fee: 10000,
     description: 'Intensive weekend chemistry program for quick revision and exam preparation with practice papers.',
@@ -197,8 +204,9 @@ export const courses: Course[] = [
   {
     id: '7',
     name: 'JEE Nurture Online Course: Target 2028',
-    class: 'JEE',
-    batch: 'Batch A - Morning',
+    class: 'Jee',
+    batch: 'batch 1 evening',
+    subject: ['Maths'],
     duration: '1 Year',
     fee: 45000,
     description: 'Specialized JEE preparation focusing on Physics, Chemistry, and Mathematics concepts.',
@@ -215,8 +223,9 @@ export const courses: Course[] = [
   {
     id: '8',
     name: 'NEET Bio Mastery: Target 2026',
-    class: 'NEET',
-    batch: 'Batch B - Evening',
+    class: 'neet',
+    batch: 'batch 2 evening',
+    subject: ['Biology'],
     duration: '1 Year',
     fee: 42000,
     description: 'Comprehensive Biology and Chemistry focus for NEET aspirants with regular mock tests.',
@@ -232,9 +241,10 @@ export const courses: Course[] = [
   },
   {
     id: '9',
-    name: 'CET Practice Batch: Target 2026',
-    class: 'CET',
-    batch: 'Batch C - Weekend',
+    name: 'KCET Practice Batch: Target 2026',
+    class: 'kcet',
+    batch: 'batch 1 evening',
+    subject: ['Physics'],
     duration: '6 Months',
     fee: 25000,
     description: 'Fast-paced revision and practice for CET exams with emphasis on previous year papers.',
@@ -251,8 +261,9 @@ export const courses: Course[] = [
   {
     id: '14',
     name: 'JEE Major Online Test Series: Target 2026',
-    class: 'JEE',
-    batch: 'Batch C - Weekend',
+    class: 'Jee',
+    batch: 'batch 1 evening',
+    subject: ['Chemistry'],
     duration: '1 Year',
     fee: 15000,
     description: 'Comprehensive test series for JEE Mains and Advanced.',
@@ -269,8 +280,9 @@ export const courses: Course[] = [
   {
     id: '15',
     name: 'NEET Conqueror Test Series: Target 2026',
-    class: 'NEET',
-    batch: 'Batch C - Weekend',
+    class: 'neet',
+    batch: 'batch 2 evening',
+    subject: ['Biology'],
     duration: '1 Year',
     fee: 12000,
     description: 'Mock tests and analysis for NEET aspirants.',
@@ -283,42 +295,6 @@ export const courses: Course[] = [
       achievement: 'MAMC Delhi',
     },
     showOnLandingPage: true
-  },
-  {
-    id: '10',
-    name: 'Primary Math Fun',
-    class: 'Class 1-4',
-    batch: 'Batch A - Morning',
-    duration: '10 Months',
-    fee: 8000,
-    description: 'Building strong mathematical foundations for primary school students through interactive learning.',
-  },
-  {
-    id: '11',
-    name: 'Middle School Science',
-    class: 'Class 5-6',
-    batch: 'Batch B - Evening',
-    duration: '10 Months',
-    fee: 10000,
-    description: 'Exploring scientific concepts for classes 5 and 6 with fun experiments and projects.',
-  },
-  {
-    id: '12',
-    name: 'Bridge Course 7-8',
-    class: 'Class 7-8',
-    batch: 'Batch A - Morning',
-    duration: '10 Months',
-    fee: 12000,
-    description: 'Transition course for middle school students to prepare for high school academic rigor.',
-  },
-  {
-    id: '13',
-    name: 'High School Topper Batch',
-    class: 'Class 9-10',
-    batch: 'Batch B - Evening',
-    duration: '10 Months',
-    fee: 15000,
-    description: 'Dedicated batch for students aiming for top ranks in board examinations.',
   },
 ];
 
@@ -352,9 +328,62 @@ export const marks: Mark[] = [
 ];
 
 export const enrollments: Enrollment[] = [
-  { id: '1', uniqueId: 'ENR-2025-101', name: 'Meera Joshi', phone: '9988776655', email: 'meera@test.com', class: 'Class 10', batch: 'Batch A - Morning', registerNumber: '', mode: 'online', status: 'pending', date: '2025-02-10' },
-  { id: '2', uniqueId: 'ENR-2025-102', name: 'Arjun Reddy', phone: '9988776656', email: 'arjun.r@test.com', class: 'Class 12', batch: 'Batch B - Evening', registerNumber: 'REG007', mode: 'offline', status: 'pending', date: '2025-02-11' },
-  { id: '3', uniqueId: 'ENR-2025-103', name: 'Divya Menon', phone: '9988776657', email: 'divya@test.com', class: 'Class 11', batch: 'Batch A - Morning', registerNumber: '', mode: 'online', status: 'pending', date: '2025-02-12' },
+  {
+    id: '1',
+    uniqueId: 'ENR-2025-101',
+    name: 'Meera Joshi',
+    phone: '9988776655',
+    email: 'meera@test.com',
+    class: 'class 10',
+    batch: 'batch 1 evening',
+    registerNumber: '',
+    mode: 'online',
+    status: 'pending',
+    date: '2025-02-10',
+    paymentType: 'installment',
+    amountPaid: 7500,
+    totalFee: 15000,
+    remainingAmount: 7500,
+    paymentStatus: 'partial',
+    transactionId: 'TXN-998877'
+  },
+  {
+    id: '2',
+    uniqueId: 'ENR-2025-102',
+    name: 'Arjun Reddy',
+    phone: '9988776656',
+    email: 'arjun.r@test.com',
+    class: 'Jee',
+    batch: 'batch 2 evening',
+    registerNumber: 'REG007',
+    mode: 'offline',
+    status: 'pending',
+    date: '2025-02-11',
+    paymentType: 'full',
+    amountPaid: 0,
+    totalFee: 45000,
+    remainingAmount: 45000,
+    paymentStatus: 'pending'
+  },
+  {
+    id: '3',
+    uniqueId: 'ENR-2025-103',
+    name: 'Divya Menon',
+    phone: '9988776657',
+    email: 'divya@test.com',
+    class: 'class 9',
+    batch: 'batch 1 evening',
+    registerNumber: '',
+    mode: 'online',
+    status: 'pending',
+    date: '2025-02-12',
+    paymentType: 'full',
+    amountPaid: 12000,
+    totalFee: 12000,
+    remainingAmount: 0,
+    paymentStatus: 'paid',
+    transactionId: 'TXN-112233'
+  },
 ];
 
 export const attendance: Attendance[] = [
@@ -396,11 +425,11 @@ export const notes: Note[] = [
   }
 ];
 
-export const subjects = ['Mathematics', 'Science', 'English', 'Physics', 'Chemistry', 'Hindi', 'Computer Science', 'Biology'];
+export const subjects = ['Maths', 'Physics', 'Chemistry', 'Biology', 'Social Science', 'English', 'Kannada', 'Hindi', 'Others'];
 
-export const classes = ['Class 10', 'Class 11', 'Class 12', 'JEE', 'NEET', 'CET', 'Class 1-4', 'Class 5-6', 'Class 7-8', 'Class 9-10'];
+export const classes = ['Jee', 'neet', 'kcet', 'class 8', 'class 9', 'class 10'];
 
-export const batches = ['Batch A - Morning', 'Batch B - Evening', 'Batch C - Weekend'];
+export const batches = ['batch 1 evening', 'batch 2 evening'];
 
 // Announcements (default seed)
 export interface Announcement {
@@ -470,3 +499,9 @@ export function authenticateUser(email: string, password: string): { user: AuthU
 
   return null;
 }
+
+export const getPaymentStatus = (paid: number, total: number): 'paid' | 'pending' | 'partial' => {
+  if (paid === 0) return 'pending';
+  if (paid >= total) return 'paid';
+  return 'partial';
+};

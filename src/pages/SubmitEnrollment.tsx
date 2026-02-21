@@ -45,17 +45,19 @@ const SubmitEnrollment = () => {
 
     // Simulate payment processing delay
     setTimeout(() => {
-      const amountPaid = selectedPlan === "full" ? totalFee : installmentAmount;
-      const paymentStatus = selectedPlan === "full" ? "paid" : "partial";
+      const amountPaid = selectedPlan === 'full' ? totalFee : installmentAmount;
+      const paymentStatus = selectedPlan === 'full' ? 'paid' : 'partial';
+      const remainingAmount = totalFee - amountPaid;
 
       // Record the enrollment
       const newEnrollment = {
         ...enrollmentData,
         paymentType: selectedPlan,
         amountPaid,
+        remainingAmount,
         paymentStatus,
         transactionId: `TXN-${Math.floor(Math.random() * 1000000)}`,
-        status: "pending", // Admin still needs to confirm/convert to student
+        status: 'pending', // Admin still needs to confirm/convert to student
       };
 
       // Since the hook uses Date.now() for ID, we can predict the ID or just use the whole list
