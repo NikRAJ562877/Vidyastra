@@ -1,6 +1,7 @@
 import { useState, useCallback } from 'react';
 
-const AUTH_KEY = 'auth_user';
+const AUTH_KEY = 'authUser';
+
 
 export const useAuth = () => {
     const [user, setUser] = useState(() => {
@@ -14,20 +15,46 @@ export const useAuth = () => {
         }
     });
 
-    const getToken = useCallback(() => {
-        const raw = localStorage.getItem(AUTH_KEY);
-        if (!raw) return null;
-        try {
-            const parsed = JSON.parse(raw);
-            return parsed.token || null;
-        } catch (err) {
-            return null;
-        }
+    const clearDummyData = useCallback(() => {
+        const keysToRemove = [
+            'vidyastara_achievers_v1',
+            'vidyastara_courses_v1',
+            'vidyastara_marks_v1',
+            'vidyastara_tests_v1',
+        ];
+        keysToRemove.forEach((key) => {
+            if (key !== AUTH_KEY && key !== 'authToken') {
+                localStorage.removeItem(key);
+            }
+        });
     }, []);
 
-    const setToken = useCallback((userData: any) => {
-        localStorage.setItem(AUTH_KEY, JSON.stringify(userData));
-        setUser(userData);
+    clearDummyData(); // Clear dummy data on initialization
+
+    const getToken = useCallback(() => {
+        const token = localStorage.getItem('authToken');
+        return token || null;
+    }, []);
+
+    const setToken = useCallback((data: any) => {
+        if (!data || !data.authToken) {
+            console.error('Invalid auth response');
+            return;
+        }
+    
+        // Save token separately
+        localStorage.setItem('authToken', data.authToken);
+    
+        // Save user info as JSON
+        const userObject = {
+            user_id: data.user_id,
+           // username: data.username,
+            role_id: data.role_id,
+        };
+    
+        localStorage.setItem(AUTH_KEY, JSON.stringify(userObject));
+        setUser(userObject);
+    
     }, []);
 
     const removeToken = useCallback(() => {

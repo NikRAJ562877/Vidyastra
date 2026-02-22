@@ -1,17 +1,44 @@
-import axiosInstance from './axios';
+import axiosInstance, { setAuthToken } from './axios';
 import { authenticateUser } from '@/lib/mock-data';
 
 export const login = async (credentials: any) => {
     try {
-        const response = await axiosInstance.post('/auth/login', credentials);
+        const response = await axiosInstance.post('/user/login', credentials);
+
+        console.log('Login API response:', response.data.authToken); // Debugging: Log the response
+
+        // Set the token globally for axios
+        if (response.data && response.data.authToken) {
+            setAuthToken(response.data.token);
+        }
+
         return response.data;
     } catch (error) {
         console.warn('API login failed, falling back to mock data', error);
+
+        console.error('Login request failed:', {
+            url: '/user/login',
+            payload: credentials,
+            error: error.response ? error.response.data : error.message,
+        });
+
+        if (error.response && error.response.status === 500) {
+            throw new Error('Server error occurred. Please try again later.');
+        }
+
+        // Check if the error has a response with a message
+        if (error.response && error.response.data && error.response.data.message) {
+            throw new Error(error.response.data.message);
+        }
+
+        // Fallback to mock data
         const result = authenticateUser(credentials.email, credentials.password);
         if (result) {
             return result;
         }
-        throw error;
+
+        // Throw a generic error if no specific message is available
+        throw new Error('Login failed. Please check your credentials and try again.');
     }
 };
 

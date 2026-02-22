@@ -10,13 +10,22 @@ export const updateUserProfile = async (data: any) => {
     const response = await axiosInstance.patch('/user/profile', data);
     return response.data;
 };
+export const getadmin = async () => {
+    try {
+        const response = await axiosInstance.get('/1');
+        return response.data;
+    } catch (error) {
+        return students;
+    }
+};
 
 export const getStudents = async () => {
     try {
         const response = await axiosInstance.get('/students');
         return response.data;
     } catch (error) {
-        return students;
+        console.error('Error fetching students:', error);
+        throw error; // Re-throw the error to handle it at a higher level
     }
 };
 

@@ -17,28 +17,45 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
-
+  let user: any = null;
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
 
     try {
-      const result = await authApi.login({ email, password });
+        const result = await authApi.login({ email, password });
 
-      if (result) {
-        setToken(result.user);
-        toast.success(`Welcome, ${result.user.name}!`);
-        const redirectMap: Record<string, string> = {
-          admin: "/admin",
-          teacher: "/teacher",
-          student: "/student",
-        };
-        navigate(redirectMap[result.user.role] || "/");
-      }
+        console.log('Login result:', result.authToken); // Debugging: Log the result to verify its structure
+        
+        if (result && result.authToken) {
+            // Save live data (user details and token) in local storage
+            localStorage.setItem('role_id', JSON.stringify(result.role_id));
+            localStorage.setItem('authToken', result.authToken);
+            localStorage.setItem('user_id', result.user_id.toString());
+
+            console.log('Saved auth_user:', localStorage.getItem('role_id')); // Debugging: Verify saved user
+            console.log('Saved authToken:', localStorage.getItem('user_id')); // Debugging: Verify saved token
+            user={
+                user_id: result.user_id,
+                role_id: result.role_id,
+            };
+            setToken(user);
+            toast.success(`Welcome, ${result.user_id}!`);
+            const roleId = parseInt(result.role_id);
+            const redirectMap: Record<number, string> = {
+                1: '/admin',
+                2: '/teacher-dashboard',
+                3: '/student-dashboard',
+            };
+            navigate(redirectMap[roleId]);
+        } else {
+            throw new Error('Invalid login response.');
+        }
     } catch (error) {
-      toast.error("Invalid credentials. Please try again.");
+        // Display error message from the API or generic error
+        toast.error(error.message || 'An unexpected error occurred. Please try again.');
     } finally {
-      setLoading(false);
+        setLoading(false);
     }
   };
 

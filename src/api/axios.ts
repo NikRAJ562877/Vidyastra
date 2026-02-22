@@ -1,25 +1,29 @@
 import axios from 'axios';
 
+const backendUrl = 'http://localhost:8081/Vidyastra';
 const axiosInstance = axios.create({
-    baseURL: import.meta.env.VITE_API_BASE_URL,
+    baseURL: backendUrl,
     headers: {
         'Content-Type': 'application/json',
     },
 });
 
+let token: string | null = null;
+let logoutCallback: (() => void) | null = null;
+
+export const setAuthToken = (authToken: string | null) => {
+    token = authToken;
+};
+
+export const setLogoutCallback = (callback: () => void) => {
+    logoutCallback = callback;
+};
+
 // Request interceptor to attach JWT token
 axiosInstance.interceptors.request.use(
-    (config) => {
-        const authUser = localStorage.getItem('auth_user');
-        if (authUser) {
-            try {
-                const user = JSON.parse(authUser);
-                if (user && user.token) {
-                    config.headers.Authorization = `Bearer ${user.token}`;
-                }
-            } catch (error) {
-                console.error('Error parsing auth_user from localStorage', error);
-            }
+    async (config) => {
+        if (token) {
+            config.headers.Authorization = `Bearer ${token}`;
         }
         return config;
     },
@@ -36,8 +40,9 @@ axiosInstance.interceptors.response.use(
     (error) => {
         if (error.response && error.response.status === 401) {
             // Handle unauthorized error (e.g., logout user)
-            localStorage.removeItem('auth_user');
-            window.location.href = '/login';
+            if (logoutCallback) {
+                logoutCallback();
+            }
         }
         return Promise.reject(error);
     }
